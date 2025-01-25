@@ -6,6 +6,24 @@ export default function Home() {
       {/* Header Section */}
       <header className="bg-cover bg-[url('/office-background.jpg')]">
         <div className="bg-cover bg-white bg-opacity-65 pt-7">
+          <div className="text-black lg:flex hidden space-x-24 mx-10 uppercase text-lg font-medium">
+            <a
+              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              href="/"
+            >
+              <p>Home</p>
+            </a>
+            <p className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
+              Projects
+            </p>
+            <a
+              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              href="https://blog.bradmalgas.com"
+              target="_blank"
+            >
+              <p>Blog</p>
+            </a>
+          </div>
           <div className="container mx-auto px-4 pt-12 flex flex-col items-center">
             <Image
               src="/brad-malgas-logo.png"
@@ -17,7 +35,7 @@ export default function Home() {
             />
             <h1 className="text-5xl font-extrabold text-black">Brad Malgas</h1>
             <p className="text-lg text-gray-600 mt-2">SOFTWARE DEVELOPER</p>
-            <button className="mt-4 px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
+            <button className="lg:hidden mt-4 px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
               DOWNLOAD MY FULL CV
             </button>
           </div>
