@@ -6,7 +6,15 @@ export default function Home() {
       {/* Header Section */}
       <header className="bg-cover bg-[url('/office-background.jpg')]">
         <div className="bg-cover bg-white bg-opacity-65 pt-7">
-          <div className="container mx-auto px-4 pt-12 text-center">
+          <div className="container mx-auto px-4 pt-12 flex flex-col items-center">
+            <Image
+              src="/brad-malgas-logo.png"
+              alt="Brad Malgas"
+              width={100}
+              height={100}
+              priority
+              layout="fixed"
+            />
             <h1 className="text-5xl font-extrabold text-black">Brad Malgas</h1>
             <p className="text-lg text-gray-600 mt-2">SOFTWARE DEVELOPER</p>
             <button className="mt-4 px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
