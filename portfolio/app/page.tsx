@@ -6,23 +6,28 @@ export default function Home() {
       {/* Header Section */}
       <header className="bg-cover bg-[url('/office-background.jpg')]">
         <div className="bg-cover bg-white bg-opacity-65 pt-7">
-          <div className="text-black lg:flex hidden space-x-24 mx-10 uppercase text-lg font-medium">
+          <div className="text-black lg:flex hidden space-x-24 mx-10 uppercase text-lg font-medium items-center">
             <a
-              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold"
               href="/"
             >
               <p>Home</p>
             </a>
-            <p className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
+            <p className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
               Projects
             </p>
             <a
-              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold"
               href="https://blog.bradmalgas.com"
               target="_blank"
             >
               <p>Blog</p>
             </a>
+            <div className="lg:flex hidden -mr-10 w-full">
+              <button className=" ml-auto px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
+                DOWNLOAD MY FULL CV
+              </button>
+            </div>
           </div>
           <div className="container mx-auto px-4 pt-12 flex flex-col items-center">
             <Image
