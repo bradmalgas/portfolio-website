@@ -302,19 +302,111 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills Section (Need to expand to have better image quality and individual components) */}
-      <section className="text-black pt-12  lg:px-96">
+      {/* Skills Section (Need to expand to have better image quality) */}
+      <section className="text-black pt-12 lg:px-96">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold uppercase tracking-widest">
             Skills
           </h2>
           <div className="border-t-8 border-black w-16 mt-8"></div>
-          <div className="my-12 flex justify-center">
+          <div className="my-12 relative h-[560px]">
             <Image
-              src="/Skills collage.png"
-              alt="Skills"
-              width={370}
-              height={486.31}
+              className="absolute top-[17px]"
+              src="/Logo-C-sharp.svg"
+              alt="C-Sharp"
+              width={57.78}
+              height={65}
+            />
+            <Image
+              className="absolute top-[100px] left-0"
+              src="/micrsoft-azure-logo.png"
+              alt="Azure"
+              width={250}
+              height={50}
+            />
+            <Image
+              className="absolute left-[calc(50%-70px)] top-0"
+              src="/NET_Core_Logo.svg"
+              alt=".NET"
+              width={100}
+              height={100}
+            />
+            <Image
+              className="absolute right-0 top-[12px]"
+              src="/vue-logo.png"
+              alt="Vue"
+              width={125}
+              height={75}
+            />
+            <Image
+              className="absolute right-[10px] top-[220px]"
+              src="/Git-logo.png"
+              alt="Git"
+              width={100}
+              height={41.8}
+            />
+            <Image
+              className="absolute right-[18px] top-[120px]"
+              src="/Typescript_logo.svg.png"
+              alt="Typescript"
+              width={60}
+              height={60}
+            />
+            <Image
+              className="absolute left-0 top-[242px]"
+              src="/Angular-logo.png"
+              alt="Angular"
+              width={100}
+              height={100}
+            />
+            <Image
+              className="absolute left-[125px] top-[230px]"
+              src="/power-automate-logo.png"
+              alt="PowerAutomate"
+              width={125}
+              height={125}
+            />
+            <Image
+              className="absolute right-0 top-[280px]"
+              src="/SQL-logo.jpeg"
+              alt="SQL"
+              width={100}
+              height={41.8}
+            />
+            <Image
+              className="absolute left-[2px] top-[360px]"
+              src="/Entity-Framework-Core-Logo.jpg"
+              alt="Entity Framework"
+              width={150}
+              height={112.5}
+            />
+            <Image
+              className="absolute right-0 top-[360px]"
+              src="/power-bi-logo.png"
+              alt="PowerBI"
+              width={200}
+              height={111.11}
+            />
+            <Image
+              className="absolute left-[8px] top-[490px]"
+              src="/YAML-logo.png"
+              alt="YAML"
+              width={65}
+              height={69.17}
+            />
+            <Image
+              className="absolute right-[calc(50%-50px)] top-[490px]"
+              src="/Azure-DevOps-Logo.jpg"
+              alt="Azure DevOps"
+              width={125}
+              height={70.31}
+            />
+            <Image
+              className="absolute right-0 top-[470px]"
+              src="/rest-api-icon.png"
+              alt="Azure DevOps"
+              width={120}
+              height={98.23}
             />
           </div>
         </div>
