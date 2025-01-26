@@ -36,7 +36,6 @@ export default function Home() {
               width={100}
               height={100}
               priority
-              layout="fixed"
             />
             <h1 className="text-5xl font-extrabold text-black">Brad Malgas</h1>
             <p className="text-lg text-gray-600 mt-2">SOFTWARE DEVELOPER</p>
@@ -48,7 +47,7 @@ export default function Home() {
           <div className="flex justify-center mt-6">
             <div className="rounded-full overflow-hidden w-[140px] h-[140px] outline outline-white outline-[7px] shadow-lg mb-8">
               <img
-                src="/brad-author-picture.jpeg" // Replace with the actual path to your image
+                src="/brad-author-picture.jpeg"
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -93,7 +92,12 @@ export default function Home() {
             <p className="text-white text-xl font-bold">
               Specialist: Software Development
             </p>
-            <p className="text-white text-lg">Altron Security</p>
+            <div className="w-full lg:flex">
+              <p className="text-white text-lg italic">Altron Security</p>
+              <p className="text-white text-lg italic ml-auto">
+                April 2024 - Current
+              </p>
+            </div>
             <p className="mt-3 text-white text-base leading-6">
               I currently work as a software developer and signing technical
               pre-sales specialist at Altron Security. My role involves a
@@ -103,7 +107,7 @@ export default function Home() {
               international teams, including UK-based companies, to deliver
               impactful solutions and ensure seamless client experiences.
             </p>
-            <p className="mt-3 text-white text-base">
+            {/* <p className="mt-3 text-white text-base">
               Some of the projects I have worked on include:
             </p>
             <p className="mt-3 text-white text-base leading-6">
@@ -119,7 +123,7 @@ export default function Home() {
               extract metadata, and archive documents in SharePoint. This
               solution simplified document management and provided a reusable
               framework for clients.
-            </p>
+            </p> */}
             <div className="mt-3 text-white text-base leading-6">
               <p className="font-bold mb-4">Roles & Responsibilities: </p>
               <ul className="list-disc ml-8">
@@ -146,7 +150,12 @@ export default function Home() {
             <p className="mt-4 text-white text-xl font-bold">
               Software Developer
             </p>
-            <p className="text-white text-lg">Investec</p>
+            <div className="w-full lg:flex">
+              <p className="text-white text-lg italic">Investec</p>
+              <p className="text-white text-lg italic ml-auto">
+                January 2021 - March 2024
+              </p>
+            </div>
             <p className="mt-3 text-white text-base leading-6">
               I worked as a software developer at Investec for 3 years. I have
               experience working predominantly with C#, however I have also had
@@ -156,7 +165,7 @@ export default function Home() {
               responsibilities but there was also a strong sense of community
               with everyone willing to lend a helping hand.
             </p>
-            <p className="mt-3 text-white text-base">
+            {/* <p className="mt-3 text-white text-base">
               Some of the projects I have worked on include:
             </p>
             <p className="mt-3 text-white text-base leading-6">
@@ -184,7 +193,7 @@ export default function Home() {
               also provisioned majority of the resources in Azure using
               infrastructure-as-code. I worked together with another developer
               to write the C# code.
-            </p>
+            </p> */}
             <div className="mt-3 text-white text-base leading-6">
               <p className="font-bold mb-4">Roles & Responsibilities: </p>
               <ul className="list-disc ml-8">
@@ -238,21 +247,21 @@ export default function Home() {
               Microsoft Certified: Power Platform Fundamentals
             </p>
             <p className="text-white text-lg italic">Microsoft</p>
-            <p className="mt-3 text-white text-base leading-6">
+            {/* <p className="mt-3 text-white text-base leading-6">
               Demonstrate the business value and product capabilities of
               Microsoft Power Platform, such as Power Apps, data connections
               with Dataverse, and Power Automate.
-            </p>
+            </p> */}
           </div>
           <div className="pt-4">
             <p className="mt-4 text-white text-xl font-bold">
               Microsoft Certified: Azure Data Fundamentals
             </p>
             <p className="text-white text-lg italic">Microsoft</p>
-            <p className="mt-3 text-white text-base leading-6">
+            {/* <p className="mt-3 text-white text-base leading-6">
               Demonstrate foundational knowledge of core data concepts related
               to Microsoft Azure data services.
-            </p>
+            </p> */}
           </div>
           <div className="pt-4">
             <p className="mt-4 text-white text-xl font-bold">
@@ -260,30 +269,30 @@ export default function Home() {
               Fundamentalss
             </p>
             <p className="text-white text-lg italic">Microsoft</p>
-            <p className="mt-3 text-white text-base leading-6">
+            {/* <p className="mt-3 text-white text-base leading-6">
               Demonstrate foundational knowledge on security, compliance, and
               identity concepts and related cloud-based Microsoft solutions.
-            </p>
+            </p> */}
           </div>
           <div className="pt-4">
             <p className="mt-4 text-white text-xl font-bold">
               Microsoft Certified: Azure AI Fundamentals
             </p>
             <p className="text-white text-lg italic">Microsoft</p>
-            <p className="mt-3 text-white text-base leading-6">
+            {/* <p className="mt-3 text-white text-base leading-6">
               Demonstrate fundamental AI concepts related to the development of
               software and services of Microsoft Azure to create AI solutions.
-            </p>
+            </p> */}
           </div>
           <div className="pt-4">
             <p className="mt-4 text-white text-xl font-bold">
               Microsoft Certified: Azure Fundamentals
             </p>
             <p className="text-white text-lg italic">Microsoft</p>
-            <p className="mt-3 text-white text-base leading-6">
+            {/* <p className="mt-3 text-white text-base leading-6">
               Demonstrate foundational knowledge of cloud concepts, core Azure
               services, plus Azure management and governance features and tools.
-            </p>
+            </p> */}
           </div>
           <div className="text-center">
             <button className="my-12 px-6 py-2 text-base font-extralight text-white rounded-md outline outline-1">
