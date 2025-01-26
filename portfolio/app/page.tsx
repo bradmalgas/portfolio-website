@@ -24,7 +24,7 @@ export default function Home() {
               <p>Blog</p>
             </a>
             <div className="lg:flex hidden -mr-10 w-full">
-              <button className=" ml-auto px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
+              <button className=" ml-auto px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1 hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
                 DOWNLOAD MY FULL CV
               </button>
             </div>
@@ -236,7 +236,7 @@ export default function Home() {
       </section>
 
       {/* Certifications Section */}
-      <section className="bg-gray-600 text-white pt-12  lg:px-96">
+      <section className="bg-gray-600 text-white pt-12 lg:px-96 pb-12">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold uppercase tracking-widest">
             Certifications
@@ -293,11 +293,6 @@ export default function Home() {
               Demonstrate foundational knowledge of cloud concepts, core Azure
               services, plus Azure management and governance features and tools.
             </p> */}
-          </div>
-          <div className="text-center">
-            <button className="my-12 px-6 py-2 text-base font-extralight text-white rounded-md outline outline-1">
-              DOWNLOAD MY FULL CV
-            </button>
           </div>
         </div>
       </section>
@@ -416,7 +411,7 @@ export default function Home() {
       <footer className="bg-gray-600 text-white text-center py-8  lg:px-96">
         <div className="container mx-auto px-4">
           <div>
-            <button className="my-12 px-6 py-2 text-base font-extralight text-white rounded-md outline outline-1">
+            <button className="my-12 px-6 py-2 text-base font-extralight text-white rounded-md outline outline-1 hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold hover:outline-2">
               DOWNLOAD MY FULL CV
             </button>
           </div>
