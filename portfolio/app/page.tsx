@@ -48,7 +48,7 @@ export default function Home() {
             <h1 className="text-5xl font-extrabold text-black">Brad Malgas</h1>
             <p className="text-lg text-gray-600 mt-2">SOFTWARE DEVELOPER</p>
             <a
-              href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf/"
+              href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
