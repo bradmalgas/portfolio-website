@@ -24,9 +24,16 @@ export default function Home() {
               <p>Blog</p>
             </a>
             <div className="lg:flex hidden -mr-10 w-full">
-              <button className=" ml-auto px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1 hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
-                DOWNLOAD MY FULL CV
-              </button>
+              <a
+                className="ml-auto"
+                href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1 hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
+                  DOWNLOAD MY FULL CV
+                </button>
+              </a>
             </div>
           </div>
           <div className="container mx-auto px-4 pt-12 flex flex-col items-center">
@@ -39,9 +46,15 @@ export default function Home() {
             />
             <h1 className="text-5xl font-extrabold text-black">Brad Malgas</h1>
             <p className="text-lg text-gray-600 mt-2">SOFTWARE DEVELOPER</p>
-            <button className="lg:hidden mt-4 px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
-              DOWNLOAD MY FULL CV
-            </button>
+            <a
+              href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="lg:hidden mt-4 px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
+                DOWNLOAD MY FULL CV
+              </button>
+            </a>
           </div>
           {/* Profile Image */}
           <div className="flex justify-center mt-6">
@@ -411,9 +424,16 @@ export default function Home() {
       <footer className="bg-gray-600 text-white text-center py-8  lg:px-96">
         <div className="container mx-auto px-4">
           <div>
-            <button className="my-12 px-6 py-2 text-base font-extralight text-white rounded-md outline outline-1 hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold hover:outline-2">
-              DOWNLOAD MY FULL CV
-            </button>
+            <a
+              className=""
+              href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="my-12 px-6 py-2 text-base font-extralight text-white rounded-md outline outline-1 hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold hover:outline-2">
+                DOWNLOAD MY FULL CV
+              </button>
+            </a>
           </div>
           <div className="text-sm mb-12">
             <p>Follow me on social networks</p>
