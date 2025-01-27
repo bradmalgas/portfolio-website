@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Brad Malgas Portfolio",
     images: [
       {
-        url: "portfolio/public/OG-Brad Malgas.png",
+        url: "https://storageazureblogify.blob.core.windows.net/files/OG-Brad Malgas.png",
         width: 1200,
         height: 630,
         alt: "Brad Malgas | Software Developer",
@@ -37,7 +37,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Brad Malgas | Software Developer",
     description: "Explore my portfolio and skills in software development.",
-    images: ["portfolio/public/OG-Brad Malgas.png"],
+    images: [
+      "https://storageazureblogify.blob.core.windows.net/files/OG-Brad Malgas.png",
+    ],
   },
   robots: {
     index: true,
