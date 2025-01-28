@@ -62,7 +62,7 @@ export default function Home() {
           {/* Profile Image */}
           <div className="flex justify-center mt-6">
             <div className="relative rounded-full overflow-hidden w-[140px] h-[140px] lg:w-[200px] lg:h-[200px] outline outline-white outline-[7px] shadow-lg mb-8">
-              <Image src="/brad-profile-pic.jpeg" alt="Profile" fill />
+              <Image src="/brad-profile-pic.jpeg" alt="Profile" fill priority />
             </div>
           </div>
         </div>
