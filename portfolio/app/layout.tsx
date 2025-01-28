@@ -13,7 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Brad Malgas | Software Developer",
+  title: {
+    default: "Brad Malgas - Software Developer",
+    template: "%s | Brad Malgas - Software Developer",
+  },
   description:
     "Welcome to my portfolio! Discover my projects, skills, and passion for crafting innovative software solutions.",
   icons: {
@@ -22,7 +25,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Brad Malgas | Software Developer",
+    title: "Brad Malgas - Software Developer",
     description:
       "Welcome to my portfolio! Discover my projects, skills, and passion for crafting innovative software solutions.",
     url: "https://www.bradmalgas.com",
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
         url: "https://storageazureblogify.blob.core.windows.net/files/OG-Brad Malgas.png",
         width: 1200,
         height: 630,
-        alt: "Brad Malgas | Software Developer",
+        alt: "Brad Malgas - Software Developer",
       },
     ],
     locale: "en_US",
@@ -40,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Brad Malgas | Software Developer",
+    title: "Brad Malgas - Software Developer",
     description: "Explore my portfolio and skills in software development.",
     images: [
       "https://storageazureblogify.blob.core.windows.net/files/OG-Brad Malgas.png",
