@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: "Brad Malgas | Software Developer",
   description:
     "Welcome to my portfolio! Discover my projects, skills, and passion for crafting innovative software solutions.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Brad Malgas | Software Developer",
     description:
