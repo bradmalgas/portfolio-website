@@ -14,9 +14,11 @@ export default function Home() {
             >
               <p>Home</p>
             </Link>
-            <p className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
-              Projects
-            </p>
+            <Link href={"/projects"}>
+              <p className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
+                Projects
+              </p>
+            </Link>
             <a
               className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold"
               href="https://blog.bradmalgas.com"
