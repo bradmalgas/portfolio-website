@@ -316,7 +316,7 @@ export default function Home() {
             Skills
           </h2>
           <div className="border-t-8 border-black w-16 mt-8"></div>
-          <div className="my-12 relative h-[560px]">
+          <div className="my-12 relative h-[560px] max-w-96 mx-auto">
             <Image
               className="absolute top-[17px]"
               src="/Logo-C-sharp.svg"
