@@ -65,26 +65,16 @@ export default function Projects() {
 
       {/* Project List Section */}
       <section>
-        <div className="grid justify-items-center grid-cols-1 gap-20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-10 mb-24 h-full w-full">
+        <div className="grid justify-items-center grid-cols-1 gap-20 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 px-10 mb-24 h-full w-full">
           <ProjectCard
-            title="Project 01: Budget Buddy"
-            image="/Codebackground.jpg"
-            description="I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I'm a great place for you to tell a story and let your users know a little more about you."
+            title="Project 01: BudgetBuddy"
+            image="/BudgetBuddy-Screenshot.png"
+            description="A real-time transaction tracker that runs code on my bank card to log every purchase. It triggers an Azure Function, formats the data, and writes it to Google Sheets—all in under 3 seconds. Built for personal finance tracking, this project showcases cloud automation and API integrations."
           />
           <ProjectCard
-            title="Project 02: Blog Website"
-            image="/office-background.jpg"
-            description="I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I'm a great place for you to tell a story and let your users know a little more about you."
-          />
-          <ProjectCard
-            title="Project 01: Budget Buddy"
-            image="/Codebackground.jpg"
-            description="I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I'm a great place for you to tell a story and let your users know a little more about you."
-          />
-          <ProjectCard
-            title="Project 02: Blog Website"
-            image="/office-background.jpg"
-            description="I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I'm a great place for you to tell a story and let your users know a little more about you."
+            title="Project 02: AzureBlogify"
+            image="/OG-Brad Malgas.png"
+            description="A fully functional, cost-optimized blog running on Azure for just $1. Hosted on Azure Static Web Apps, powered by Azure Functions, and backed by Cosmos DB. Designed with seamless CI/CD, caching, and scalability, it demonstrates cloud-native development at minimal cost."
           />
         </div>
       </section>
