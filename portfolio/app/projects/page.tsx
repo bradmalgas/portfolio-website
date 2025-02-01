@@ -12,7 +12,7 @@ export default function Projects() {
     <div className="bg-white h-full">
       {/* Header Section */}
       <header className="bg-cover bg-[url('/Codebackground.jpg')]">
-        <div className="bg-cover bg-white bg-opacity-65 pt-7 min-h-44">
+        <div className="bg-cover bg-white bg-opacity-75 pt-7 min-h-44">
           <SideNav className="mx-3 lg:hidden" />
           <div className="text-black lg:flex hidden space-x-24 mx-10 uppercase text-lg font-medium items-center">
             <Link
