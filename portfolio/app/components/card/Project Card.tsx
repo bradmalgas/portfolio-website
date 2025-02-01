@@ -21,14 +21,14 @@ export default function ProjectCard({
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="bg-gray-600 py-5 px-4 flex-col rounded-xl outline outline-[6px] outline-gray-300 text-white drop-shadow-sm max-w-[400px] xl:max-w-[600px]">
+    <div
+      className="bg-gray-600 py-5 px-4 flex-col rounded-xl outline outline-[6px] outline-gray-300 text-white drop-shadow-sm max-w-[400px] xl:max-w-[600px]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <p className="font-bold text-3xl tracking-widest">{title}</p>
 
-      <div
-        className="relative w-full h-[300px] mx-auto my-8 px-8 flex items-center overflow-hidden rounded-md"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+      <div className="relative w-full h-[300px] mx-auto my-8 px-8 flex items-center overflow-hidden rounded-md">
         <Image
           className="rounded-md"
           src={image}

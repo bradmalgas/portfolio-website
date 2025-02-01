@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/footer/Footer";
+import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -82,7 +83,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-grow`}
       >
         <div className="flex flex-col min-h-screen w-full">
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow">
+            {children}
+            <ScrollToTop />
+          </main>
           <footer>
             <Footer />
           </footer>
