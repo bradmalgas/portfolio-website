@@ -26,10 +26,10 @@ export default function ScrollToTop() {
     <button
       onClick={scrollToTop}
       className={`fixed bottom-10 right-5 rounded-full bg-black shadow-lg transition-opacity duration-300 ${
-        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+        isVisible ? "opacity-90" : "opacity-0 pointer-events-none"
       }`}
     >
-      <ArrowUp className="h-10 w-10" fillColour="#ffffff" />
+      <ArrowUp className="h-12 w-12" fillColour="#ffffff" />
     </button>
   );
 }
