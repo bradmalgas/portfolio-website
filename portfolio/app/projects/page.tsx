@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProjectCard from "../components/card/Project Card";
+import SideNav from "../components/sidenav/SideNav";
 
 export const metadata = {
   title: "Projects", // Overrides default title
@@ -12,6 +13,7 @@ export default function Projects() {
       {/* Header Section */}
       <header className="bg-cover bg-[url('/Codebackground.jpg')]">
         <div className="bg-cover bg-white bg-opacity-65 pt-7 min-h-44">
+          <SideNav className="mx-3 lg:hidden" />
           <div className="text-black lg:flex hidden space-x-24 mx-10 uppercase text-lg font-medium items-center">
             <Link
               className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold"
