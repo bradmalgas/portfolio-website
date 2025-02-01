@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import CloseIcon from "../icons/CloseIcon";
 import MenuIcon from "@/app/components/icons/MenuIcon";
 import Link from "next/link";
