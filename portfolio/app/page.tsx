@@ -117,12 +117,12 @@ export default function Home() {
             </div>
             <p className="mt-3 text-white text-base leading-6">
               At Secret Sauce, my work is split between internal tooling and
-              external client delivery. Externally, I've been responsible for
-              designing and running a new Investec Product Enablement platform.
-              Internally, I've focused on re-usable pipeline templates and
-              containerization patterns. This role reflects my step-up into
-              senior responsibilities across infrastructure, security, and
-              operational ownership.
+              external client delivery. Externally, I&apos;ve been responsible
+              for designing and running a new Investec Product Enablement
+              platform. Internally, I&apos;ve focused on re-usable pipeline
+              templates and containerization patterns. This role reflects my
+              step-up into senior responsibilities across infrastructure,
+              security, and operational ownership.
             </p>
             {/* <p className="mt-3 text-white text-base">
               Some of the projects I have worked on include:
