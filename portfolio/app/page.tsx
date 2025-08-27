@@ -78,19 +78,22 @@ export default function Home() {
           </h2>
           <div className="border-t-8 border-gray-100 w-16 my-8"></div>
           <p className="mt-4 text-white text-base leading-6">
-            Versatile software developer with 4 years of experience specializing
-            in C# application development, cloud-based systems, and digital
-            security solutions. Skilled in designing and deploying robust
-            backend APIs, implementing advanced document signing workflows, and
-            managing Azure-based infrastructure.
+            Senior Software Developer with 5 years of experience designing and
+            delivering cloud-native solutions on Microsoft Azure, specializing
+            in C#/.NET development, infrastructure as code, and secure system
+            design. Proven ability to lead projects end-to-end, from
+            architecture and infrastructure provisioning to backend API
+            development, authentication/authorization workflows, and deployment
+            automation.
           </p>
           <p className="mt-4 text-white text-base leading-6">
-            Proven ability to lead projects to successful completion ahead of
-            schedule, delivering operational improvements and cost savings.
-            Experienced in collaborating with global teams, supporting client
-            integrations, and driving automation through innovative solutions.
-            Passionate about leveraging technology to solve complex challenges
-            and deliver measurable business value.
+            Skilled in Azure Bicep, DevOps pipelines, containerization (Docker,
+            Podman), and identity management with Microsoft Entra ID. Adept at
+            diagnosing and resolving complex issues in distributed systems,
+            driving faster delivery, cost savings, and improved reliability.
+            Passionate about leveraging technology to solve real-world problems,
+            collaborating across teams, and mentoring peers to elevate project
+            success.
           </p>
         </div>
       </section>
@@ -104,22 +107,22 @@ export default function Home() {
           <div className="border-t-8 border-gray-100 w-16 mt-8"></div>
           <div className="pt-6">
             <p className="text-white text-xl font-bold">
-              Specialist: Software Development
+              Senior Software Developer
             </p>
             <div className="w-full lg:flex">
-              <p className="text-white text-lg italic">Altron Security</p>
+              <p className="text-white text-lg italic">Secret Sauce</p>
               <p className="text-white text-lg italic ml-auto">
-                April 2024 - Current
+                April 2025 - Current
               </p>
             </div>
             <p className="mt-3 text-white text-base leading-6">
-              I currently work as a software developer and signing technical
-              pre-sales specialist at Altron Security. My role involves a
-              combination of C# development, creating digital signing solutions,
-              and supporting customer integrations for our SaaS document
-              workflow and signing platform. I collaborate with both local and
-              international teams, including UK-based companies, to deliver
-              impactful solutions and ensure seamless client experiences.
+              At Secret Sauce, my work is split between internal tooling and
+              external client delivery. Externally, I've been responsible for
+              designing and running a new Investec Product Enablement platform.
+              Internally, I've focused on re-usable pipeline templates and
+              containerization patterns. This role reflects my step-up into
+              senior responsibilities across infrastructure, security, and
+              operational ownership.
             </p>
             {/* <p className="mt-3 text-white text-base">
               Some of the projects I have worked on include:
@@ -142,19 +145,81 @@ export default function Home() {
               <p className="font-bold mb-4">Roles & Responsibilities: </p>
               <ul className="list-disc ml-8">
                 <li>
-                  Collaborating with customers to implement API-based
-                  integrations for document signing workflows.
+                  Designed and delivered Azure infrastructure using Bicep with
+                  bicepparam files for environment-specific configuration.
                 </li>
                 <li>
-                  Leading technical meetings and providing ongoing support for
-                  SaaS integrations.
+                  Set up Azure DevOps pipelines for infrastructure validation,
+                  infrastructure deployment, and container image deployments to
+                  Azure Container Apps.
                 </li>
                 <li>
-                  Developing backend APIs in C# to enhance application
-                  functionality and maintain high performance.
+                  Implemented VNet/subnet topology and NSG rules; ensured all
+                  applications were VNet-integrated and compliant with
+                  restricted inbound access.
                 </li>
                 <li>
-                  Coordinating with international teams to improve product
+                  Drove operational excellence by checking deployment and
+                  application logs, writing Log Analytics (KQL) queries, and
+                  resolving issues across infra and app layers.
+                </li>
+                <li>
+                  Authored internal reusable pipeline templates to orchestrate
+                  dependent runs
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-6">
+            <p className="text-white text-xl font-bold">
+              Specialist: Software Development
+            </p>
+            <div className="w-full lg:flex">
+              <p className="text-white text-lg italic">Altron Security</p>
+              <p className="text-white text-lg italic ml-auto">
+                April 2024 - March 2025
+              </p>
+            </div>
+            <p className="mt-3 text-white text-base leading-6">
+              I worked across C# development, digital signing solutions, and
+              customer integrations for our SaaS document workflow and signing
+              platform. I collaborated with both local and UK-based teams to
+              deliver reliable integrations and strong client outcomes.
+            </p>
+            {/* <p className="mt-3 text-white text-base">
+              Some of the projects I have worked on include:
+            </p>
+            <p className="mt-3 text-white text-base leading-6">
+              <span className="font-bold">PDF Signing Solution: </span>Designed
+              and implemented a digital signing feature to embed long-term
+              validation (LTV)-enabled signatures into PDFs. This project
+              introduced new capabilities in digital document compliance and
+              security.
+            </p>
+            <p className="mt-3 text-white text-base leading-6">
+              <span className="font-bold">Automated Document Workflow: </span>
+              Developed a Power Automate flow to process XML webhook data,
+              extract metadata, and archive documents in SharePoint. This
+              solution simplified document management and provided a reusable
+              framework for clients.
+            </p> */}
+            <div className="mt-3 text-white text-base leading-6">
+              <p className="font-bold mb-4">Roles & Responsibilities: </p>
+              <ul className="list-disc ml-8">
+                <li>
+                  Collaborated with customers to implement API-based document
+                  signing workflows and integrations.
+                </li>
+                <li>
+                  Led technical meetings and provided ongoing support for SaaS
+                  integrations and pre-sales engagements.
+                </li>
+                <li>
+                  Developed backend C# APIs to enhance functionality and
+                  performance.
+                </li>
+                <li>
+                  Coordinated with international teams to improve product
                   offerings and ensure cross-border alignment.
                 </li>
               </ul>
@@ -211,16 +276,19 @@ export default function Home() {
             <div className="mt-3 text-white text-base leading-6">
               <p className="font-bold mb-4">Roles & Responsibilities: </p>
               <ul className="list-disc ml-8">
+                <li>Created and refined work items on Azure DevOps boards.</li>
+                <li>Designed CI/CD pipelines using YAML.</li>
                 <li>
-                  Creating new tasks for work items on Azure DevOps boards
+                  Reviewed code and PRs to maintain quality and consistency.
                 </li>
-                <li>Design CI/CD pipelines using YAML</li>
-                <li>Reviewing code and PRs of other team members</li>
                 <li>
-                  Configuring and deploying resources in Azure using
+                  Configured and deployed Azure resources using
                   infrastructure-as-code.
                 </li>
-                <li>Writing backend API endpoints using C#.</li>
+                <li>
+                  Wrote backend C# Web API endpoints for new and existing
+                  features.
+                </li>
               </ul>
             </div>
           </div>
