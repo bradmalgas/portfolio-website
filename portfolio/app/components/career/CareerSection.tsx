@@ -136,7 +136,7 @@ function TimelineEntry({
               {entry.company}
             </p>
           </div>
-          <span className="text-xs text-ink-tertiary italic whitespace-nowrap mt-0.5 sm:mt-1 flex-shrink-0">
+          <span className="text-sm text-ink-tertiary italic whitespace-nowrap mt-0.5 sm:mt-1 flex-shrink-0">
             {entry.dates}
           </span>
         </div>
@@ -151,7 +151,7 @@ function TimelineEntry({
           onClick={() => setOpen((v) => !v)}
           className="mt-4 flex items-center gap-2 text-xs font-medium text-ink-secondary
                      hover:text-ink border border-border hover:border-accent/40
-                     rounded-lg px-3 py-2 transition-all duration-200 group"
+                     rounded-lg px-3 py-2.5 min-h-[44px] transition-all duration-200 group"
           aria-expanded={open}
         >
           <ChevronIcon open={open} />
@@ -216,10 +216,10 @@ export default function CareerSection() {
                 key={degree}
                 className="card p-5 flex flex-col gap-1"
               >
-                <p className="font-semibold text-ink text-sm leading-snug">
+                <p className="font-semibold text-ink text-base leading-snug">
                   {degree}
                 </p>
-                <p className="text-accent text-xs font-medium">{university}</p>
+                <p className="text-accent text-sm font-medium mt-0.5">{university}</p>
               </div>
             ))}
           </FadeIn>
@@ -241,7 +241,7 @@ export default function CareerSection() {
               >
                 <ShieldIcon />
                 <div>
-                  <p className="text-xs font-semibold text-ink leading-snug">
+                  <p className="text-sm font-semibold text-ink leading-snug">
                     {cert}
                   </p>
                   <p className="text-xs text-ink-tertiary mt-0.5">Microsoft</p>

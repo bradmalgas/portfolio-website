@@ -85,7 +85,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 rounded text-ink hover:bg-surface-overlay transition-colors duration-250"
+          className="md:hidden p-2.5 rounded text-ink hover:bg-surface-overlay transition-colors duration-250"
           onMouseDown={() => setIsOpen((prev) => !prev)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}

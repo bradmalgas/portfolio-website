@@ -111,7 +111,7 @@ export default function ContactFooter() {
                   <p className="text-sm font-medium text-ink group-hover:text-accent transition-colors duration-200">
                     {label}
                   </p>
-                  <p className="text-xs text-ink-tertiary">{description}</p>
+                  <p className="text-sm text-ink-tertiary">{description}</p>
                 </div>
               </a>
             ))}
@@ -122,7 +122,7 @@ export default function ContactFooter() {
         <div className="mt-16 border-t border-border/50" />
 
         {/* ── Footer ──────────────────────────────────────────── */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
             <p className="font-semibold text-sm text-ink">Brad Malgas</p>
             <p className="text-xs text-ink-tertiary mt-0.5">
@@ -139,7 +139,7 @@ export default function ContactFooter() {
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
                 aria-label={label}
-                className="text-ink-tertiary hover:text-accent transition-colors duration-200"
+                className="p-2 -m-2 text-ink-tertiary hover:text-accent transition-colors duration-200"
               >
                 <Icon className="h-4 w-4" />
               </a>
