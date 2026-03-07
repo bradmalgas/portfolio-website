@@ -1,6 +1,4 @@
-import Link from "next/link";
 import ProjectCard from "../components/card/Project Card";
-import SideNav from "../components/sidenav/SideNav";
 
 export const metadata = {
   title: "Projects", // Overrides default title
@@ -10,45 +8,6 @@ export const metadata = {
 export default function Projects() {
   return (
     <div className="bg-white h-full">
-      {/* Header Section */}
-      <header className="bg-cover bg-[url('/Codebackground.jpg')]">
-        <div className="bg-cover bg-white bg-opacity-75 pt-7 min-h-44">
-          <SideNav className="mx-3 lg:hidden" />
-          <div className="text-black lg:flex hidden space-x-24 mx-10 uppercase text-lg font-medium items-center">
-            <Link
-              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold"
-              href="/"
-            >
-              <p>Home</p>
-            </Link>
-            <Link href="/projects">
-              <p className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
-                Projects
-              </p>
-            </Link>
-            <a
-              className="hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold"
-              href="https://blog.bradmalgas.com"
-              target="_blank"
-            >
-              <p>Blog</p>
-            </a>
-            <div className="lg:flex hidden -mr-10 w-full">
-              <a
-                className="ml-auto"
-                href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1 hover:text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:font-extrabold">
-                  DOWNLOAD MY FULL CV
-                </button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Project Title Section */}
       <section className="text-black py-12 lg:px-64">
         <div className="container mx-auto px-4">
