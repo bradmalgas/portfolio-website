@@ -1,0 +1,255 @@
+"use client";
+
+import { useState } from "react";
+
+// ── Data ──────────────────────────────────────────────────────────────
+
+const experience = [
+  {
+    id: "secret-sauce",
+    title: "Senior Software Developer",
+    company: "Secret Sauce",
+    dates: "April 2025 – Current",
+    summary:
+      "At Secret Sauce, my work is split between internal tooling and external client delivery. Externally, I've been responsible for designing and running a new Investec Product Enablement platform. Internally, I've focused on reusable pipeline templates and containerization patterns. This role reflects my step-up into senior responsibilities across infrastructure, security, and operational ownership.",
+    responsibilities: [
+      "Designed and delivered Azure infrastructure using Bicep with bicepparam files for environment-specific configuration",
+      "Set up Azure DevOps pipelines for infrastructure validation, infrastructure deployment, and container image deployments to Azure Container Apps",
+      "Implemented VNet/subnet topology and NSG rules; ensured all applications were VNet-integrated and compliant with restricted inbound access",
+      "Drove operational excellence by checking deployment and application logs, writing Log Analytics (KQL) queries, and resolving issues across infra and app layers",
+      "Authored internal reusable pipeline templates to orchestrate dependent runs",
+    ],
+  },
+  {
+    id: "altron",
+    title: "Specialist: Software Development",
+    company: "Altron Security",
+    dates: "April 2024 – March 2025",
+    summary:
+      "I worked across C# development, digital signing solutions, and customer integrations for our SaaS document workflow and signing platform. I collaborated with both local and UK-based teams to deliver reliable integrations and strong client outcomes.",
+    responsibilities: [
+      "Collaborated with customers to implement API-based document signing workflows and integrations",
+      "Led technical meetings and provided ongoing support for SaaS integrations and pre-sales engagements",
+      "Developed backend C# APIs to enhance functionality and performance",
+      "Coordinated with international teams to improve product offerings and ensure cross-border alignment",
+    ],
+  },
+  {
+    id: "investec",
+    title: "Software Developer",
+    company: "Investec",
+    dates: "January 2021 – March 2024",
+    summary:
+      "I worked as a software developer at Investec for 3 years. I have experience working predominantly with C#, however I have also had exposure to Azure as well as Angular. My team was comprised of both in-house and contracted developers as well as business analysts. The culture of autonomy allowed me to take on responsibilities but there was also a strong sense of community with everyone willing to lend a helping hand.",
+    responsibilities: [
+      "Created and refined work items on Azure DevOps boards",
+      "Designed CI/CD pipelines using YAML",
+      "Reviewed code and PRs to maintain quality and consistency",
+      "Configured and deployed Azure resources using infrastructure-as-code",
+      "Wrote backend C# Web API endpoints for new and existing features",
+    ],
+  },
+];
+
+const education = [
+  {
+    degree: "Computer Science (Honours)",
+    university: "University of Cape Town",
+  },
+  {
+    degree: "BSc. Computer Science & Business Computing",
+    university: "University of Cape Town",
+  },
+];
+
+const certifications = [
+  "Power Platform Fundamentals",
+  "Azure Data Fundamentals",
+  "Security, Compliance, and Identity Fundamentals",
+  "Azure AI Fundamentals",
+  "Azure Fundamentals",
+];
+
+// ── Sub-components ────────────────────────────────────────────────────
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className={`h-4 w-4 flex-shrink-0 transition-transform duration-250 ${open ? "rotate-180" : ""}`}
+      aria-hidden="true"
+    >
+      <path
+        fillRule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-5 w-5 text-accent flex-shrink-0"
+      aria-hidden="true"
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  );
+}
+
+function TimelineEntry({
+  entry,
+  isLast,
+}: {
+  entry: (typeof experience)[0];
+  isLast: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="relative flex gap-6 sm:gap-8">
+      {/* Timeline spine + dot */}
+      <div className="flex flex-col items-center flex-shrink-0">
+        <div className="mt-1 h-3 w-3 rounded-full bg-accent ring-4 ring-accent/20 flex-shrink-0" />
+        {!isLast && <div className="mt-1 flex-1 w-px bg-border min-h-8" />}
+      </div>
+
+      {/* Content */}
+      <div className={`pb-10 flex-1 min-w-0 ${isLast ? "" : ""}`}>
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-4">
+          <div>
+            <h3 className="font-semibold text-ink text-base sm:text-lg leading-snug">
+              {entry.title}
+            </h3>
+            <p className="text-accent text-sm font-medium mt-0.5">
+              {entry.company}
+            </p>
+          </div>
+          <span className="text-xs text-ink-tertiary italic whitespace-nowrap mt-0.5 sm:mt-1 flex-shrink-0">
+            {entry.dates}
+          </span>
+        </div>
+
+        {/* Summary */}
+        <p className="mt-3 text-body text-ink-secondary leading-relaxed">
+          {entry.summary}
+        </p>
+
+        {/* Accordion */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="mt-4 flex items-center gap-2 text-xs font-medium text-ink-secondary
+                     hover:text-ink border border-border hover:border-accent/40
+                     rounded-lg px-3 py-2 transition-all duration-200 group"
+          aria-expanded={open}
+        >
+          <ChevronIcon open={open} />
+          <span>{open ? "Hide" : "View"} responsibilities</span>
+        </button>
+
+        {open && (
+          <ul className="mt-3 space-y-2 pl-1">
+            {entry.responsibilities.map((item, i) => (
+              <li key={i} className="flex gap-3 text-body text-ink-secondary">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent/60 flex-shrink-0" />
+                <span className="leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Main section ──────────────────────────────────────────────────────
+
+export default function CareerSection() {
+  return (
+    <section
+      id="career"
+      className="section-padding"
+      style={{ background: "linear-gradient(to bottom, #111119 0%, #09090E 30%, #111119 80%)" }}
+    >
+      <div className="max-w-6xl mx-auto">
+
+        {/* ── Experience ──────────────────────────────────────────── */}
+        <span className="eyebrow">Experience</span>
+        <h2 className="text-h2 font-semibold text-ink mt-2">
+          Where I&apos;ve Worked
+        </h2>
+        <span className="section-rule" />
+
+        <div className="mt-10">
+          {experience.map((entry, i) => (
+            <TimelineEntry
+              key={entry.id}
+              entry={entry}
+              isLast={i === experience.length - 1}
+            />
+          ))}
+        </div>
+
+        {/* ── Education ───────────────────────────────────────────── */}
+        <div className="mt-16">
+          <span className="eyebrow">Education</span>
+          <h2 className="text-h2 font-semibold text-ink mt-2">
+            Academic Background
+          </h2>
+          <span className="section-rule" />
+
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {education.map(({ degree, university }) => (
+              <div
+                key={degree}
+                className="card p-5 flex flex-col gap-1"
+              >
+                <p className="font-semibold text-ink text-sm leading-snug">
+                  {degree}
+                </p>
+                <p className="text-accent text-xs font-medium">{university}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Certifications ──────────────────────────────────────── */}
+        <div className="mt-16">
+          <span className="eyebrow">Certifications</span>
+          <h2 className="text-h2 font-semibold text-ink mt-2">
+            Microsoft Certified
+          </h2>
+          <span className="section-rule" />
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            {certifications.map((cert) => (
+              <div
+                key={cert}
+                className="card px-4 py-3 flex items-start gap-3 w-full sm:w-auto"
+              >
+                <ShieldIcon />
+                <div>
+                  <p className="text-xs font-semibold text-ink leading-snug">
+                    {cert}
+                  </p>
+                  <p className="text-xs text-ink-tertiary mt-0.5">Microsoft</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
