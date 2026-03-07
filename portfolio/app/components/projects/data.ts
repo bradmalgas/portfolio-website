@@ -23,7 +23,7 @@ export const projects: Project[] = [
   {
     id: "02",
     title: "AzureBlogify",
-    image: "/OG-Brad Malgas.png",
+    image: "/azureblogify-screenshot.png",
     description:
       "A fully functional, cost-optimised blog running on Azure for just $1/month. Hosted on Azure Static Web Apps, powered by Azure Functions, and backed by Cosmos DB with seamless CI/CD.",
     tags: [

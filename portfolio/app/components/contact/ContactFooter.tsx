@@ -3,7 +3,7 @@ import FadeIn from "../ui/FadeIn";
 const LINKS = {
   github: "https://github.com/bradmalgas",
   linkedin: "https://www.linkedin.com/in/brad-malgas",
-  email: "mailto:brad@bradmalgas.com",
+  email: "mailto:contact@bradmalgas.com",
 };
 
 function GithubIcon({ className }: { className?: string }) {
