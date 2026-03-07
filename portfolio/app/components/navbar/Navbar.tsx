@@ -8,6 +8,7 @@ import CloseIcon from "../icons/CloseIcon";
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
   { label: "Blog", href: "https://blog.bradmalgas.com", external: true },
 ];
 

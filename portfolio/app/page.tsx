@@ -1,6 +1,7 @@
 import Hero from "./components/hero/Hero";
 import ProjectsSection from "./components/projects/ProjectsSection";
 import AboutSection from "./components/about/AboutSection";
+import ContactFooter from "./components/contact/ContactFooter";
 
 export default function Home() {
   return (
@@ -10,6 +11,8 @@ export default function Home() {
       <AboutSection />
       
       <ProjectsSection />
+
+      <ContactFooter />
 
       {/* Experience Section */}
       <section className="bg-gray-600 text-white pt-12  lg:px-96">
