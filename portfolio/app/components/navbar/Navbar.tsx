@@ -103,7 +103,7 @@ export default function Navbar() {
       <div
         className={`md:hidden overflow-hidden transition-all duration-350 ease-out-expo ${
           isOpen
-            ? "max-h-72 opacity-100 border-t border-border/50"
+            ? "max-h-96 opacity-100 border-t border-border/50"
             : "max-h-0 opacity-0"
         } bg-surface/95 backdrop-blur-lg`}
       >
