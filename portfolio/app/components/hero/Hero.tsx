@@ -1,25 +1,47 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const CV_URL =
   "https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf";
 
 export default function Hero() {
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const handleScroll = () => {
+      if (bgRef.current) {
+        bgRef.current.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section
       id="home"
       className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden"
     >
       {/* Background image + overlays */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/images/hero-background-image.png"
-          alt=""
-          fill
-          className="object-cover object-center"
-          priority
-        />
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div
+          ref={bgRef}
+          className="absolute inset-0 will-change-transform"
+          style={{ top: "-10%", height: "120%" }}
+        >
+          <Image
+            src="/images/hero-background-image.png"
+            alt=""
+            fill
+            className="object-cover object-center"
+            priority
+          />
+        </div>
         {/* Dark wash */}
         <div className="absolute inset-0 bg-background/80" />
         {/* Indigo orb — top right */}

@@ -1,3 +1,5 @@
+import FadeIn from "../ui/FadeIn";
+
 const LINKS = {
   github: "https://github.com/bradmalgas",
   linkedin: "https://www.linkedin.com/in/brad-malgas",
@@ -80,7 +82,7 @@ export default function ContactFooter() {
     >
       <div className="max-w-6xl mx-auto">
         {/* ── Contact ─────────────────────────────────────────── */}
-        <div className="text-center">
+        <FadeIn className="text-center">
           <span className="eyebrow">Contact</span>
           <h2 className="text-h2 font-semibold text-ink mt-2">
             Let&apos;s Connect
@@ -114,7 +116,7 @@ export default function ContactFooter() {
               </a>
             ))}
           </div>
-        </div>
+        </FadeIn>
 
         {/* ── Divider ─────────────────────────────────────────── */}
         <div className="mt-16 border-t border-border/50" />

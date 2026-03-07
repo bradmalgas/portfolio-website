@@ -1,4 +1,5 @@
 import Image from "next/image";
+import FadeIn from "../ui/FadeIn";
 
 const skills = [
   {
@@ -34,7 +35,7 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto">
 
         {/* ── Two-column split ──────────────────────────────────── */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+        <FadeIn className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
 
           {/* LEFT — photo */}
           <div className="flex-shrink-0 flex flex-col items-center lg:items-start gap-5 w-full lg:w-auto">
@@ -105,7 +106,7 @@ export default function AboutSection() {
             </div>
           </div>
 
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

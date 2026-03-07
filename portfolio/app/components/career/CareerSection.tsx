@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import FadeIn from "../ui/FadeIn";
 
 // ── Data ──────────────────────────────────────────────────────────────
 
@@ -192,11 +193,12 @@ export default function CareerSection() {
 
         <div className="mt-10">
           {experience.map((entry, i) => (
-            <TimelineEntry
-              key={entry.id}
-              entry={entry}
-              isLast={i === experience.length - 1}
-            />
+            <FadeIn key={entry.id} delay={i * 80}>
+              <TimelineEntry
+                entry={entry}
+                isLast={i === experience.length - 1}
+              />
+            </FadeIn>
           ))}
         </div>
 
@@ -208,7 +210,7 @@ export default function CareerSection() {
           </h2>
           <span className="section-rule" />
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <FadeIn delay={50} className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {education.map(({ degree, university }) => (
               <div
                 key={degree}
@@ -220,7 +222,7 @@ export default function CareerSection() {
                 <p className="text-accent text-xs font-medium">{university}</p>
               </div>
             ))}
-          </div>
+          </FadeIn>
         </div>
 
         {/* ── Certifications ──────────────────────────────────────── */}
@@ -231,7 +233,7 @@ export default function CareerSection() {
           </h2>
           <span className="section-rule" />
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <FadeIn delay={50} className="mt-8 flex flex-wrap gap-3">
             {certifications.map((cert) => (
               <div
                 key={cert}
@@ -246,7 +248,7 @@ export default function CareerSection() {
                 </div>
               </div>
             ))}
-          </div>
+          </FadeIn>
         </div>
 
       </div>
