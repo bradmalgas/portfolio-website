@@ -25,9 +25,9 @@ export default function FadeIn({
       className={className}
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : "translateY(22px)",
-        transition: `opacity 0.65s cubic-bezier(0.16,1,0.3,1) ${delay}ms,
-                     transform 0.65s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        transform: inView ? "translateY(0)" : "translateY(40px)",
+        transition: `opacity 0.85s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms,
+                     transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms`,
       }}
     >
       {children}

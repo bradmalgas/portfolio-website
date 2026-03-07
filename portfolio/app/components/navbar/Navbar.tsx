@@ -101,7 +101,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-350 ease-out-expo ${
+        className={`md:hidden overflow-hidden transition-all duration-500 ease-out-quart ${
           isOpen
             ? "max-h-96 opacity-100 border-t border-border/50"
             : "max-h-0 opacity-0"

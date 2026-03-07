@@ -87,6 +87,7 @@ export default {
       // ── Transitions ──────────────────────────────────────────────────────
       transitionTimingFunction: {
         "out-expo":     "cubic-bezier(0.16, 1, 0.3, 1)",
+        "out-quart":    "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         "in-out-quart": "cubic-bezier(0.76, 0, 0.24, 1)",
       },
       transitionDuration: {
