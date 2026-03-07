@@ -54,7 +54,7 @@ export default function Navbar() {
           className="flex items-center gap-2.5"
           aria-label="Brad Malgas — home"
         >
-          <BradLogoIcon className="h-8 w-8" fillColour="#7C6EFF" />
+          <BradLogoIcon className="h-8 w-8 text-accent" />
           <span className="font-semibold text-sm text-ink tracking-tight">
             Brad Malgas
           </span>

@@ -4,7 +4,7 @@ import FadeIn from "../ui/FadeIn";
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="section-padding" style={{ background: 'linear-gradient(to bottom, #09090E 0%, #111119 30%)' }}>
+    <section id="projects" className="section-padding" style={{ background: 'linear-gradient(to bottom, var(--color-background) 0%, var(--color-surface) 30%)' }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Heading */}

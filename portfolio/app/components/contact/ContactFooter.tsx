@@ -77,7 +77,7 @@ export default function ContactFooter() {
       id="contact"
       className="section-padding"
       style={{
-        background: "linear-gradient(to bottom, #111119 0%, #09090E 40%)",
+        background: "linear-gradient(to bottom, var(--color-surface) 0%, var(--color-background) 40%)",
       }}
     >
       <div className="max-w-6xl mx-auto">

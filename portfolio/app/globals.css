@@ -2,31 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens ────────────────────────────────────────────────────────── */
 :root {
-  /* Backgrounds */
-  --color-background:      #09090E;
-  --color-surface:         #111119;
-  --color-surface-raised:  #16161F;
-  --color-surface-overlay: #1C1C28;
+  /* Edit these two lines per colour to retheme the entire site */
+  --color-background-rgb:       9   9  14;
+  --color-surface-rgb:         17  17  25;
+  --color-surface-raised-rgb:  22  22  31;
+  --color-surface-overlay-rgb: 28  28  40;
+  --color-border-rgb:          34  34  46;
+  --color-border-subtle-rgb:   23  23  31;
+  --color-ink-rgb:            237 238 245;
+  --color-ink-secondary-rgb:  136 136 168;
+  --color-ink-tertiary-rgb:    80  80 106;
+  --color-accent-rgb:         124 110 255;  /* ← change to retheme */
+  --color-accent-hover-rgb:   154 143 255;  /* ← lighter variant of accent */
 
-  /* Borders */
-  --color-border:          #22222E;
-  --color-border-subtle:   #17171F;
+  --color-background:      rgb(var(--color-background-rgb));
+  --color-surface:         rgb(var(--color-surface-rgb));
+  --color-surface-raised:  rgb(var(--color-surface-raised-rgb));
+  --color-surface-overlay: rgb(var(--color-surface-overlay-rgb));
+  --color-border:          rgb(var(--color-border-rgb));
+  --color-border-subtle:   rgb(var(--color-border-subtle-rgb));
+  --color-ink:             rgb(var(--color-ink-rgb));
+  --color-ink-secondary:   rgb(var(--color-ink-secondary-rgb));
+  --color-ink-tertiary:    rgb(var(--color-ink-tertiary-rgb));
+  --color-accent:          rgb(var(--color-accent-rgb));
+  --color-accent-hover:    rgb(var(--color-accent-hover-rgb));
+  --color-accent-dim:      rgb(var(--color-accent-rgb) / 0.12);
+  --color-accent-glow:     rgb(var(--color-accent-rgb) / 0.25);
 
-  /* Text */
-  --color-ink:             #EDEEF5;
-  --color-ink-secondary:   #8888A8;
-  --color-ink-tertiary:    #50506A;
-
-  /* Accent — electric indigo */
-  --color-accent:          #7C6EFF;
-  --color-accent-hover:    #9A8FFF;
-  --color-accent-dim:      rgba(124, 110, 255, 0.12);
-  --color-accent-glow:     rgba(124, 110, 255, 0.25);
+  --shadow-glow:    0 0 24px rgb(var(--color-accent-rgb) / 0.30);
+  --shadow-glow-lg: 0 0 48px rgb(var(--color-accent-rgb) / 0.35);
 }
 
-/* ── Base styles ──────────────────────────────────────────────────────────── */
 @layer base {
   *, *::before, *::after {
     border-color: var(--color-border);
@@ -44,54 +51,36 @@
     font-family: var(--font-geist-sans), system-ui, sans-serif;
   }
 
-  /* Scrollbar — subtle dark styling */
   ::-webkit-scrollbar        { width: 8px; }
   ::-webkit-scrollbar-track  { background: var(--color-background); }
   ::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-tertiary); }
 
-  /* Selection */
   ::selection {
     background-color: var(--color-accent-dim);
     color: var(--color-ink);
   }
 
-  /* Focus ring — keyboard users only, consistent across all interactive elements */
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 4px;
   }
 
-  /* Suppress focus ring for mouse/touch interactions */
   :focus:not(:focus-visible) {
     outline: none;
   }
 }
 
-/* ── Animations ───────────────────────────────────────────────────────────── */
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.hero-content-1 {
-  animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.hero-content-2 {
-  animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-}
-.hero-content-3 {
-  animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
+.hero-content-1 { animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-content-2 { animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.hero-content-3 { animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
 
-/* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-content-1,
   .hero-content-2,
@@ -102,29 +91,23 @@
   }
 }
 
-/* ── Component utilities ──────────────────────────────────────────────────── */
 @layer components {
-  /* Section wrapper */
   .section-padding {
     @apply px-6 py-16 md:px-12 md:py-24 lg:px-24 xl:px-40;
   }
 
-  /* Accent underline divider (replaces the border-t-8 pattern) */
   .section-rule {
     @apply block w-10 h-[3px] rounded-full bg-accent mt-4 mb-10;
   }
 
-  /* Label / eyebrow text above headings */
   .eyebrow {
     @apply text-accent text-label font-semibold tracking-widest uppercase;
   }
 
-  /* Subtle card surface */
   .card {
     @apply bg-surface-raised border border-border rounded-md shadow;
   }
 
-  /* Accent glow button */
   .btn-accent {
     @apply bg-accent text-white font-medium rounded px-5 py-2.5
            transition-all duration-250
@@ -132,7 +115,6 @@
            active:scale-[0.98];
   }
 
-  /* Ghost/outline button */
   .btn-ghost {
     @apply border border-border text-ink-secondary font-medium rounded px-5 py-2.5
            transition-all duration-250
@@ -140,7 +122,6 @@
            active:scale-[0.98];
   }
 
-  /* Tag / pill */
   .tag {
     @apply inline-flex items-center px-2.5 py-1 rounded-sm text-label font-medium
            bg-accent-dim text-accent border border-accent/20;

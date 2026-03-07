@@ -190,7 +190,7 @@ export default function CareerSection() {
     <section
       id="career"
       className="section-padding"
-      style={{ background: "linear-gradient(to bottom, #111119 0%, #09090E 30%, #111119 80%)" }}
+      style={{ background: "linear-gradient(to bottom, var(--color-surface) 0%, var(--color-background) 30%, var(--color-surface) 80%)" }}
     >
       <div className="max-w-6xl mx-auto">
 
