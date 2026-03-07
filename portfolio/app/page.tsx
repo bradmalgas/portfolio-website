@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Hero from "./components/hero/Hero";
+import ProjectsSection from "./components/projects/ProjectsSection";
 
 export default function Home() {
   return (
     <div>
       <Hero />
+      <ProjectsSection />
 
       {/* About Me Section */}
       <section className="bg-gray-600 text-white pt-[5rem] lg:px-96">

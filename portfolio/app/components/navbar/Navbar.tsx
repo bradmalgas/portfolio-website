@@ -1,14 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import BradLogoIcon from "../icons/BradLogoIcon";
 import MenuIcon from "../icons/MenuIcon";
 import CloseIcon from "../icons/CloseIcon";
 
 const navLinks = [
-  { label: "Home", href: "/", external: false },
-  { label: "Projects", href: "/projects", external: false },
+  { label: "Home", href: "#home" },
+  { label: "Projects", href: "#projects" },
   { label: "Blog", href: "https://blog.bradmalgas.com", external: true },
 ];
 
@@ -25,7 +24,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) setIsOpen(false);
@@ -33,6 +31,11 @@ export default function Navbar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const linkClass =
+    "px-4 py-2 text-sm text-ink-secondary hover:text-ink rounded transition-colors duration-250";
+  const mobileLinkClass =
+    "px-4 py-3 text-sm text-ink-secondary hover:text-ink hover:bg-surface-overlay rounded transition-colors duration-250";
 
   return (
     <header
@@ -44,44 +47,31 @@ export default function Navbar() {
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 group"
+        <a
+          href="#home"
+          className="flex items-center gap-2.5"
           aria-label="Brad Malgas — home"
         >
-          <BradLogoIcon
-            className="h-8 w-8"
-            fillColour="#7C6EFF"
-          />
+          <BradLogoIcon className="h-8 w-8" fillColour="#7C6EFF" />
           <span className="font-semibold text-sm text-ink tracking-tight">
             Brad Malgas
           </span>
-        </Link>
+        </a>
 
-        {/* Desktop nav links */}
+        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) =>
-            link.external ? (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-sm text-ink-secondary hover:text-ink rounded transition-colors duration-250"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="px-4 py-2 text-sm text-ink-secondary hover:text-ink rounded transition-colors duration-250"
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              {...(link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className={linkClass}
+            >
+              {link.label}
+            </a>
+          ))}
           <a
             href={CV_URL}
             target="_blank"
@@ -92,7 +82,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile hamburger button */}
+        {/* Mobile hamburger */}
         <button
           className="md:hidden p-2 rounded text-ink hover:bg-surface-overlay transition-colors duration-250"
           onMouseDown={() => setIsOpen((prev) => !prev)}
@@ -107,7 +97,7 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile dropdown */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-350 ease-out-expo ${
           isOpen
@@ -116,30 +106,19 @@ export default function Navbar() {
         } bg-surface/95 backdrop-blur-lg`}
       >
         <div className="max-w-6xl mx-auto px-6 py-3 flex flex-col gap-1">
-          {navLinks.map((link) =>
-            link.external ? (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-3 text-sm text-ink-secondary hover:text-ink hover:bg-surface-overlay rounded transition-colors duration-250"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="px-4 py-3 text-sm text-ink-secondary hover:text-ink hover:bg-surface-overlay rounded transition-colors duration-250"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              {...(link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className={mobileLinkClass}
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
           <a
             href={CV_URL}
             target="_blank"
