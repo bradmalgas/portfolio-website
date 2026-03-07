@@ -136,7 +136,7 @@ function TimelineEntry({
               {entry.company}
             </p>
           </div>
-          <span className="text-sm text-ink-tertiary italic whitespace-nowrap mt-0.5 sm:mt-1 flex-shrink-0">
+          <span className="text-sm text-ink-secondary italic whitespace-nowrap mt-0.5 sm:mt-1 flex-shrink-0">
             {entry.dates}
           </span>
         </div>
@@ -244,7 +244,7 @@ export default function CareerSection() {
                   <p className="text-sm font-semibold text-ink leading-snug">
                     {cert}
                   </p>
-                  <p className="text-xs text-ink-tertiary mt-0.5">Microsoft</p>
+                  <p className="text-xs text-ink-secondary mt-0.5">Microsoft</p>
                 </div>
               </div>
             ))}

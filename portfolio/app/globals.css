@@ -55,6 +55,18 @@
     background-color: var(--color-accent-dim);
     color: var(--color-ink);
   }
+
+  /* Focus ring — keyboard users only, consistent across all interactive elements */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Suppress focus ring for mouse/touch interactions */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
 }
 
 /* ── Animations ───────────────────────────────────────────────────────────── */

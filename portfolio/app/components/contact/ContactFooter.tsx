@@ -122,10 +122,10 @@ export default function ContactFooter() {
         <div className="mt-16 border-t border-border/50" />
 
         {/* ── Footer ──────────────────────────────────────────── */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <footer className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
             <p className="font-semibold text-sm text-ink">Brad Malgas</p>
-            <p className="text-xs text-ink-tertiary mt-0.5">
+            <p className="text-xs text-ink-secondary mt-0.5">
               Senior Software Developer · Azure · C# · .NET
             </p>
           </div>
@@ -139,17 +139,17 @@ export default function ContactFooter() {
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
                 aria-label={label}
-                className="p-2 -m-2 text-ink-tertiary hover:text-accent transition-colors duration-200"
+                className="p-2 -m-2 text-ink-secondary hover:text-accent transition-colors duration-200"
               >
                 <Icon className="h-4 w-4" />
               </a>
             ))}
           </div>
 
-          <p className="text-xs text-ink-tertiary">
+          <p className="text-xs text-ink-secondary">
             © {new Date().getFullYear()} Brad Malgas
           </p>
-        </div>
+        </footer>
       </div>
     </section>
   );

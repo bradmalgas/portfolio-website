@@ -46,7 +46,7 @@ export default function Navbar() {
           : "bg-background/85 backdrop-blur-lg border-b border-border md:bg-transparent md:backdrop-blur-none md:border-transparent md:shadow-none"
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav aria-label="Main navigation" className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a
           href="#home"
