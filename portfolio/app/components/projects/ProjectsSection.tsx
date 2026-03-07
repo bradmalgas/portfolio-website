@@ -3,7 +3,7 @@ import { projects } from "./data";
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="section-padding bg-surface">
+    <section id="projects" className="section-padding" style={{ background: 'linear-gradient(to bottom, #09090E 0%, #111119 30%)' }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Heading */}

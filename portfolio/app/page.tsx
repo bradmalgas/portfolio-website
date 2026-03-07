@@ -1,40 +1,15 @@
-import Image from "next/image";
 import Hero from "./components/hero/Hero";
 import ProjectsSection from "./components/projects/ProjectsSection";
+import AboutSection from "./components/about/AboutSection";
 
 export default function Home() {
   return (
     <div>
       <Hero />
-      <ProjectsSection />
 
-      {/* About Me Section */}
-      <section className="bg-gray-600 text-white pt-[5rem] lg:px-96">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold uppercase tracking-widest">
-            About Me
-          </h2>
-          <div className="border-t-8 border-gray-100 w-16 my-8"></div>
-          <p className="mt-4 text-white text-base leading-6">
-            Senior Software Developer with 5 years of experience designing and
-            delivering cloud-native solutions on Microsoft Azure, specializing
-            in C#/.NET development, infrastructure as code, and secure system
-            design. Proven ability to lead projects end-to-end, from
-            architecture and infrastructure provisioning to backend API
-            development, authentication/authorization workflows, and deployment
-            automation.
-          </p>
-          <p className="mt-4 text-white text-base leading-6">
-            Skilled in Azure Bicep, DevOps pipelines, containerization (Docker,
-            Podman), and identity management with Microsoft Entra ID. Adept at
-            diagnosing and resolving complex issues in distributed systems,
-            driving faster delivery, cost savings, and improved reliability.
-            Passionate about leveraging technology to solve real-world problems,
-            collaborating across teams, and mentoring peers to elevate project
-            success.
-          </p>
-        </div>
-      </section>
+      <AboutSection />
+      
+      <ProjectsSection />
 
       {/* Experience Section */}
       <section className="bg-gray-600 text-white pt-12  lg:px-96">
@@ -317,115 +292,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills Section (Need to expand to have better image quality) */}
-      <section className="text-black py-12 lg:px-96 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold uppercase tracking-widest">
-            Skills
-          </h2>
-          <div className="border-t-8 border-black w-16 mt-8"></div>
-          <div className="my-12 relative h-[560px] max-w-96 mx-auto">
-            <Image
-              className="absolute top-[17px]"
-              src="/Logo-C-sharp.svg"
-              alt="C-Sharp"
-              width={57.78}
-              height={65}
-            />
-            <Image
-              className="absolute top-[100px] left-0"
-              src="/micrsoft-azure-logo.png"
-              alt="Azure"
-              width={250}
-              height={50}
-            />
-            <Image
-              className="absolute left-[calc(50%-70px)] top-0"
-              src="/NET_Core_Logo.svg"
-              alt=".NET"
-              width={100}
-              height={100}
-            />
-            <Image
-              className="absolute right-0 top-[12px]"
-              src="/vue-logo.png"
-              alt="Vue"
-              width={125}
-              height={75}
-            />
-            <Image
-              className="absolute right-[10px] top-[220px]"
-              src="/Git-logo.png"
-              alt="Git"
-              width={100}
-              height={41.8}
-            />
-            <Image
-              className="absolute right-[18px] top-[120px]"
-              src="/Typescript_logo.svg.png"
-              alt="Typescript"
-              width={60}
-              height={60}
-            />
-            <Image
-              className="absolute left-0 top-[242px]"
-              src="/Angular-logo.png"
-              alt="Angular"
-              width={100}
-              height={100}
-            />
-            <Image
-              className="absolute left-[125px] top-[230px]"
-              src="/power-automate-logo.png"
-              alt="PowerAutomate"
-              width={125}
-              height={125}
-            />
-            <Image
-              className="absolute right-0 top-[280px]"
-              src="/SQL-logo.jpeg"
-              alt="SQL"
-              width={100}
-              height={41.8}
-            />
-            <Image
-              className="absolute left-[2px] top-[360px]"
-              src="/Entity-Framework-Core-Logo.jpg"
-              alt="Entity Framework"
-              width={150}
-              height={112.5}
-            />
-            <Image
-              className="absolute right-0 top-[360px]"
-              src="/power-bi-logo.png"
-              alt="PowerBI"
-              width={200}
-              height={111.11}
-            />
-            <Image
-              className="absolute left-[8px] top-[490px]"
-              src="/YAML-logo.png"
-              alt="YAML"
-              width={65}
-              height={69.17}
-            />
-            <Image
-              className="absolute right-[calc(50%-50px)] top-[490px]"
-              src="/Azure-DevOps-Logo.jpg"
-              alt="Azure DevOps"
-              width={125}
-              height={70.31}
-            />
-            <Image
-              className="absolute right-0 top-[470px]"
-              src="/rest-api-icon.png"
-              alt="Azure DevOps"
-              width={120}
-              height={98.23}
-            />
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
