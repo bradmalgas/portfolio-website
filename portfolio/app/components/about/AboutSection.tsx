@@ -1,6 +1,11 @@
 import Image from "next/image";
 import FadeIn from "../ui/FadeIn";
 
+const CAREER_START = new Date(2021, 0); // January 2021 — Investec start date
+const yearsOfExperience = Math.floor(
+  (Date.now() - CAREER_START.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
+);
+
 const skills = [
   {
     category: "Languages",
@@ -68,7 +73,7 @@ export default function AboutSection() {
             {/* Bio */}
             <div className="space-y-4 text-body text-ink-secondary leading-relaxed">
               <p>
-                Senior Software Developer with 5 years of experience designing and
+                Senior Software Developer with {yearsOfExperience} years of experience designing and
                 delivering cloud-native solutions on Microsoft Azure, specialising
                 in C#/.NET development, infrastructure as code, and secure system
                 design. Proven ability to lead projects end-to-end, from

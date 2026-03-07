@@ -3,6 +3,14 @@
 import { useState } from "react";
 import FadeIn from "../ui/FadeIn";
 
+// ── Helpers ───────────────────────────────────────────────────────────
+
+function formatDateRange(start: Date, end?: Date): string {
+  const fmt = (d: Date) =>
+    d.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+  return `${fmt(start)} – ${end ? fmt(end) : "Present"}`;
+}
+
 // ── Data ──────────────────────────────────────────────────────────────
 
 const experience = [
@@ -10,7 +18,7 @@ const experience = [
     id: "secret-sauce",
     title: "Senior Software Developer",
     company: "Secret Sauce",
-    dates: "April 2025 – Current",
+    startDate: new Date(2025, 3), // April 2025
     summary:
       "At Secret Sauce, my work is split between internal tooling and external client delivery. Externally, I've been responsible for designing and running a new Investec Product Enablement platform. Internally, I've focused on reusable pipeline templates and containerization patterns. This role reflects my step-up into senior responsibilities across infrastructure, security, and operational ownership.",
     responsibilities: [
@@ -25,7 +33,8 @@ const experience = [
     id: "altron",
     title: "Specialist: Software Development",
     company: "Altron Security",
-    dates: "April 2024 – March 2025",
+    startDate: new Date(2024, 3), // April 2024
+    endDate: new Date(2025, 2),   // March 2025
     summary:
       "I worked across C# development, digital signing solutions, and customer integrations for our SaaS document workflow and signing platform. I collaborated with both local and UK-based teams to deliver reliable integrations and strong client outcomes.",
     responsibilities: [
@@ -39,7 +48,8 @@ const experience = [
     id: "investec",
     title: "Software Developer",
     company: "Investec",
-    dates: "January 2021 – March 2024",
+    startDate: new Date(2021, 0), // January 2021
+    endDate: new Date(2024, 2),   // March 2024
     summary:
       "I worked as a software developer at Investec for 3 years. I have experience working predominantly with C#, however I have also had exposure to Azure as well as Angular. My team was comprised of both in-house and contracted developers as well as business analysts. The culture of autonomy allowed me to take on responsibilities but there was also a strong sense of community with everyone willing to lend a helping hand.",
     responsibilities: [
@@ -137,7 +147,7 @@ function TimelineEntry({
             </p>
           </div>
           <span className="text-sm text-ink-secondary italic whitespace-nowrap mt-0.5 sm:mt-1 flex-shrink-0">
-            {entry.dates}
+            {formatDateRange(entry.startDate, entry.endDate)}
           </span>
         </div>
 
