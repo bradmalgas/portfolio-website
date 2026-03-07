@@ -2,20 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design tokens ────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --color-background:      #09090E;
+  --color-surface:         #111119;
+  --color-surface-raised:  #16161F;
+  --color-surface-overlay: #1C1C28;
+
+  /* Borders */
+  --color-border:          #22222E;
+  --color-border-subtle:   #17171F;
+
+  /* Text */
+  --color-ink:             #EDEEF5;
+  --color-ink-secondary:   #8888A8;
+  --color-ink-tertiary:    #50506A;
+
+  /* Accent — electric indigo */
+  --color-accent:          #7C6EFF;
+  --color-accent-hover:    #9A8FFF;
+  --color-accent-dim:      rgba(124, 110, 255, 0.12);
+  --color-accent-glow:     rgba(124, 110, 255, 0.25);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Base styles ──────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-ink);
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+
+  /* Scrollbar — subtle dark styling */
+  ::-webkit-scrollbar        { width: 8px; }
+  ::-webkit-scrollbar-track  { background: var(--color-background); }
+  ::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-tertiary); }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-accent-dim);
+    color: var(--color-ink);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Component utilities ──────────────────────────────────────────────────── */
+@layer components {
+  /* Section wrapper */
+  .section-padding {
+    @apply px-6 py-24 md:px-12 lg:px-24 xl:px-40;
+  }
+
+  /* Accent underline divider (replaces the border-t-8 pattern) */
+  .section-rule {
+    @apply block w-10 h-[3px] rounded-full bg-accent mt-4 mb-10;
+  }
+
+  /* Label / eyebrow text above headings */
+  .eyebrow {
+    @apply text-accent text-label font-semibold tracking-widest uppercase;
+  }
+
+  /* Subtle card surface */
+  .card {
+    @apply bg-surface-raised border border-border rounded-md shadow;
+  }
+
+  /* Accent glow button */
+  .btn-accent {
+    @apply bg-accent text-white font-medium rounded px-5 py-2.5
+           transition-all duration-250
+           hover:bg-accent-hover hover:shadow-glow
+           active:scale-[0.98];
+  }
+
+  /* Ghost/outline button */
+  .btn-ghost {
+    @apply border border-border text-ink-secondary font-medium rounded px-5 py-2.5
+           transition-all duration-250
+           hover:border-accent hover:text-ink hover:bg-accent-dim
+           active:scale-[0.98];
+  }
+
+  /* Tag / pill */
+  .tag {
+    @apply inline-flex items-center px-2.5 py-1 rounded-sm text-label font-medium
+           bg-accent-dim text-accent border border-accent/20;
+  }
 }
