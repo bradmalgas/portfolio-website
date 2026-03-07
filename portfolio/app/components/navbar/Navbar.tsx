@@ -6,8 +6,9 @@ import MenuIcon from "../icons/MenuIcon";
 import CloseIcon from "../icons/CloseIcon";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
+  { label: "Career", href: "#career" },
   { label: "Contact", href: "#contact" },
   { label: "Blog", href: "https://blog.bradmalgas.com", external: true },
 ];
