@@ -1,39 +1,10 @@
 import Image from "next/image";
+import Hero from "./components/hero/Hero";
 
 export default function Home() {
   return (
     <div>
-      {/* Header Section */}
-      <header className="bg-cover bg-[url('/office-background.jpg')]">
-        <div className="bg-cover bg-white bg-opacity-65 pt-7">
-          <div className="container mx-auto px-4 pt-12 flex flex-col items-center">
-            <Image
-              src="/brad-malgas-logo.png"
-              alt="Brad Malgas"
-              width={100}
-              height={100}
-              priority
-            />
-            <h1 className="text-5xl font-extrabold text-black">Brad Malgas</h1>
-            <p className="text-lg text-gray-600 mt-2">SOFTWARE DEVELOPER</p>
-            <a
-              href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="lg:hidden mt-4 px-6 py-2 text-sm font-extralight text-black rounded-md outline outline-1">
-                DOWNLOAD MY FULL CV
-              </button>
-            </a>
-          </div>
-          {/* Profile Image */}
-          <div className="flex justify-center mt-6">
-            <div className="relative rounded-full overflow-hidden w-[140px] h-[140px] lg:w-[200px] lg:h-[200px] outline outline-white outline-[7px] shadow-lg mb-8">
-              <Image src="/brad-profile-pic.jpeg" alt="Profile" fill priority />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Hero />
 
       {/* About Me Section */}
       <section className="bg-gray-600 text-white pt-[5rem] lg:px-96">

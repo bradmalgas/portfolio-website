@@ -57,6 +57,28 @@
   }
 }
 
+/* ── Animations ───────────────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-content-1 {
+  animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-content-2 {
+  animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+.hero-content-3 {
+  animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
 /* ── Component utilities ──────────────────────────────────────────────────── */
 @layer components {
   /* Section wrapper */
