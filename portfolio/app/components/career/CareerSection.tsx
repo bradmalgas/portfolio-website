@@ -66,12 +66,12 @@ const education = [
   {
     degree: "Computer Science (Honours)",
     university: "University of Cape Town",
-    graduated: 2020,
+    graduated: 2021,
   },
   {
     degree: "BSc. Computer Science & Business Computing",
     university: "University of Cape Town",
-    graduated: 2019,
+    graduated: 2020,
   },
 ];
 
