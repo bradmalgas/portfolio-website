@@ -37,8 +37,7 @@ export default function SideNav({ className }: SideNavProps) {
             </div>
             <div className="grid gap-4 font-semibold lg:font-normal text-xl md:text-2xl lg:text-2xl rounded ml-5">
               <BradLogoIcon
-                className="h-16 border-0 border-b border-white"
-                fillColour="#ffffff"
+                className="h-16 border-0 border-b border-white text-white"
               />
               <Link className="max-w-fit" href="/">
                 <p>Home</p>

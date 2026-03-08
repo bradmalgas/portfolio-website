@@ -1,19 +1,16 @@
 interface BradLogoProps {
   className?: string;
-  fillColour: string;
 }
 
-export default function BradLogoIcon({ className, fillColour }: BradLogoProps) {
+export default function BradLogoIcon({ className }: BradLogoProps) {
   return (
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="320"
       viewBox="0 0 611.000000 611.000000"
       preserveAspectRatio="xMidYMid meet"
       className={className}
-      fill={fillColour}
+      fill="currentColor"
     >
       <g
         transform="translate(0.000000,611.000000) scale(0.100000,-0.100000)"
