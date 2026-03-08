@@ -51,7 +51,7 @@ const experience = [
     startDate: new Date(2021, 0), // January 2021
     endDate: new Date(2024, 2),   // March 2024
     summary:
-      "I worked as a software developer at Investec for 3 years. I have experience working predominantly with C#, however I have also had exposure to Azure as well as Angular. My team was comprised of both in-house and contracted developers as well as business analysts. The culture of autonomy allowed me to take on responsibilities but there was also a strong sense of community with everyone willing to lend a helping hand.",
+      "Over three years at Investec, I developed backend C# APIs, designed CI/CD pipelines, and provisioned Azure infrastructure using infrastructure-as-code. Working within a cross-functional team of in-house developers, contractors, and business analysts, I took on broad ownership across the full delivery lifecycle — from backlog refinement and code review to deployment and beyond.",
     responsibilities: [
       "Created and refined work items on Azure DevOps boards",
       "Designed CI/CD pipelines using YAML",
