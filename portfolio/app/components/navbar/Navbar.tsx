@@ -14,7 +14,7 @@ const navLinks = [
 ];
 
 const CV_URL =
-  "https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf";
+  "https://storageazureblogify.blob.core.windows.net/files/Bradley-Malgas-Resume.pdf";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

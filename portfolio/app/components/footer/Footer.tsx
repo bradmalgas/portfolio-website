@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
           <a
             className=""
-            href="https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf"
+            href="https://storageazureblogify.blob.core.windows.net/files/Bradley-Malgas-Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >
