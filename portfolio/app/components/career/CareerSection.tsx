@@ -51,7 +51,7 @@ const experience = [
     startDate: new Date(2021, 0), // January 2021
     endDate: new Date(2024, 2),   // March 2024
     summary:
-      "I worked as a software developer at Investec for 3 years. I have experience working predominantly with C#, however I have also had exposure to Azure as well as Angular. My team was comprised of both in-house and contracted developers as well as business analysts. The culture of autonomy allowed me to take on responsibilities but there was also a strong sense of community with everyone willing to lend a helping hand.",
+      "Over three years at Investec, I developed backend C# APIs, designed CI/CD pipelines, and provisioned Azure infrastructure using infrastructure-as-code. Working within a cross-functional team of in-house developers, contractors, and business analysts, I took on broad ownership across the full delivery lifecycle — from backlog refinement and code review to deployment and beyond.",
     responsibilities: [
       "Created and refined work items on Azure DevOps boards",
       "Designed CI/CD pipelines using YAML",
@@ -66,19 +66,36 @@ const education = [
   {
     degree: "Computer Science (Honours)",
     university: "University of Cape Town",
+    graduated: 2021,
   },
   {
     degree: "BSc. Computer Science & Business Computing",
     university: "University of Cape Town",
+    graduated: 2020,
   },
 ];
 
 const certifications = [
-  "Power Platform Fundamentals",
-  "Azure Data Fundamentals",
-  "Security, Compliance, and Identity Fundamentals",
-  "Azure AI Fundamentals",
-  "Azure Fundamentals",
+  {
+    name: "Power Platform Fundamentals",
+    url: "https://learn.microsoft.com/api/credentials/share/en-us/BradMalgas/7F68CA14266A9A60",
+  },
+  {
+    name: "Azure Data Fundamentals",
+    url: "https://learn.microsoft.com/api/credentials/share/en-us/BradMalgas/20498A08EBF7967E",
+  },
+  {
+    name: "Security, Compliance, and Identity Fundamentals",
+    url: "https://learn.microsoft.com/api/credentials/share/en-us/BradMalgas/47BEBDC317FB654D",
+  },
+  {
+    name: "Azure AI Fundamentals",
+    url: "https://learn.microsoft.com/api/credentials/share/en-us/BradMalgas/B38CA4FD094B46BC",
+  },
+  {
+    name: "Azure Fundamentals",
+    url: "https://learn.microsoft.com/api/credentials/share/en-us/BradMalgas/29B2C8CB53312884",
+  },
 ];
 
 // ── Sub-components ────────────────────────────────────────────────────
@@ -96,6 +113,25 @@ function ChevronIcon({ open }: { open: boolean }) {
         d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
         clipRule="evenodd"
       />
+    </svg>
+  );
+}
+
+function ExternalLinkIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-3.5 w-3.5 flex-shrink-0 text-ink-tertiary group-hover:text-accent transition-colors duration-200"
+      aria-hidden="true"
+    >
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
     </svg>
   );
 }
@@ -221,7 +257,7 @@ export default function CareerSection() {
           <span className="section-rule" />
 
           <FadeIn delay={50} className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {education.map(({ degree, university }) => (
+            {education.map(({ degree, university, graduated }) => (
               <div
                 key={degree}
                 className="card p-5 flex flex-col gap-1"
@@ -230,6 +266,7 @@ export default function CareerSection() {
                   {degree}
                 </p>
                 <p className="text-accent text-sm font-medium mt-0.5">{university}</p>
+                <p className="text-ink-secondary text-xs mt-0.5 italic">Graduated {graduated}</p>
               </div>
             ))}
           </FadeIn>
@@ -245,18 +282,24 @@ export default function CareerSection() {
 
           <FadeIn delay={50} className="mt-8 flex flex-wrap gap-3">
             {certifications.map((cert) => (
-              <div
-                key={cert}
-                className="card px-4 py-3 flex items-start gap-3 w-full sm:w-auto"
+              <a
+                key={cert.name}
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View credential: ${cert.name}`}
+                className="group card px-4 py-3 flex items-start gap-3 w-full sm:w-auto
+                           hover:border-accent/40 hover:shadow-glow transition-all duration-250"
               >
                 <ShieldIcon />
-                <div>
-                  <p className="text-sm font-semibold text-ink leading-snug">
-                    {cert}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-ink leading-snug group-hover:text-accent transition-colors duration-200">
+                    {cert.name}
                   </p>
                   <p className="text-xs text-ink-secondary mt-0.5">Microsoft</p>
                 </div>
-              </div>
+                <ExternalLinkIcon />
+              </a>
             ))}
           </FadeIn>
         </div>

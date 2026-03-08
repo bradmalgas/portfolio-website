@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 const CV_URL =
-  "https://storageazureblogify.blob.core.windows.net/files/Bradley Malgas Resume.pdf";
+  "https://storageazureblogify.blob.core.windows.net/files/Bradley-Malgas-Resume.pdf";
 
 export default function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
