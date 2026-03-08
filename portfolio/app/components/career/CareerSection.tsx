@@ -66,10 +66,12 @@ const education = [
   {
     degree: "Computer Science (Honours)",
     university: "University of Cape Town",
+    graduated: 2020,
   },
   {
     degree: "BSc. Computer Science & Business Computing",
     university: "University of Cape Town",
+    graduated: 2019,
   },
 ];
 
@@ -221,7 +223,7 @@ export default function CareerSection() {
           <span className="section-rule" />
 
           <FadeIn delay={50} className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {education.map(({ degree, university }) => (
+            {education.map(({ degree, university, graduated }) => (
               <div
                 key={degree}
                 className="card p-5 flex flex-col gap-1"
@@ -230,6 +232,7 @@ export default function CareerSection() {
                   {degree}
                 </p>
                 <p className="text-accent text-sm font-medium mt-0.5">{university}</p>
+                <p className="text-ink-secondary text-xs mt-0.5 italic">Graduated {graduated}</p>
               </div>
             ))}
           </FadeIn>
