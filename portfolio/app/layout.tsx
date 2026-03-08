@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "Brad Malgas",
     images: [
       {
-        url: "https://storageazureblogify.blob.core.windows.net/files/OG-Brad%20Malgas.png",
+        url: "https://storageazureblogify.blob.core.windows.net/files/OG-Brad-Malgas-(Themed).png",
         width: 1200,
         height: 630,
         alt: "Brad Malgas — Senior Software Developer",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     description:
       "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
     images: [
-      "https://storageazureblogify.blob.core.windows.net/files/OG-Brad%20Malgas.png",
+      "https://storageazureblogify.blob.core.windows.net/files/OG-Brad-Malgas-(Themed).png",
     ],
   },
   robots: {
