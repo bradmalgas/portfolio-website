@@ -26,6 +26,7 @@ export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
   return createBlogOpenGraphImage({
     badge: category,
     title,
+    description: post?.description ?? undefined,
     footer: "bradmalgas.com",
   });
 }
