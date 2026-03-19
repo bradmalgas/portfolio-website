@@ -1,3 +1,7 @@
+@import "highlight.js/styles/github-dark.css";
+@import "@toast-ui/editor/dist/toastui-editor.css";
+@import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,12 +47,17 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-ink);
-    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    font-family: var(--font-geist-sans), "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-kerning: normal;
+    font-synthesis: none;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   ::-webkit-scrollbar        { width: 8px; }
@@ -126,4 +135,154 @@
     @apply inline-flex items-center px-2.5 py-1 rounded-sm text-label font-medium
            bg-accent-dim text-accent border border-accent/20;
   }
+
+  .blog-input {
+    @apply w-full rounded border border-border bg-surface px-4 py-3 text-body text-ink
+           placeholder:text-ink-tertiary transition-colors duration-250
+           focus:border-accent focus:outline-none;
+  }
+
+  .blog-textarea {
+    @apply w-full rounded border border-border bg-surface px-4 py-3 text-body text-ink
+           placeholder:text-ink-tertiary transition-colors duration-250
+           focus:border-accent focus:outline-none;
+  }
+}
+
+@layer utilities {
+  .blog-prose {
+    @apply text-body text-ink-secondary;
+  }
+
+  .blog-prose > * + * {
+    @apply mt-6;
+  }
+
+  .blog-prose h2,
+  .blog-prose h3,
+  .blog-prose h4 {
+    @apply scroll-mt-28 font-semibold text-ink;
+  }
+
+  .blog-prose h2 {
+    @apply mt-12 text-h2;
+  }
+
+  .blog-prose h3 {
+    @apply mt-10 text-h3;
+  }
+
+  .blog-prose h4 {
+    @apply mt-8 text-h4;
+  }
+
+  .blog-prose p,
+  .blog-prose li,
+  .blog-prose blockquote {
+    @apply text-body text-ink-secondary;
+  }
+
+  .blog-prose ul,
+  .blog-prose ol {
+    @apply ml-6 space-y-2;
+  }
+
+  .blog-prose ul {
+    @apply list-disc;
+  }
+
+  .blog-prose ol {
+    @apply list-decimal;
+  }
+
+  .blog-prose strong {
+    @apply font-semibold text-ink;
+  }
+
+  .blog-prose a {
+    @apply text-accent underline decoration-accent/40 underline-offset-4 transition-colors duration-250 hover:text-accent-hover;
+  }
+
+  .blog-prose blockquote {
+    @apply rounded-r-md border-l-2 border-accent bg-surface px-5 py-4;
+  }
+
+  .blog-prose hr {
+    @apply border-border;
+  }
+
+  .blog-prose code:not(pre code) {
+    @apply rounded bg-surface px-1.5 py-0.5 font-mono text-sm text-ink;
+  }
+
+  .blog-prose table {
+    @apply w-full border-collapse overflow-hidden rounded-md border border-border;
+  }
+
+  .blog-prose th,
+  .blog-prose td {
+    @apply border border-border px-4 py-3 text-left;
+  }
+
+  .blog-prose img {
+    @apply h-auto w-full;
+  }
+}
+
+.toastui-editor-defaultUI {
+  border: none !important;
+  background: transparent !important;
+  font-family: var(--font-geist-sans), "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif !important;
+}
+
+.toastui-editor-defaultUI-toolbar {
+  background: rgb(var(--color-surface-rgb)) !important;
+  border-bottom: 1px solid rgb(var(--color-border-rgb)) !important;
+}
+
+.toastui-editor-toolbar-group button,
+.toastui-editor-mode-switch .tab-item {
+  color: rgb(var(--color-ink-secondary-rgb)) !important;
+}
+
+.toastui-editor-toolbar-icons {
+  filter: invert(84%) sepia(7%) saturate(738%) hue-rotate(199deg) brightness(85%) contrast(86%);
+}
+
+.toastui-editor-md-container,
+.toastui-editor-ww-container,
+.toastui-editor-md-preview {
+  background: rgb(var(--color-surface-raised-rgb)) !important;
+}
+
+.toastui-editor-md-tab-container,
+.toastui-editor-mode-switch {
+  background: rgb(var(--color-surface-rgb)) !important;
+  border-top: 1px solid rgb(var(--color-border-rgb)) !important;
+}
+
+.toastui-editor-md-splitter,
+.toastui-editor-md-vertical-style .toastui-editor-md-divider {
+  background: rgb(var(--color-border-rgb)) !important;
+}
+
+.toastui-editor-contents {
+  font-family: var(--font-geist-sans), "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif !important;
+  color: rgb(var(--color-ink-rgb)) !important;
+}
+
+.toastui-editor-contents p,
+.toastui-editor-contents li,
+.toastui-editor-contents blockquote {
+  color: rgb(var(--color-ink-secondary-rgb)) !important;
+}
+
+.toastui-editor-md-code,
+.toastui-editor-contents code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace !important;
+}
+
+.toastui-editor-popup {
+  background: rgb(var(--color-surface-raised-rgb)) !important;
+  border: 1px solid rgb(var(--color-border-rgb)) !important;
 }
