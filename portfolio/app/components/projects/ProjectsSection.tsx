@@ -6,8 +6,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="section-padding"
-      style={{ background: "linear-gradient(to bottom, var(--color-background) 0%, rgb(var(--color-surface-rgb) / 0.86) 30%, var(--color-background) 100%)" }}
+      className="theme-section theme-section--projects section-padding"
     >
       <div className="max-w-6xl mx-auto">
         <FadeIn>

@@ -36,9 +36,9 @@ const skills = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="section-padding bg-background">
+    <section id="about" className="theme-section theme-section--about section-padding">
       <div className="max-w-6xl mx-auto">
-        <FadeIn className="section-shell flex flex-col gap-12 p-8 lg:flex-row lg:gap-20 lg:p-12 xl:p-14 items-start">
+        <FadeIn className="section-shell--bare flex flex-col gap-12 p-8 lg:flex-row lg:gap-20 lg:p-12 xl:p-14 items-start">
           <div className="flex w-full flex-shrink-0 flex-col items-center gap-5 lg:w-auto lg:items-start">
             <div className="relative h-52 w-52 overflow-hidden rounded-[2rem] border border-border sm:h-60 sm:w-60 lg:h-72 lg:w-72">
               <div className="absolute inset-0 z-10 rounded-[2rem] bg-gradient-to-br from-accent/20 via-transparent to-transparent pointer-events-none" />

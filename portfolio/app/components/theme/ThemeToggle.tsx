@@ -16,8 +16,8 @@ export default function ThemeToggle({ mobile = false }: ThemeToggleProps) {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`inline-flex items-center justify-center gap-2 rounded-full border border-border text-sm font-medium transition-all duration-250 hover:border-accent hover:bg-accent-dim hover:text-ink ${
-        mobile ? "min-h-11 px-4 py-2.5" : "min-h-10 px-3.5 py-2"
+      className={`inline-flex items-center justify-center rounded-full border border-border text-sm font-medium transition-all duration-250 hover:border-accent hover:bg-accent-dim hover:text-ink ${
+        mobile ? "min-h-11 min-w-11 px-3 py-2.5" : "h-10 w-10"
       }`}
       aria-label={nextThemeLabel}
       title={nextThemeLabel}
@@ -27,9 +27,6 @@ export default function ThemeToggle({ mobile = false }: ThemeToggleProps) {
       ) : (
         <SunMedium className="h-4 w-4 text-accent" />
       )}
-      <span className={mobile ? "" : "hidden lg:inline"}>
-        {isReady ? (theme === "light" ? "Dark" : "Light") : "Theme"}
-      </span>
     </button>
   );
 }

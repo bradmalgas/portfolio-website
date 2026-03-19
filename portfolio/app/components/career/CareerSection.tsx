@@ -225,8 +225,7 @@ export default function CareerSection() {
   return (
     <section
       id="career"
-      className="section-padding"
-      style={{ background: "linear-gradient(to bottom, rgb(var(--color-surface-rgb) / 0.84) 0%, var(--color-background) 32%, rgb(var(--color-surface-rgb) / 0.78) 100%)" }}
+      className="theme-section theme-section--career section-padding"
     >
       <div className="max-w-6xl mx-auto">
         <span className="eyebrow">Experience</span>

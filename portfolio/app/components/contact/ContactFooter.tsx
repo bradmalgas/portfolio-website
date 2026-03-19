@@ -76,10 +76,7 @@ export default function ContactFooter() {
   return (
     <section
       id="contact"
-      className="section-padding"
-      style={{
-        background: "linear-gradient(to bottom, rgb(var(--color-surface-rgb) / 0.78) 0%, var(--color-background) 40%)",
-      }}
+      className="theme-section theme-section--contact theme-section--no-frame section-padding"
     >
       <div className="max-w-6xl mx-auto">
         <FadeIn className="section-shell px-8 py-10 text-center lg:px-12 lg:py-14">

@@ -28,10 +28,10 @@ export default function ProjectCard({
   blogLinkLabel = "Build Write-up",
 }: Project) {
   return (
-    <article className="relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border shadow transition-colors duration-250 hover:border-accent/30">
+    <article className="project-card relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border transition-[border-color,box-shadow] duration-250 hover:border-accent/30">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.015)_0%,transparent_28%)] pointer-events-none" />
 
-      <div className="relative aspect-video overflow-hidden bg-surface">
+      <div className="project-card-media relative aspect-video overflow-hidden">
         <Image
           src={image}
           alt={title}

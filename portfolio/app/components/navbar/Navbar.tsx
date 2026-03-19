@@ -100,13 +100,8 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-350 ${
-          isOpen
-            ? "bg-background border-b border-border shadow"
-            : scrolled
-              ? "bg-background/85 backdrop-blur-lg border-b border-border shadow"
-              : "bg-background/85 backdrop-blur-lg border-b border-border md:bg-transparent md:backdrop-blur-none md:border-transparent md:shadow-none"
-        }`}
+        data-nav-state={isOpen ? "open" : scrolled ? "scrolled" : "rest"}
+        className="navbar-shell fixed inset-x-0 top-0 z-50 border-b transition-all duration-350"
       >
         <nav aria-label="Main navigation" className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
@@ -181,7 +176,7 @@ export default function Navbar() {
           onClick={handleCloseMenu}
         />
         <div
-          className={`absolute inset-x-0 top-16 border-t border-border/50 bg-surface/95 shadow-lg backdrop-blur-lg will-change-transform transition-transform duration-180 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`mobile-nav-panel absolute inset-x-0 top-16 border-t border-border/50 shadow-lg backdrop-blur-lg will-change-transform transition-transform duration-180 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isOpen ? "translate-y-0" : "-translate-y-6"
           }`}
         >
