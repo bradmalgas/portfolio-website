@@ -47,6 +47,7 @@ export default function AboutSection() {
                 alt="Brad Malgas"
                 fill
                 className="object-cover object-center"
+                sizes="(max-width: 640px) 13rem, (max-width: 1024px) 15rem, 18rem"
               />
             </div>
 

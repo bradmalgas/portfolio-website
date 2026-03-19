@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
@@ -78,6 +79,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -128,15 +134,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <style id="theme-palettes" dangerouslySetInnerHTML={{ __html: getThemeStyleSheet() }} />
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </head>
       <body
         className={`${GeistSans.className} ${GeistSans.variable} ${GeistMono.variable} antialiased`}
       >
+        <Script id="theme-boot" strategy="beforeInteractive">
+          {themeBootScript}
+        </Script>
+        <Script
+          id="person-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider>
           <ClerkProvider
             signInUrl={blogSignInUrl}

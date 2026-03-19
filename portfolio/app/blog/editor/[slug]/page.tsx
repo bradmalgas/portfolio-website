@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { forbidden, redirect } from "next/navigation";
 
 import EditorForm from "@/app/components/blog/EditorForm";
 import { getAdminAccess } from "@/lib/blog/auth";
@@ -27,18 +27,7 @@ export default async function BlogEditorPage({ params }: BlogEditorPageProps) {
   }
 
   if (!isAdmin) {
-    return (
-      <section className="section-padding">
-        <div className="card mx-auto max-w-2xl p-8 text-center shadow-inner-highlight">
-          <span className="eyebrow">Blog Admin</span>
-          <h1 className="mt-2 text-h2 font-semibold text-ink">Unauthorised</h1>
-          <div className="section-rule mx-auto" />
-          <p className="text-body text-ink-secondary">
-            Your account is signed in, but it is not configured as the blog admin.
-          </p>
-        </div>
-      </section>
-    );
+    forbidden();
   }
 
   const { slug } = await params;

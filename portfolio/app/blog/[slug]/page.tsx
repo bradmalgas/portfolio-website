@@ -129,7 +129,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 alt={`${post.title} cover image`}
                 fill
                 className="object-cover"
-                sizes="100vw"
+                sizes="(max-width: 1024px) 100vw, 64rem"
                 priority
               />
             </div>

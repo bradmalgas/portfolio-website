@@ -578,7 +578,13 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
 
             {coverImage ? (
               <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-border bg-surface">
-                <Image src={coverImage} alt="Cover preview" fill className="object-cover" />
+                <Image
+                  src={coverImage}
+                  alt="Cover preview"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
             ) : (
               <div className="rounded-md border border-dashed border-border p-6 text-body-sm text-ink-tertiary">

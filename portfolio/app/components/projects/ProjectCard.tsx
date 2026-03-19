@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import type { Project } from "./data";
 
@@ -31,6 +29,7 @@ export default function ProjectCard({ id, title, image, description, tags, githu
           alt={title}
           fill
           className="object-cover transition-transform duration-[600ms] ease-in-out group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
         />
         <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-surface-raised to-transparent" />
 

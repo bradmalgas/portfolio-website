@@ -59,6 +59,7 @@ export default function Hero() {
             alt=""
             fill
             className="object-cover object-center"
+            sizes="100vw"
             priority
           />
         </div>

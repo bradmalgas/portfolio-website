@@ -1,7 +1,6 @@
 import { createBlogOpenGraphImage } from "@/lib/blog/opengraph";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
 export const alt = "Brad Malgas Blog";
 export const size = {
   width: 1200,

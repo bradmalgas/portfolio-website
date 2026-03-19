@@ -1,15 +1,38 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+
+function subscribeToReducedMotion(callback: () => void) {
+  const mediaQuery = window.matchMedia(reducedMotionQuery);
+
+  mediaQuery.addEventListener("change", callback);
+
+  return () => {
+    mediaQuery.removeEventListener("change", callback);
+  };
+}
+
+function getReducedMotionSnapshot() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return window.matchMedia(reducedMotionQuery).matches;
+}
 
 export function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
+  const [hasEnteredView, setHasEnteredView] = useState(false);
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotionSnapshot,
+    () => false,
+  );
 
   useEffect(() => {
-    // If the user prefers reduced motion, skip the animation entirely
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setInView(true);
+    if (prefersReducedMotion) {
       return;
     }
 
@@ -19,16 +42,16 @@ export function useInView(threshold = 0.12) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setInView(true);
+          setHasEnteredView(true);
           observer.disconnect(); // animate once only
         }
       },
-      { threshold }
+      { threshold },
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [prefersReducedMotion, threshold]);
 
-  return { ref, inView };
+  return { ref, inView: prefersReducedMotion || hasEnteredView };
 }

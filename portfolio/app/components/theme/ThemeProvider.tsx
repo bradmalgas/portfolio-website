@@ -3,9 +3,8 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -23,44 +22,62 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
+const themeListeners = new Set<() => void>();
 
 function applyTheme(theme: ThemeName) {
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
 }
 
+function subscribeToTheme(listener: () => void) {
+  themeListeners.add(listener);
+
+  return () => {
+    themeListeners.delete(listener);
+  };
+}
+
+function emitThemeChange() {
+  for (const listener of themeListeners) {
+    listener();
+  }
+}
+
+function getThemeSnapshot(): ThemeName {
+  if (typeof document === "undefined") {
+    return DEFAULT_THEME;
+  }
+
+  const nextTheme = document.documentElement.dataset.theme;
+  return nextTheme === "light" || nextTheme === "dark"
+    ? nextTheme
+    : DEFAULT_THEME;
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeName>(DEFAULT_THEME);
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const nextTheme = document.documentElement.dataset.theme;
-    const resolvedTheme = nextTheme === "light" || nextTheme === "dark"
-      ? nextTheme
-      : DEFAULT_THEME;
-
-    applyTheme(resolvedTheme);
-    setThemeState(resolvedTheme);
-    setIsReady(true);
-  }, []);
+  const theme = useSyncExternalStore(
+    subscribeToTheme,
+    getThemeSnapshot,
+    () => DEFAULT_THEME,
+  );
 
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme,
-      isReady,
+      isReady: true,
       setTheme: (nextTheme) => {
-        setThemeState(nextTheme);
         applyTheme(nextTheme);
         window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+        emitThemeChange();
       },
       toggleTheme: () => {
         const nextTheme = theme === "dark" ? "light" : "dark";
-        setThemeState(nextTheme);
         applyTheme(nextTheme);
         window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+        emitThemeChange();
       },
     }),
-    [isReady, theme],
+    [theme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
