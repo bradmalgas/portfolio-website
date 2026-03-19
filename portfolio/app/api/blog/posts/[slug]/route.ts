@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { requireAdminApiUser } from "@/lib/blog/auth";
 import { revalidateBlogContent } from "@/lib/blog/cache";
-import { getPublishedPostBySlug, incrementViewCount } from "@/lib/blog/data";
+import { getPublishedPostBySlug } from "@/lib/blog/data";
 import {
   calculateReadingTimeMinutes,
   ensurePublishedAt,
@@ -29,10 +29,6 @@ export async function GET(_request: NextRequest, context: RouteContext) {
     if (!post) {
       return NextResponse.json({ error: "Post not found." }, { status: 404 });
     }
-
-    incrementViewCount(slug).catch((error) => {
-      console.error(`Failed to increment view count for ${slug}`, error);
-    });
 
     return NextResponse.json(post);
   } catch (error) {

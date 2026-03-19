@@ -3,9 +3,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 import GiscusComments from "@/app/components/blog/GiscusComments";
-import MarkdownRenderer from "@/app/components/blog/MarkdownRenderer";
+import MarkdownArticle from "@/app/components/blog/MarkdownArticle";
+import PostViewTracker from "@/app/components/blog/PostViewTracker";
 import ReactionBar from "@/app/components/blog/ReactionBar";
 import ShareButtons from "@/app/components/blog/ShareButtons";
 import TableOfContents from "@/app/components/blog/TableOfContents";
@@ -13,7 +15,6 @@ import FadeIn from "@/app/components/ui/FadeIn";
 import {
   getAdjacentPublishedPosts,
   getPublishedPostBySlug,
-  incrementViewCount,
 } from "@/lib/blog/data";
 import { formatDate, getPostUrl, getTableOfContents } from "@/lib/blog/utils";
 
@@ -67,9 +68,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const adjacentPosts = await getAdjacentPublishedPosts(post);
-  void incrementViewCount(slug).catch((error) => {
-    console.error(`Failed to increment view count for ${slug}`, error);
-  });
 
   const tableOfContents = getTableOfContents(post.content);
   const hasTableOfContents = tableOfContents.length > 0;
@@ -99,7 +97,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <article className="section-padding">
       <div className="mx-auto max-w-6xl">
-        <script
+        <PostViewTracker slug={post.slug} />
+        <Script
+          id={`article-jsonld-${post.slug}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
         />
@@ -148,7 +148,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           }`}
         >
           <FadeIn eager delay={120} className="min-w-0 space-y-8">
-            <MarkdownRenderer content={post.content} />
+            <MarkdownArticle content={post.content} />
 
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
