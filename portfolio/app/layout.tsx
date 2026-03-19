@@ -121,10 +121,13 @@ const themeBootScript = `
   const defaultTheme = ${JSON.stringify(DEFAULT_THEME)};
   const root = document.documentElement;
   const storedTheme = window.localStorage.getItem(storageKey);
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
   const resolvedTheme =
     storedTheme === "light" || storedTheme === "dark"
       ? storedTheme
-      : defaultTheme;
+      : systemTheme || defaultTheme;
 
   root.dataset.theme = resolvedTheme;
   root.style.colorScheme = resolvedTheme;

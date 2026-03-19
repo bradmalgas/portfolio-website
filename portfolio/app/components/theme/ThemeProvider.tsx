@@ -23,6 +23,28 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 const themeListeners = new Set<() => void>();
+const systemThemeQuery = "(prefers-color-scheme: dark)";
+
+function getStoredThemePreference() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+  return storedTheme === "light" || storedTheme === "dark" ? storedTheme : null;
+}
+
+function getSystemTheme(): ThemeName {
+  if (typeof window === "undefined") {
+    return DEFAULT_THEME;
+  }
+
+  return window.matchMedia(systemThemeQuery).matches ? "dark" : "light";
+}
+
+function resolveThemePreference(): ThemeName {
+  return getStoredThemePreference() ?? getSystemTheme();
+}
 
 function applyTheme(theme: ThemeName) {
   document.documentElement.dataset.theme = theme;
@@ -31,6 +53,40 @@ function applyTheme(theme: ThemeName) {
 
 function subscribeToTheme(listener: () => void) {
   themeListeners.add(listener);
+
+  if (themeListeners.size === 1 && typeof window !== "undefined") {
+    const mediaQuery = window.matchMedia(systemThemeQuery);
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== THEME_STORAGE_KEY) {
+        return;
+      }
+
+      applyTheme(resolveThemePreference());
+      emitThemeChange();
+    };
+
+    const handleSystemThemeChange = () => {
+      if (getStoredThemePreference()) {
+        return;
+      }
+
+      applyTheme(getSystemTheme());
+      emitThemeChange();
+    };
+
+    window.addEventListener("storage", handleStorage);
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+
+    return () => {
+      themeListeners.delete(listener);
+
+      if (themeListeners.size === 0) {
+        window.removeEventListener("storage", handleStorage);
+        mediaQuery.removeEventListener("change", handleSystemThemeChange);
+      }
+    };
+  }
 
   return () => {
     themeListeners.delete(listener);
@@ -51,7 +107,7 @@ function getThemeSnapshot(): ThemeName {
   const nextTheme = document.documentElement.dataset.theme;
   return nextTheme === "light" || nextTheme === "dark"
     ? nextTheme
-    : DEFAULT_THEME;
+    : resolveThemePreference();
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
