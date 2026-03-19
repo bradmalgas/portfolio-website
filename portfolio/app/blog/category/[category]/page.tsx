@@ -18,15 +18,25 @@ interface CategoryPageProps {
   }>;
 }
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const { category } = await params;
+export async function generateMetadata({
+  params,
+  searchParams,
+}: CategoryPageProps): Promise<Metadata> {
+  const [{ category }, query] = await Promise.all([params, searchParams]);
   const decodedCategory = decodeURIComponent(category);
+  const page = parsePositiveInt(query.page, 1);
+  const shouldIndex = !query.search;
+  const canonicalBase = `/blog/category/${encodeURIComponent(decodedCategory)}`;
 
   return {
     title: `${decodedCategory} Posts`,
     description: `Articles in the ${decodedCategory} category on Brad Malgas' blog.`,
     alternates: {
-      canonical: `/blog/category/${encodeURIComponent(decodedCategory)}`,
+      canonical: page > 1 && shouldIndex ? `${canonicalBase}?page=${page}` : canonicalBase,
+    },
+    robots: {
+      index: shouldIndex,
+      follow: shouldIndex,
     },
   };
 }

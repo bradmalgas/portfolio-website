@@ -8,6 +8,12 @@ import { getAdminPosts } from "@/lib/blog/data";
 import { formatDate } from "@/lib/blog/utils";
 
 export const dynamic = "force-dynamic";
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function BlogEditorIndexPage() {
   const { userId, isAdmin } = await getAdminAccess();

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -71,6 +72,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   });
 
   const tableOfContents = getTableOfContents(post.content);
+  const hasTableOfContents = tableOfContents.length > 0;
+  const hasAdjacentPosts = Boolean(adjacentPosts.previous || adjacentPosts.next);
   const postUrl = getPostUrl(post.slug);
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -133,8 +136,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </FadeIn>
         ) : null}
 
-        <div className="mt-12 grid gap-8 xl:grid-cols-[minmax(0,1fr)_18rem]">
-          <FadeIn eager delay={120} className="space-y-8 min-w-0">
+        {hasTableOfContents ? (
+          <div className="mt-8 xl:hidden">
+            <TableOfContents items={tableOfContents} collapsible />
+          </div>
+        ) : null}
+
+        <div
+          className={`mt-12 ${
+            hasTableOfContents ? "grid gap-8 xl:grid-cols-[minmax(0,1fr)_18rem]" : "mx-auto max-w-4xl"
+          }`}
+        >
+          <FadeIn eager delay={120} className="min-w-0 space-y-8">
             <MarkdownRenderer content={post.content} />
 
             <div className="flex flex-wrap gap-2">
@@ -149,52 +162,50 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <ShareButtons title={post.title} url={postUrl} />
             <GiscusComments />
 
-            <nav className="grid gap-4 md:grid-cols-2">
-              <div className="card p-5 shadow-inner-highlight">
-                <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
-                  Previous
-                </p>
+            {hasAdjacentPosts ? (
+              <nav
+                className={`grid gap-4 ${
+                  adjacentPosts.previous && adjacentPosts.next ? "md:grid-cols-2" : ""
+                }`}
+              >
                 {adjacentPosts.previous ? (
-                  <Link
-                    href={`/blog/${adjacentPosts.previous.slug}`}
-                    className="mt-3 block text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
-                  >
-                    {adjacentPosts.previous.title}
-                  </Link>
-                ) : (
-                  <p className="mt-3 text-body text-ink-secondary">
-                    No previous post in this category.
-                  </p>
-                )}
-              </div>
+                  <div className="card p-5 shadow-inner-highlight">
+                    <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
+                      Previous
+                    </p>
+                    <Link
+                      href={`/blog/${adjacentPosts.previous.slug}`}
+                      className="mt-3 flex items-start gap-3 text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
+                    >
+                      <ChevronLeft className="mt-0.5 h-4 w-4 shrink-0" />
+                      {adjacentPosts.previous.title}
+                    </Link>
+                  </div>
+                ) : null}
 
-              <div className="card p-5 shadow-inner-highlight">
-                <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
-                  Next
-                </p>
                 {adjacentPosts.next ? (
-                  <Link
-                    href={`/blog/${adjacentPosts.next.slug}`}
-                    className="mt-3 block text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
-                  >
-                    {adjacentPosts.next.title}
-                  </Link>
-                ) : (
-                  <p className="mt-3 text-body text-ink-secondary">
-                    No next post in this category.
-                  </p>
-                )}
-              </div>
-            </nav>
+                  <div className="card p-5 shadow-inner-highlight">
+                    <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
+                      Next
+                    </p>
+                    <Link
+                      href={`/blog/${adjacentPosts.next.slug}`}
+                      className="mt-3 flex items-start justify-between gap-3 text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
+                    >
+                      <span>{adjacentPosts.next.title}</span>
+                      <ChevronRight className="mt-0.5 h-4 w-4 shrink-0" />
+                    </Link>
+                  </div>
+                ) : null}
+              </nav>
+            ) : null}
           </FadeIn>
 
-          <div className="hidden xl:block">
-            <TableOfContents items={tableOfContents} className="sticky top-24" />
-          </div>
-        </div>
-
-        <div className="mt-8 xl:hidden">
-          <TableOfContents items={tableOfContents} collapsible />
+          {hasTableOfContents ? (
+            <div className="hidden xl:block">
+              <TableOfContents items={tableOfContents} className="sticky top-24" />
+            </div>
+          ) : null}
         </div>
       </div>
     </article>

@@ -12,7 +12,11 @@ export default function BlogSearchInput({
   tag,
 }: BlogSearchInputProps) {
   return (
-    <form action="/blog" method="get" className="card flex items-center gap-3 px-4 py-3 shadow-inner-highlight">
+    <form
+      action="/blog"
+      method="get"
+      className="card flex min-h-11 items-center gap-3 rounded-full px-4 py-1.5 shadow-inner-highlight"
+    >
       {category ? <input type="hidden" name="category" value={category} /> : null}
       {tag ? <input type="hidden" name="tag" value={tag} /> : null}
       <Search aria-hidden="true" className="h-4 w-4 text-accent" />
@@ -24,7 +28,7 @@ export default function BlogSearchInput({
         className="w-full bg-transparent text-body text-ink placeholder:text-ink-tertiary focus:outline-none"
         aria-label="Search blog posts"
       />
-      <button type="submit" className="btn-ghost min-h-11 px-3 py-1.5 text-xs">
+      <button type="submit" className="btn-ghost min-h-9 rounded-full px-3 py-1 text-xs">
         Search
       </button>
     </form>

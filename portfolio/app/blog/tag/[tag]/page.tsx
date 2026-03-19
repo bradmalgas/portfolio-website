@@ -27,6 +27,10 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
     alternates: {
       canonical: `/blog/tag/${encodeURIComponent(decodedTag)}`,
     },
+    robots: {
+      index: false,
+      follow: false,
+    },
   };
 }
 

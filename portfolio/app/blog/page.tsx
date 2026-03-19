@@ -9,31 +9,6 @@ import { BLOG_PAGE_SIZE } from "@/lib/blog/constants";
 import { getPublishedCategories, getPublishedPosts } from "@/lib/blog/data";
 import { parsePositiveInt } from "@/lib/blog/utils";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Writing about side projects, Azure, software architecture, and the things I learn while building.",
-  openGraph: {
-    title: "Blog | Brad Malgas",
-    description:
-      "Writing about side projects, Azure, software architecture, and the things I learn while building.",
-    images: ["/blog/opengraph-image"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blog | Brad Malgas",
-    description:
-      "Writing about side projects, Azure, software architecture, and the things I learn while building.",
-    images: ["/blog/opengraph-image"],
-  },
-  alternates: {
-    canonical: "/blog",
-    types: {
-      "application/rss+xml": [{ url: "/blog/feed.xml", title: "Brad Malgas Blog RSS" }],
-    },
-  },
-};
-
 interface BlogPageProps {
   searchParams: Promise<{
     page?: string;
@@ -41,6 +16,46 @@ interface BlogPageProps {
     search?: string;
     tag?: string;
   }>;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: BlogPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const page = parsePositiveInt(params.page, 1);
+  const isFilteredView = Boolean(params.category || params.tag || params.search);
+  const shouldIndex = !isFilteredView;
+  const canonical =
+    page > 1 && shouldIndex ? `/blog?page=${page}` : "/blog";
+
+  return {
+    title: "Blog",
+    description:
+      "Writing about side projects, Azure, software architecture, and the things I learn while building.",
+    openGraph: {
+      title: "Blog | Brad Malgas",
+      description:
+        "Writing about side projects, Azure, software architecture, and the things I learn while building.",
+      images: ["/blog/opengraph-image"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Blog | Brad Malgas",
+      description:
+        "Writing about side projects, Azure, software architecture, and the things I learn while building.",
+      images: ["/blog/opengraph-image"],
+    },
+    alternates: {
+      canonical,
+      types: {
+        "application/rss+xml": [{ url: "/blog/feed.xml", title: "Brad Malgas Blog RSS" }],
+      },
+    },
+    robots: {
+      index: shouldIndex,
+      follow: shouldIndex,
+    },
+  };
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
@@ -82,20 +97,20 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         </FadeIn>
 
         <FadeIn eager delay={80} className="mt-10">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
+          <div className="grid items-center gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
           <BlogSearchInput
             defaultValue={params.search ?? ""}
             category={params.category}
             tag={params.tag}
           />
-          <div className="-mx-1 overflow-x-auto px-1 pb-2">
-            <div className="flex w-max gap-3">
+          <div className="-mx-1 overflow-x-auto px-1 py-1">
+            <div className="flex w-max items-center gap-3">
             <Link
               href="/blog"
               scroll={false}
               className={`inline-flex min-h-11 min-w-16 items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-all duration-250 ${
                 !activeCategory
-                  ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_rgba(124,110,255,0.18)]"
+                  ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_var(--color-accent-ring)]"
                   : "border-border text-ink-secondary hover:border-accent hover:bg-accent-dim hover:text-ink"
               }`}
             >
@@ -104,11 +119,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             {categories.map((category) => (
               <Link
                 key={category.category}
-                href={`/blog?category=${encodeURIComponent(category.category)}`}
+                href={`/blog/category/${encodeURIComponent(category.category)}`}
                 scroll={false}
                 className={`inline-flex min-h-11 min-w-16 items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-all duration-250 ${
                   activeCategory === category.category
-                    ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_rgba(124,110,255,0.18)]"
+                    ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_var(--color-accent-ring)]"
                     : "border-border text-ink-secondary hover:border-accent hover:bg-accent-dim hover:text-ink"
                 }`}
               >

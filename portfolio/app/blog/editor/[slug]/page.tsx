@@ -6,6 +6,12 @@ import { getAdminPostBySlug, getAllCategoriesForEditor } from "@/lib/blog/data";
 import { serialisePostForEditor } from "@/lib/blog/utils";
 
 export const dynamic = "force-dynamic";
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface BlogEditorPageProps {
   params: Promise<{
