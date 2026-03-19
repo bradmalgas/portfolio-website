@@ -32,13 +32,14 @@ export const metadata: Metadata = {
   description:
     "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-    other: [
+    icon: [
+      { rel: "icon", type: "image/svg+xml", url: "/favicon.svg" },
       { rel: "icon", type: "image/png", sizes: "32x32", url: "/favicon-32x32.png" },
       { rel: "icon", type: "image/png", sizes: "16x16", url: "/favicon-16x16.png" },
+      { rel: "icon", type: "image/x-icon", url: "/favicon.ico" },
     ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Brad Malgas — Senior Software Developer",
