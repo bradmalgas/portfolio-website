@@ -1,15 +1,13 @@
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 
 import type { PostFilters } from "@/types/blog";
-
-const BLOG_REVALIDATE_SECONDS = 60;
 const BLOG_REVALIDATE_PROFILE = "max";
 
 export function withBlogCache<T>(
   keyParts: string[],
   callback: () => Promise<T>,
   tags: string[],
-  revalidate = BLOG_REVALIDATE_SECONDS,
+  revalidate: number | false = false,
 ) {
   return unstable_cache(callback, keyParts, {
     tags,
@@ -31,8 +29,6 @@ export function getPublishedPostsCacheKey(filters: PostFilters) {
 export function getPublishedPostsCacheTags(filters: PostFilters) {
   return [
     "blog:posts",
-    "blog:categories",
-    "blog:tags",
     `blog:status:${filters.status ?? "published"}`,
     `blog:category:${filters.category ?? "*"}`,
     `blog:tag:${filters.tag ?? "*"}`,
