@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import BlogPagination from "@/app/components/blog/BlogPagination";
+import PrefetchRoutes from "@/app/components/blog/PrefetchRoutes";
 import BlogSearchInput from "@/app/components/blog/BlogSearchInput";
 import PostCard from "@/app/components/blog/PostCard";
-import FadeIn from "@/app/components/ui/FadeIn";
 import { BLOG_PAGE_SIZE } from "@/lib/blog/constants";
 import { getPublishedCategories, getPublishedPosts } from "@/lib/blog/data";
 import { parsePositiveInt } from "@/lib/blog/utils";
@@ -75,103 +75,116 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const activeCategory = params.category ?? "";
 
   return (
-    <section className="section-padding">
-      <div className="mx-auto max-w-6xl">
-        <FadeIn eager>
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <span className="eyebrow">Blog</span>
-              <h1 className="mt-2 text-h1 font-bold text-ink">
-                Writing about side projects, Azure, and things I learn.
-              </h1>
-              <div className="section-rule" />
-              <p className="text-body-lg text-ink-secondary">
-                Notes from building software, exploring architecture, and polishing ideas until they become useful.
-              </p>
-            </div>
+      <section
+          id="blog-top"
+          className="section-padding scroll-mt-24 md:scroll-mt-28"
+      >
+          <div className="mx-auto max-w-6xl">
+              <PrefetchRoutes
+                  hrefs={result.posts.map((post) => `/blog/${post.slug}`)}
+              />
+              <div className="flex flex-col gap-6">
+                  <div className="max-w-3xl">
+                      <span className="eyebrow">Blog</span>
+                      <h1 className="mt-2 text-h1 font-bold text-ink">
+                          Writing about side projects, Azure, and things I
+                          learn.
+                      </h1>
+                      <div className="section-rule" />
+                      <p className="text-body-lg text-ink-secondary">
+                          Notes from building software, exploring architecture,
+                          and polishing ideas until they become useful.
+                      </p>
+                  </div>
+              </div>
 
-            <Link href="/blog/feed.xml" className="btn-ghost text-sm">
-              RSS Feed
-            </Link>
-          </div>
-        </FadeIn>
-
-        <FadeIn eager delay={80} className="mt-10">
-          <div className="grid items-center gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
-          <BlogSearchInput
-            defaultValue={params.search ?? ""}
-            category={params.category}
-            tag={params.tag}
-          />
-          <div className="-mx-1 overflow-x-auto px-1 py-1">
-            <div className="flex w-max items-center gap-3">
-            <Link
-              href="/blog"
-              scroll={false}
-              className={`inline-flex min-h-11 min-w-16 items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-all duration-250 ${
-                !activeCategory
-                  ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_var(--color-accent-ring)]"
-                  : "border-border text-ink-secondary hover:border-accent hover:bg-accent-dim hover:text-ink"
-              }`}
-            >
-              All
-            </Link>
-            {categories.map((category) => (
-              <Link
-                key={category.category}
-                href={`/blog/category/${encodeURIComponent(category.category)}`}
-                scroll={false}
-                className={`inline-flex min-h-11 min-w-16 items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-all duration-250 ${
-                  activeCategory === category.category
-                    ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_var(--color-accent-ring)]"
-                    : "border-border text-ink-secondary hover:border-accent hover:bg-accent-dim hover:text-ink"
-                }`}
+              <div
+                  id="post-browser"
+                  className="mt-10 grid scroll-mt-24 items-center gap-4 md:scroll-mt-36 lg:scroll-mt-48 lg:grid-cols-[minmax(0,1fr)_auto]"
               >
-                {category.category} <span className="text-ink-tertiary">({category.count})</span>
-              </Link>
-            ))}
-            </div>
-          </div>
-          </div>
-        </FadeIn>
+                  <BlogSearchInput
+                      defaultValue={params.search ?? ""}
+                      category={params.category}
+                      tag={params.tag}
+                  />
+                  <div className="-mx-1 overflow-x-auto px-1 py-1 no-scrollbar touch-pan-x [webkit-overflow-scrolling:touch]">
+                      <div className="flex w-max items-center gap-3">
+                          <Link
+                              href="/blog#post-browser"
+                              className={`inline-flex min-h-11 min-w-16 shrink-0 select-none items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-colors duration-200 ${
+                                  !activeCategory
+                                      ? "border-accent bg-accent-dim text-ink"
+                                      : "border-border text-ink-secondary md:hover:border-accent md:hover:bg-accent-dim md:hover:text-ink"
+                              }`}
+                          >
+                              All
+                          </Link>
+                          {categories.map((category) => (
+                              <Link
+                                  key={category.category}
+                                  href={`/blog/category/${encodeURIComponent(category.category)}#blog-top`}
+                                  className={`inline-flex min-h-11 min-w-16 shrink-0 select-none items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-colors duration-200 ${
+                                      activeCategory === category.category
+                                          ? "border-accent bg-accent-dim text-ink"
+                                          : "border-border text-ink-secondary md:hover:border-accent md:hover:bg-accent-dim md:hover:text-ink"
+                                  }`}
+                              >
+                                  {category.category}{" "}
+                                  <span className="text-ink-tertiary">
+                                      ({category.count})
+                                  </span>
+                              </Link>
+                          ))}
+                      </div>
+                  </div>
+              </div>
 
-        {params.search ? (
-          <div className="mt-6">
-            <p className="text-body text-ink-secondary">
-              Search results for <span className="text-ink">“{params.search}”</span>
-            </p>
+              {params.search ? (
+                  <div className="mt-6">
+                      <p className="text-body text-ink-secondary">
+                          Search results for{" "}
+                          <span className="text-ink">“{params.search}”</span>
+                      </p>
+                  </div>
+              ) : null}
+
+              {result.posts.length > 0 ? (
+                  <div className="mt-12 grid gap-6 md:grid-cols-2">
+                      {result.posts.map((post, index) => (
+                          <PostCard
+                              key={post.id}
+                              post={post}
+                              prioritizeImage={index < 4}
+                          />
+                      ))}
+                  </div>
+              ) : (
+                  <div className="mt-12">
+                      <div className="card p-8 shadow-inner-highlight">
+                          <h2 className="text-h3 font-semibold text-ink">
+                              No posts found
+                          </h2>
+                          <p className="mt-3 text-body text-ink-secondary">
+                              Try a different search term, clear the filters, or
+                              check back again soon.
+                          </p>
+                      </div>
+                  </div>
+              )}
+
+              <BlogPagination
+                  basePath="/blog"
+                  currentPage={result.page}
+                  pageSize={result.pageSize}
+                  total={result.total}
+                  searchParams={{
+                      category: params.category,
+                      search: params.search,
+                      tag: params.tag,
+                  }}
+                  hash="post-browser"
+              />
           </div>
-        ) : null}
-
-        {result.posts.length > 0 ? (
-          <FadeIn eager delay={120} className="mt-12 grid gap-6 md:grid-cols-2">
-            {result.posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </FadeIn>
-        ) : (
-          <FadeIn eager delay={120} className="mt-12">
-            <div className="card p-8 shadow-inner-highlight">
-              <h2 className="text-h3 font-semibold text-ink">No posts found</h2>
-              <p className="mt-3 text-body text-ink-secondary">
-                Try a different search term, clear the filters, or check back again soon.
-              </p>
-            </div>
-          </FadeIn>
-        )}
-
-        <BlogPagination
-          basePath="/blog"
-          currentPage={result.page}
-          pageSize={result.pageSize}
-          total={result.total}
-          searchParams={{
-            category: params.category,
-            search: params.search,
-            tag: params.tag,
-          }}
-        />
-      </div>
-    </section>
+      </section>
   );
 }

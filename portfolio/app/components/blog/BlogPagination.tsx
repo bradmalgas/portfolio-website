@@ -6,12 +6,14 @@ interface BlogPaginationProps {
   pageSize: number;
   total: number;
   searchParams: Record<string, string | undefined>;
+  hash?: string;
 }
 
 function createHref(
   basePath: string,
   searchParams: Record<string, string | undefined>,
   page: number,
+  hash?: string,
 ) {
   const params = new URLSearchParams();
 
@@ -28,7 +30,8 @@ function createHref(
   }
 
   const query = params.toString();
-  return query ? `${basePath}?${query}` : basePath;
+  const href = query ? `${basePath}?${query}` : basePath;
+  return hash ? `${href}#${hash}` : href;
 }
 
 export default function BlogPagination({
@@ -37,6 +40,7 @@ export default function BlogPagination({
   pageSize,
   total,
   searchParams,
+  hash,
 }: BlogPaginationProps) {
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
@@ -47,7 +51,7 @@ export default function BlogPagination({
   return (
     <div className="mt-12 flex items-center justify-between gap-4">
       <Link
-        href={createHref(basePath, searchParams, currentPage - 1)}
+        href={createHref(basePath, searchParams, currentPage - 1, hash)}
         className={`btn-ghost text-sm ${currentPage <= 1 ? "pointer-events-none opacity-50" : ""}`}
       >
         Previous
@@ -56,7 +60,7 @@ export default function BlogPagination({
         Page {currentPage} of {totalPages}
       </p>
       <Link
-        href={createHref(basePath, searchParams, currentPage + 1)}
+        href={createHref(basePath, searchParams, currentPage + 1, hash)}
         className={`btn-ghost text-sm ${currentPage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
       >
         Next

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import BlogPagination from "@/app/components/blog/BlogPagination";
+import PrefetchRoutes from "@/app/components/blog/PrefetchRoutes";
 import PostCard from "@/app/components/blog/PostCard";
-import FadeIn from "@/app/components/ui/FadeIn";
 import { BLOG_PAGE_SIZE } from "@/lib/blog/constants";
 import { getPublishedPosts } from "@/lib/blog/data";
 import { parsePositiveInt } from "@/lib/blog/utils";
@@ -45,36 +45,35 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
   });
 
   return (
-    <section className="section-padding">
+    <section id="blog-top" className="section-padding scroll-mt-32 md:scroll-mt-28">
       <div className="mx-auto max-w-6xl">
-        <FadeIn eager>
-          <span className="eyebrow">Tag</span>
-          <h1 className="mt-2 text-h1 font-bold text-ink">#{decodedTag}</h1>
-          <div className="section-rule" />
-          <div className="flex flex-wrap items-center gap-4">
-            <p className="text-body-lg text-ink-secondary">
-              {result.total} published {result.total === 1 ? "post" : "posts"} with this tag.
-            </p>
-            <Link href="/blog" className="btn-ghost text-sm" scroll={false}>
-              View all posts
-            </Link>
-          </div>
-        </FadeIn>
+        <PrefetchRoutes hrefs={result.posts.map((post) => `/blog/${post.slug}`)} />
+        <span className="eyebrow">Tag</span>
+        <h1 className="mt-2 text-h1 font-bold text-ink">#{decodedTag}</h1>
+        <div className="section-rule" />
+        <div className="flex flex-wrap items-center gap-4">
+          <p className="text-body-lg text-ink-secondary">
+            {result.total} published {result.total === 1 ? "post" : "posts"} with this tag.
+          </p>
+          <Link href="/blog#post-browser" className="btn-ghost text-sm">
+            View all posts
+          </Link>
+        </div>
 
         {result.posts.length > 0 ? (
-          <FadeIn eager delay={100} className="mt-12 grid gap-6 md:grid-cols-2">
-            {result.posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {result.posts.map((post, index) => (
+              <PostCard key={post.id} post={post} prioritizeImage={index < 4} />
             ))}
-          </FadeIn>
+          </div>
         ) : (
-          <FadeIn eager delay={100} className="mt-12">
+          <div className="mt-12">
             <div className="card p-8 shadow-inner-highlight">
               <p className="text-body text-ink-secondary">
                 There are no published posts with this tag yet.
               </p>
             </div>
-          </FadeIn>
+          </div>
         )}
 
         <BlogPagination
@@ -83,6 +82,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
           pageSize={result.pageSize}
           total={result.total}
           searchParams={{}}
+          hash="blog-top"
         />
       </div>
     </section>

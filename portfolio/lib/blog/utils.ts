@@ -96,16 +96,62 @@ export function getPostUrl(slug: string) {
   return `${getSiteUrl()}/blog/${slug}`;
 }
 
+const LONG_MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+] as const;
+
+const SHORT_MONTH_NAMES = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+
+function getUtcDateParts(date: string) {
+  const value = new Date(date);
+
+  return {
+    day: value.getUTCDate(),
+    monthIndex: value.getUTCMonth(),
+    year: value.getUTCFullYear(),
+  };
+}
+
 export function formatDate(date: string | null | undefined) {
   if (!date) {
     return null;
   }
 
-  return new Intl.DateTimeFormat("en-ZA", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(date));
+  const { day, monthIndex, year } = getUtcDateParts(date);
+  return `${day} ${LONG_MONTH_NAMES[monthIndex]} ${year}`;
+}
+
+export function formatShortDate(date: string | null | undefined) {
+  if (!date) {
+    return null;
+  }
+
+  const { day, monthIndex, year } = getUtcDateParts(date);
+  return `${String(day).padStart(2, "0")} ${SHORT_MONTH_NAMES[monthIndex]} ${year}`;
 }
 
 export interface TocItem {

@@ -93,11 +93,11 @@
 
 @layer components {
   .section-padding {
-    @apply px-6 py-16 md:px-12 md:py-24 lg:px-24 xl:px-40;
+    @apply px-5 py-14 md:px-12 md:py-24 lg:px-24 xl:px-40;
   }
 
   .section-rule {
-    @apply block w-10 h-[3px] rounded-full bg-accent mt-4 mb-10;
+    @apply block h-[3px] w-10 rounded-full bg-accent mt-4 mb-8 md:mb-10;
   }
 
   .eyebrow {
@@ -167,6 +167,15 @@
 }
 
 @layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .blog-prose {
     @apply text-body text-ink-secondary;
   }

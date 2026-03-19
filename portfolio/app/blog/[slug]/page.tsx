@@ -7,11 +7,11 @@ import Script from "next/script";
 
 import GiscusComments from "@/app/components/blog/GiscusComments";
 import MarkdownArticle from "@/app/components/blog/MarkdownArticle";
+import PrefetchRoutes from "@/app/components/blog/PrefetchRoutes";
 import PostViewTracker from "@/app/components/blog/PostViewTracker";
 import ReactionBar from "@/app/components/blog/ReactionBar";
 import ShareButtons from "@/app/components/blog/ShareButtons";
 import TableOfContents from "@/app/components/blog/TableOfContents";
-import FadeIn from "@/app/components/ui/FadeIn";
 import {
   getAdjacentPublishedPosts,
   getPublishedPostBySlug,
@@ -98,32 +98,41 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <article className="section-padding">
       <div className="mx-auto max-w-6xl">
         <PostViewTracker slug={post.slug} />
+        <PrefetchRoutes
+          hrefs={[
+            "/blog",
+            ...(adjacentPosts.previous ? [`/blog/${adjacentPosts.previous.slug}`] : []),
+            ...(adjacentPosts.next ? [`/blog/${adjacentPosts.next.slug}`] : []),
+          ]}
+        />
         <Script
           id={`article-jsonld-${post.slug}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
         />
 
-        <FadeIn eager>
-          <div className="mx-auto max-w-4xl">
-            <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag">
-              {post.category}
-            </Link>
-            <h1 className="mt-6 text-h1 font-bold text-ink">{post.title}</h1>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-body text-ink-secondary">
-              <span>{formatDate(post.published_at)}</span>
-              <span>{post.reading_time_minutes ?? 1} min read</span>
-              <span>{post.view_count} views</span>
-            </div>
-            {post.description ? (
-              <p className="mt-6 text-body-lg text-ink-secondary">{post.description}</p>
-            ) : null}
+        <div className="mx-auto max-w-4xl">
+          <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag">
+            {post.category}
+          </Link>
+          <h1 className="mt-5 max-w-4xl text-h1 font-bold text-ink text-balance sm:mt-6">
+            {post.title}
+          </h1>
+          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-body-sm text-ink-secondary sm:mt-6 sm:text-body">
+            <span>{formatDate(post.published_at)}</span>
+            <span>{post.reading_time_minutes ?? 1} min read</span>
+            <span>{post.view_count} views</span>
           </div>
-        </FadeIn>
+          {post.description ? (
+            <p className="mt-5 max-w-3xl text-body leading-relaxed text-ink-secondary sm:mt-6 sm:text-body-lg">
+              {post.description}
+            </p>
+          ) : null}
+        </div>
 
         {post.cover_image ? (
-          <FadeIn eager delay={80} className="mx-auto mt-10 max-w-5xl">
-            <div className="relative aspect-[16/8] overflow-hidden rounded-lg border border-border shadow-lg">
+          <div className="mx-auto mt-10 max-w-5xl">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-lg border border-border shadow-lg sm:aspect-[16/8]">
               <Image
                 src={post.cover_image}
                 alt={`${post.title} cover image`}
@@ -133,7 +142,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 priority
               />
             </div>
-          </FadeIn>
+          </div>
         ) : null}
 
         {hasTableOfContents ? (
@@ -147,7 +156,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             hasTableOfContents ? "grid gap-8 xl:grid-cols-[minmax(0,1fr)_18rem]" : "mx-auto max-w-4xl"
           }`}
         >
-          <FadeIn eager delay={120} className="min-w-0 space-y-8">
+          <div className="min-w-0 space-y-8">
             <MarkdownArticle content={post.content} />
 
             <div className="flex flex-wrap gap-2">
@@ -199,7 +208,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 ) : null}
               </nav>
             ) : null}
-          </FadeIn>
+          </div>
 
           {hasTableOfContents ? (
             <div className="hidden xl:block">
