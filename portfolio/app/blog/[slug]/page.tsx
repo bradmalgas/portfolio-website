@@ -8,7 +8,6 @@ import MarkdownRenderer from "@/app/components/blog/MarkdownRenderer";
 import ReactionBar from "@/app/components/blog/ReactionBar";
 import ShareButtons from "@/app/components/blog/ShareButtons";
 import TableOfContents from "@/app/components/blog/TableOfContents";
-import FadeIn from "@/app/components/ui/FadeIn";
 import {
   getAdjacentPublishedPosts,
   getPublishedPostBySlug,
@@ -76,25 +75,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <article className="section-padding">
       <div className="mx-auto max-w-6xl">
-        <FadeIn>
-          <div className="mx-auto max-w-4xl">
-            <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag">
-              {post.category}
-            </Link>
-            <h1 className="mt-6 text-h1 font-bold text-ink">{post.title}</h1>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-body text-ink-secondary">
-              <span>{formatDate(post.published_at)}</span>
-              <span>{post.reading_time_minutes ?? 1} min read</span>
-              <span>{post.view_count} views</span>
-            </div>
-            {post.description ? (
-              <p className="mt-6 text-body-lg text-ink-secondary">{post.description}</p>
-            ) : null}
+        <div className="mx-auto max-w-4xl">
+          <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag">
+            {post.category}
+          </Link>
+          <h1 className="mt-6 text-h1 font-bold text-ink">{post.title}</h1>
+          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-body text-ink-secondary">
+            <span>{formatDate(post.published_at)}</span>
+            <span>{post.reading_time_minutes ?? 1} min read</span>
+            <span>{post.view_count} views</span>
           </div>
-        </FadeIn>
+          {post.description ? (
+            <p className="mt-6 text-body-lg text-ink-secondary">{post.description}</p>
+          ) : null}
+        </div>
 
         {post.cover_image ? (
-          <FadeIn delay={80} className="mx-auto mt-10 max-w-5xl">
+          <div className="mx-auto mt-10 max-w-5xl">
             <div className="relative aspect-[16/8] overflow-hidden rounded-lg border border-border shadow-lg">
               <Image
                 src={post.cover_image}
@@ -105,69 +102,67 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 priority
               />
             </div>
-          </FadeIn>
+          </div>
         ) : null}
 
         <div className="mt-12 grid gap-8 xl:grid-cols-[minmax(0,1fr)_18rem]">
-          <FadeIn delay={120}>
-            <div className="space-y-8">
-              <MarkdownRenderer content={post.content} />
+          <div className="space-y-8">
+            <MarkdownRenderer content={post.content} />
 
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <Link key={tag} href={`/blog/tag/${encodeURIComponent(tag)}`} className="tag">
-                    {tag}
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <Link key={tag} href={`/blog/tag/${encodeURIComponent(tag)}`} className="tag">
+                  {tag}
+                </Link>
+              ))}
+            </div>
+
+            <ReactionBar slug={post.slug} />
+            <ShareButtons title={post.title} url={postUrl} />
+            <GiscusComments />
+
+            <nav className="grid gap-4 md:grid-cols-2">
+              <div className="card p-5 shadow-inner-highlight">
+                <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
+                  Previous
+                </p>
+                {adjacentPosts.previous ? (
+                  <Link
+                    href={`/blog/${adjacentPosts.previous.slug}`}
+                    className="mt-3 block text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
+                  >
+                    {adjacentPosts.previous.title}
                   </Link>
-                ))}
+                ) : (
+                  <p className="mt-3 text-body text-ink-secondary">
+                    No previous post in this category.
+                  </p>
+                )}
               </div>
 
-              <ReactionBar slug={post.slug} />
-              <ShareButtons title={post.title} url={postUrl} />
-              <GiscusComments />
-
-              <nav className="grid gap-4 md:grid-cols-2">
-                <div className="card p-5 shadow-inner-highlight">
-                  <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
-                    Previous
+              <div className="card p-5 shadow-inner-highlight">
+                <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
+                  Next
+                </p>
+                {adjacentPosts.next ? (
+                  <Link
+                    href={`/blog/${adjacentPosts.next.slug}`}
+                    className="mt-3 block text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
+                  >
+                    {adjacentPosts.next.title}
+                  </Link>
+                ) : (
+                  <p className="mt-3 text-body text-ink-secondary">
+                    No next post in this category.
                   </p>
-                  {adjacentPosts.previous ? (
-                    <Link
-                      href={`/blog/${adjacentPosts.previous.slug}`}
-                      className="mt-3 block text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
-                    >
-                      {adjacentPosts.previous.title}
-                    </Link>
-                  ) : (
-                    <p className="mt-3 text-body text-ink-secondary">
-                      No previous post in this category.
-                    </p>
-                  )}
-                </div>
+                )}
+              </div>
+            </nav>
+          </div>
 
-                <div className="card p-5 shadow-inner-highlight">
-                  <p className="text-body-sm uppercase tracking-widest text-ink-tertiary">
-                    Next
-                  </p>
-                  {adjacentPosts.next ? (
-                    <Link
-                      href={`/blog/${adjacentPosts.next.slug}`}
-                      className="mt-3 block text-body font-medium text-ink transition-colors duration-250 hover:text-accent-hover"
-                    >
-                      {adjacentPosts.next.title}
-                    </Link>
-                  ) : (
-                    <p className="mt-3 text-body text-ink-secondary">
-                      No next post in this category.
-                    </p>
-                  )}
-                </div>
-              </nav>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={150} className="hidden xl:block">
+          <div className="hidden xl:block">
             <TableOfContents items={tableOfContents} />
-          </FadeIn>
+          </div>
         </div>
 
         <div className="mt-8 xl:hidden">

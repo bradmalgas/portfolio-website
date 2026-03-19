@@ -8,18 +8,39 @@ const CV_URL =
 
 export default function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
 
     const handleScroll = () => {
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+      lastScrollYRef.current = window.scrollY;
+
+      if (frameRef.current !== null) {
+        return;
       }
+
+      frameRef.current = window.requestAnimationFrame(() => {
+        frameRef.current = null;
+
+        if (bgRef.current) {
+          bgRef.current.style.transform = `translateY(${lastScrollYRef.current * 0.18}px)`;
+        }
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (

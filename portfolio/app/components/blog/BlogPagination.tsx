@@ -48,6 +48,7 @@ export default function BlogPagination({
     <div className="mt-12 flex items-center justify-between gap-4">
       <Link
         href={createHref(basePath, searchParams, currentPage - 1)}
+        scroll={false}
         className={`btn-ghost text-sm ${currentPage <= 1 ? "pointer-events-none opacity-50" : ""}`}
       >
         Previous
@@ -57,6 +58,7 @@ export default function BlogPagination({
       </p>
       <Link
         href={createHref(basePath, searchParams, currentPage + 1)}
+        scroll={false}
         className={`btn-ghost text-sm ${currentPage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
       >
         Next
