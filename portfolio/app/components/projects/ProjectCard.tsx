@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Project } from "./data";
 
 // Inline SVGs — no external icon lib required
@@ -16,11 +17,18 @@ const ExternalLinkIcon = () => (
   </svg>
 );
 
-export default function ProjectCard({ id, title, image, description, tags, githubLink, blogLink }: Project) {
+export default function ProjectCard({
+  id,
+  title,
+  image,
+  description,
+  tags,
+  githubLink,
+  blogLink,
+  blogLinkLabel = "Build Write-up",
+}: Project) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border
-                        shadow transition-all duration-350
-                        hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow">
+    <article className="relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border shadow transition-colors duration-250 hover:border-accent/30">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.015)_0%,transparent_28%)] pointer-events-none" />
 
       <div className="relative aspect-video overflow-hidden bg-surface">
@@ -28,10 +36,10 @@ export default function ProjectCard({ id, title, image, description, tags, githu
           src={image}
           alt={title}
           fill
-          className="object-cover transition-transform duration-[600ms] ease-in-out group-hover:scale-105"
+          className="scale-[1.015] object-cover"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
         />
-        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-surface-raised to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-surface-raised via-surface-raised/70 to-transparent" />
 
         <span className="absolute top-3 left-3 rounded-full border border-accent/20 bg-background/80 px-3 py-1 text-label font-semibold tracking-wide text-accent backdrop-blur-sm">
           {id}
@@ -39,7 +47,7 @@ export default function ProjectCard({ id, title, image, description, tags, githu
       </div>
 
       <div className="flex flex-col flex-1 p-5 gap-3">
-        <h3 className="font-display text-[1.45rem] font-semibold leading-tight tracking-[-0.03em] text-ink transition-colors duration-250 group-hover:text-accent">
+        <h3 className="font-display text-[1.45rem] font-semibold leading-tight tracking-[-0.03em] text-ink">
           {title}
         </h3>
 
@@ -66,16 +74,15 @@ export default function ProjectCard({ id, title, image, description, tags, githu
             <GithubIcon />
             View Code
           </a>
-          <span className="text-border">·</span>
-          <a
-            href={blogLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="metal-link"
-          >
-            <ExternalLinkIcon />
-            Read More
-          </a>
+          {blogLink ? (
+            <>
+              <span className="text-border">·</span>
+              <Link href={blogLink} className="metal-link">
+                <ExternalLinkIcon />
+                {blogLinkLabel}
+              </Link>
+            </>
+          ) : null}
         </div>
       </div>
     </article>
