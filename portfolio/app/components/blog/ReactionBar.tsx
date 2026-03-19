@@ -23,13 +23,38 @@ function getSessionId() {
 }
 
 export default function ReactionBar({ slug }: ReactionBarProps) {
+  const [isVisible, setIsVisible] = useState(false);
   const [counts, setCounts] = useState<ReactionCount[]>(
     BLOG_REACTIONS.map((emoji) => ({ emoji, count: 0 })),
   );
   const [busyEmoji, setBusyEmoji] = useState<ReactionEmoji | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!container) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [container]);
+
+  useEffect(() => {
+    if (!isVisible) {
+      return;
+    }
+
     async function loadCounts() {
       try {
         const response = await fetch(`/api/blog/posts/${slug}/reactions`);
@@ -46,7 +71,7 @@ export default function ReactionBar({ slug }: ReactionBarProps) {
     }
 
     loadCounts();
-  }, [slug]);
+  }, [isVisible, slug]);
 
   const countMap = useMemo(
     () => new Map(counts.map((entry) => [entry.emoji, entry.count])),
@@ -102,13 +127,14 @@ export default function ReactionBar({ slug }: ReactionBarProps) {
   }
 
   return (
-    <div className="card space-y-4 p-5 shadow-inner-highlight">
+    <div ref={setContainer} className="card space-y-4 p-5 shadow-inner-highlight">
       <div className="flex flex-wrap gap-3">
         {BLOG_REACTIONS.map((emoji) => (
           <button
             key={emoji}
             type="button"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-body-sm text-ink-secondary transition-all duration-250 hover:border-accent hover:bg-accent-dim hover:text-ink"
+            aria-label={`React with ${emoji}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-body-sm text-ink-secondary transition-all duration-250 hover:scale-105 hover:border-accent hover:bg-accent-dim hover:text-ink"
             onClick={() => handleReaction(emoji)}
             disabled={busyEmoji === emoji}
           >
@@ -118,6 +144,7 @@ export default function ReactionBar({ slug }: ReactionBarProps) {
         ))}
       </div>
 
+      {!isVisible ? <p className="text-body-sm text-ink-secondary">Loading reactions…</p> : null}
       {message ? <p className="text-body-sm text-ink-tertiary">{message}</p> : null}
     </div>
   );

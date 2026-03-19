@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Clock3, Eye, Loader2, Save, Upload } from "lucide-react";
+import { Clock3, Eye, Loader2, Monitor, Save, Smartphone, Upload } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import MarkdownRenderer from "@/app/components/blog/MarkdownRenderer";
 import ToastMarkdownEditor from "@/app/components/blog/ToastMarkdownEditor";
 import Select from "@/app/components/ui/Select";
 import {
@@ -98,6 +99,8 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
   const [isSaving, setIsSaving] = useState(false);
   const [isAutoSaving, setIsAutoSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [showMobilePreview, setShowMobilePreview] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const effectiveCategory = customCategory.trim() || selectedCategory.trim();
   const currentSlug = slug.trim() || slugify(title);
@@ -339,6 +342,22 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
   }, []);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1023px)");
+
+    const syncViewport = () => {
+      setIsMobileViewport(mediaQuery.matches);
+      if (!mediaQuery.matches) {
+        setShowMobilePreview(false);
+      }
+    };
+
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+
+    return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
+
+  useEffect(() => {
     const intervalId = window.setInterval(() => {
       if (!isDirty) {
         return;
@@ -469,6 +488,7 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
                 setCustomCategory("");
                 markDirty();
               }}
+              ariaLabel="Existing category"
               options={categories.map((category) => ({
                 value: category,
                 label: category,
@@ -511,6 +531,7 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
                 setStatus(value as PostStatus);
                 markDirty();
               }}
+              ariaLabel="Post status"
               options={STATUS_OPTIONS}
             />
           </div>
@@ -551,6 +572,7 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
                   type="file"
                   accept="image/*"
                   className="hidden"
+                  aria-label="Upload cover image"
                   onChange={(event) => {
                     const file = event.target.files?.[0];
                     if (file) {
@@ -600,10 +622,39 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
 
       <section className="card overflow-hidden shadow-inner-highlight">
         <div className="border-b border-border px-4 py-3">
-          <h2 className="text-h4 font-semibold text-ink">Markdown Editor</h2>
-          <p className="mt-1 text-body-sm text-ink-tertiary">
-            Split view is handled by the editor engine, with synced scrolling between markdown and preview.
-          </p>
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-h4 font-semibold text-ink">Markdown Editor</h2>
+              <p className="mt-1 text-body-sm text-ink-tertiary">
+                {isMobileViewport
+                  ? "On mobile the editor stays on top, with a preview toggle below."
+                  : "Split view is handled by the editor engine, with synced scrolling between markdown and preview."}
+              </p>
+            </div>
+
+            <div className="inline-flex w-full rounded-md border border-border bg-surface p-1 lg:hidden">
+              <button
+                type="button"
+                className={`inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-sm px-3 py-2 text-sm transition-colors duration-250 ${
+                  !showMobilePreview ? "bg-accent-dim text-ink" : "text-ink-secondary hover:text-ink"
+                }`}
+                onClick={() => setShowMobilePreview(false)}
+              >
+                <Smartphone className="h-4 w-4" />
+                Editor
+              </button>
+              <button
+                type="button"
+                className={`inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-sm px-3 py-2 text-sm transition-colors duration-250 ${
+                  showMobilePreview ? "bg-accent-dim text-ink" : "text-ink-secondary hover:text-ink"
+                }`}
+                onClick={() => setShowMobilePreview(true)}
+              >
+                <Monitor className="h-4 w-4" />
+                Preview
+              </button>
+            </div>
+          </div>
         </div>
         <div className="p-4">
           <ToastMarkdownEditor
@@ -613,7 +664,26 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
               setIsDirty(true);
             }}
             onUploadImage={handleUploadImage}
+            splitView={!isMobileViewport}
           />
+        </div>
+
+        <div className="border-t border-border p-4 lg:hidden">
+          <button
+            type="button"
+            className="btn-ghost mb-4 inline-flex min-h-11 items-center gap-2 px-4 py-2 text-sm"
+            onClick={() => setShowMobilePreview((value) => !value)}
+            aria-expanded={showMobilePreview}
+          >
+            <Monitor className="h-4 w-4" />
+            {showMobilePreview ? "Hide preview" : "Show preview"}
+          </button>
+
+          {showMobilePreview ? (
+            <div className="rounded-md border border-border bg-surface-raised p-4">
+              <MarkdownRenderer content={content} />
+            </div>
+          ) : null}
         </div>
       </section>
     </div>

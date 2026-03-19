@@ -13,6 +13,7 @@ interface SelectProps {
   onValueChange: (value: string) => void;
   options: SelectOption[];
   placeholder?: string;
+  ariaLabel?: string;
 }
 
 export default function Select({
@@ -20,10 +21,14 @@ export default function Select({
   onValueChange,
   options,
   placeholder = "Select an option",
+  ariaLabel,
 }: SelectProps) {
   return (
     <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
-      <SelectPrimitive.Trigger className="blog-input inline-flex items-center justify-between gap-3">
+      <SelectPrimitive.Trigger
+        className="blog-input inline-flex min-h-11 items-center justify-between gap-3"
+        aria-label={ariaLabel}
+      >
         <SelectPrimitive.Value placeholder={placeholder} />
         <SelectPrimitive.Icon className="text-ink-tertiary">
           <ChevronDown className="h-4 w-4" />

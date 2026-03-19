@@ -9,6 +9,7 @@ interface ToastMarkdownEditorProps {
   onUploadImage: (file: File) => Promise<string>;
   placeholder?: string;
   height?: string;
+  splitView?: boolean;
 }
 
 const TOOLBAR_ITEMS = [
@@ -25,6 +26,7 @@ export default function ToastMarkdownEditor({
   onUploadImage,
   placeholder = "Write your markdown here...",
   height = "720px",
+  splitView = true,
 }: ToastMarkdownEditorProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const editorRef = useRef<ToastEditorInstance | null>(null);
@@ -61,8 +63,8 @@ export default function ToastMarkdownEditor({
         minHeight: "640px",
         initialValue: initialValueRef.current,
         initialEditType: "markdown",
-        previewStyle: "vertical",
-        hideModeSwitch: true,
+        previewStyle: splitView ? "vertical" : "tab",
+        hideModeSwitch: !splitView,
         placeholder,
         usageStatistics: false,
         autofocus: false,
@@ -94,7 +96,7 @@ export default function ToastMarkdownEditor({
       editorRef.current?.destroy();
       editorRef.current = null;
     };
-  }, [height, placeholder]);
+  }, [height, placeholder, splitView]);
 
   useEffect(() => {
     const instance = editorRef.current;
