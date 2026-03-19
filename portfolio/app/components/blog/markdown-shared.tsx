@@ -73,6 +73,19 @@ export function createMarkdownComponents(): Components {
         alt={alt.trim() || "Illustration from the article"}
       />
     ),
+    blockquote: ({ children }) => {
+      return (
+        <blockquote className="blog-quote">
+          <span className="blog-quote__mark" aria-hidden="true">
+            &ldquo;
+          </span>
+          <div className="blog-quote__content">{children}</div>
+          <span className="blog-quote__mark blog-quote__mark--closing" aria-hidden="true">
+            &rdquo;
+          </span>
+        </blockquote>
+      );
+    },
     pre: ({ children }) => (
       <CodeBlock
         code={extractText(children)}

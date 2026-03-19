@@ -1,5 +1,48 @@
 .container {
+  position: relative;
   overflow: hidden;
+  border-color: rgb(var(--code-border-rgb));
+  background: linear-gradient(
+    180deg,
+    rgb(var(--code-surface-top-rgb)) 0%,
+    rgb(var(--code-surface-rgb)) 100%
+  );
+  box-shadow: var(--code-shadow);
+}
+
+.container::before {
+  content: none !important;
+  display: none !important;
+}
+
+.toolbar {
+  border-bottom: 1px solid rgb(var(--code-border-rgb));
+  background: rgb(var(--code-surface-top-rgb) / 0.98);
+}
+
+.copyButton {
+  border: 1px solid rgb(var(--code-border-rgb));
+  background: rgb(var(--code-button-rgb));
+  color: rgb(var(--code-ink-rgb));
+}
+
+.copyButton:hover {
+  border-color: rgb(var(--code-accent-rgb));
+  background: rgb(var(--code-button-hover-rgb));
+}
+
+.codeSurface {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgb(var(--code-accent-rgb) / 0.08) 0%,
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(var(--code-surface-rgb)) 0%,
+      rgb(var(--code-surface-rgb)) 100%
+    );
 }
 
 .codeScroll {
@@ -16,50 +59,50 @@
   min-width: 100%;
   overflow-x: auto;
   white-space: pre;
-  background: transparent;
-  color: rgb(var(--color-ink-rgb));
+  background: transparent !important;
+  color: rgb(var(--code-ink-rgb));
 }
 
-.codeScroll :global(.hljs-comment),
-.codeScroll :global(.hljs-quote) {
-  color: rgb(var(--color-ink-tertiary-rgb));
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-comment),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-quote) {
+  color: rgb(var(--code-syntax-comment-rgb));
 }
 
-.codeScroll :global(.hljs-keyword),
-.codeScroll :global(.hljs-selector-tag),
-.codeScroll :global(.hljs-literal),
-.codeScroll :global(.hljs-section),
-.codeScroll :global(.hljs-link) {
-  color: rgb(var(--color-syntax-accent-rgb));
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-keyword),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-selector-tag),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-literal),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-section),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-link) {
+  color: rgb(var(--code-syntax-keyword-rgb));
 }
 
-.codeScroll :global(.hljs-string),
-.codeScroll :global(.hljs-title),
-.codeScroll :global(.hljs-name),
-.codeScroll :global(.hljs-attribute),
-.codeScroll :global(.hljs-symbol),
-.codeScroll :global(.hljs-bullet),
-.codeScroll :global(.hljs-addition) {
-  color: rgb(var(--color-syntax-string-rgb));
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-string),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-title),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-name),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-attribute),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-symbol),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-bullet),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-addition) {
+  color: rgb(var(--code-syntax-string-rgb));
 }
 
-.codeScroll :global(.hljs-number),
-.codeScroll :global(.hljs-meta),
-.codeScroll :global(.hljs-built_in),
-.codeScroll :global(.hljs-builtin-name),
-.codeScroll :global(.hljs-type),
-.codeScroll :global(.hljs-params) {
-  color: rgb(var(--color-syntax-number-rgb));
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-number),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-meta),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-built_in),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-builtin-name),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-type),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-params) {
+  color: rgb(var(--code-syntax-number-rgb));
 }
 
-.codeScroll :global(.hljs-variable),
-.codeScroll :global(.hljs-template-variable),
-.codeScroll :global(.hljs-selector-class),
-.codeScroll :global(.hljs-selector-attr),
-.codeScroll :global(.hljs-selector-pseudo) {
-  color: rgb(var(--color-syntax-variable-rgb));
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-variable),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-template-variable),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-selector-class),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-selector-attr),
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-selector-pseudo) {
+  color: rgb(var(--code-syntax-variable-rgb));
 }
 
-.codeScroll :global(.hljs-deletion) {
-  color: rgb(var(--color-syntax-deletion-rgb));
+:global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-deletion) {
+  color: rgb(var(--code-syntax-deletion-rgb));
 }
