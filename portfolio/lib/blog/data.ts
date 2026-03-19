@@ -96,6 +96,7 @@ export async function getPublishedPostBySlug(slug: string) {
       const { data, error } = await supabase
         .from("posts")
         .select(BLOG_POST_SELECT)
+        .eq("status", "published")
         .eq("slug", slug)
         .single();
 

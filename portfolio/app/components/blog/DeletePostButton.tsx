@@ -1,5 +1,6 @@
 "use client";
 
+import { deletePostAction } from "@/app/blog/editor/actions";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
@@ -24,12 +25,10 @@ export default function DeletePostButton({ slug }: DeletePostButtonProps) {
     startTransition(async () => {
       setError(null);
 
-      const response = await fetch(`/api/blog/posts/${slug}`, {
-        method: "DELETE",
-      });
+      const result = await deletePostAction(slug);
 
-      if (!response.ok) {
-        setError("Delete failed.");
+      if (!result.ok) {
+        setError(result.error);
         return;
       }
 

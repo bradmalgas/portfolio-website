@@ -157,7 +157,12 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
 
   const { slug } = await context.params;
 
-  const { error } = await getSupabaseAdminClient().from("posts").delete().eq("slug", slug);
+  const { data, error } = await getSupabaseAdminClient()
+    .from("posts")
+    .delete()
+    .eq("slug", slug)
+    .select("slug,category,tags")
+    .single();
 
   if (error) {
     console.error(`Failed to delete post ${slug}`, error);
@@ -167,7 +172,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
     );
   }
 
-  revalidateBlogContent(slug);
+  revalidateBlogContent(data.slug, data.category, data.tags ?? []);
 
   return new NextResponse(null, { status: 204 });
 }

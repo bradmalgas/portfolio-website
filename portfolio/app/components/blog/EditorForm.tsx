@@ -10,6 +10,11 @@ import MarkdownRenderer from "@/app/components/blog/MarkdownRenderer";
 import ToastMarkdownEditor from "@/app/components/blog/ToastMarkdownEditor";
 import Select from "@/app/components/ui/Select";
 import {
+  createPostAction,
+  updatePostAction,
+  uploadPostImageAction,
+} from "@/app/blog/editor/actions";
+import {
   calculateReadingTimeMinutes,
   getWordAndCharacterCount,
   slugify,
@@ -238,31 +243,23 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
 
     try {
       const isNew = !persistedSlug;
-      const endpoint = isNew ? "/api/blog/posts" : `/api/blog/posts/${persistedSlug}`;
-      const method = isNew ? "POST" : "PUT";
+      const result = isNew
+        ? await createPostAction(payload)
+        : await updatePostAction(persistedSlug, payload);
 
-      const response = await fetch(endpoint, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: "Save failed." }));
+      if (!result.ok) {
 
         if (!options.autosave) {
           setSaveMessage({
             type: "error",
-            text: error.error ?? "Save failed.",
+            text: result.error,
           });
         }
 
         return null;
       }
 
-      const savedPost = (await response.json()) as { slug: string; status: PostStatus };
+      const savedPost = result.data;
       const nextEditorPath = `/blog/editor/${savedPost.slug}`;
 
       window.localStorage.removeItem(draftStorageKey);
@@ -319,23 +316,19 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("/api/blog/uploads", {
-        method: "POST",
-        body: formData,
-      });
+      const result = await uploadPostImageAction(formData);
 
-      if (!response.ok) {
-        throw new Error("Image upload failed.");
+      if (!result.ok) {
+        throw new Error(result.error);
       }
 
-      const data = (await response.json()) as { url: string };
-      setCoverImage(data.url);
+      setCoverImage(result.data.url);
       setIsDirty(true);
       setSaveMessage({
         type: "success",
         text: "Image uploaded.",
       });
-      return data.url;
+      return result.data.url;
     } finally {
       setIsUploading(false);
     }

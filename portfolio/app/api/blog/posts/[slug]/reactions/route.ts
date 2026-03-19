@@ -13,6 +13,7 @@ async function getPublishedPostId(slug: string) {
   const { data, error } = await supabase
     .from("posts")
     .select("id")
+    .eq("status", "published")
     .eq("slug", slug)
     .single();
 

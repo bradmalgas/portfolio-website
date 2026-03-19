@@ -19,6 +19,15 @@ import type { PostInsert } from "@/types/blog";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const statusParam = searchParams.get("status");
+  const requestedStatus = isPostStatus(statusParam) ? statusParam : "published";
+
+  if (requestedStatus !== "published") {
+    const authResult = await requireAdminApiUser();
+
+    if ("error" in authResult) {
+      return authResult.error;
+    }
+  }
 
   try {
     const result = await getPublishedPosts({
@@ -27,7 +36,7 @@ export async function GET(request: NextRequest) {
       category: searchParams.get("category") || undefined,
       tag: searchParams.get("tag") || undefined,
       search: searchParams.get("search") || undefined,
-      status: isPostStatus(statusParam) ? statusParam : "published",
+      status: requestedStatus,
     });
 
     return NextResponse.json(result);
