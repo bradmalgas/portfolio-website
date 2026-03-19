@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
@@ -12,6 +10,10 @@ import {
   THEME_STORAGE_KEY,
   getThemeStyleSheet,
 } from "@/lib/theme/palette";
+import {
+  getTypographyStyleSheet,
+  themeFontVariables,
+} from "@/lib/theme/typography";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
 const blogSignInUrl = "/blog/sign-in";
@@ -131,13 +133,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={themeFontVariables}
+    >
       <head>
         <style id="theme-palettes" dangerouslySetInnerHTML={{ __html: getThemeStyleSheet() }} />
+        <style
+          id="theme-typography"
+          dangerouslySetInnerHTML={{ __html: getTypographyStyleSheet() }}
+        />
       </head>
-      <body
-        className={`${GeistSans.className} ${GeistSans.variable} ${GeistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <Script id="theme-boot" strategy="beforeInteractive">
           {themeBootScript}
         </Script>

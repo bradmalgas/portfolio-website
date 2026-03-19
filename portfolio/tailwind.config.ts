@@ -35,15 +35,23 @@ export default {
 
       // ── Typography ───────────────────────────────────────────────────────
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+        sans: [
+          "var(--font-sans-theme)",
+          "var(--font-geist-sans)",
+          "system-ui",
+          "sans-serif",
+        ],
+        mono: [
+          "var(--font-mono-theme)",
+          "var(--font-geist-mono)",
+          "ui-monospace",
+          "monospace",
+        ],
         display: [
           "var(--font-display)",
-          "Iowan Old Style",
-          "Palatino Linotype",
-          "Book Antiqua",
-          "Georgia",
-          "serif",
+          "var(--font-geist-sans)",
+          "system-ui",
+          "sans-serif",
         ],
       },
       fontSize: {

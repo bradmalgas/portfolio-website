@@ -25,7 +25,7 @@ export default function TableOfContents({
   return (
     <aside className={`card h-fit overflow-hidden p-4 shadow-inner-highlight ${className}`.trim()}>
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-accent">
+        <h2 className="font-sans text-sm font-semibold uppercase tracking-widest text-accent">
           On This Page
         </h2>
         {collapsible ? (
