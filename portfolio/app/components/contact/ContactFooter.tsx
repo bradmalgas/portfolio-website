@@ -1,4 +1,5 @@
 import FadeIn from "../ui/FadeIn";
+import Link from "next/link";
 
 const LINKS = {
   github: "https://github.com/bradmalgas",
@@ -128,6 +129,12 @@ export default function ContactFooter() {
             <p className="text-xs text-ink-secondary mt-0.5">
               Senior Software Developer · Azure · C# · .NET
             </p>
+            <Link
+              href="/blog"
+              className="mt-2 inline-flex text-xs text-ink-tertiary transition-colors duration-200 hover:text-accent"
+            >
+              Read the blog
+            </Link>
           </div>
 
           <div className="flex items-center gap-4">

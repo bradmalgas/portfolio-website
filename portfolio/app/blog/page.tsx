@@ -4,6 +4,7 @@ import Link from "next/link";
 import BlogPagination from "@/app/components/blog/BlogPagination";
 import BlogSearchInput from "@/app/components/blog/BlogSearchInput";
 import PostCard from "@/app/components/blog/PostCard";
+import FadeIn from "@/app/components/ui/FadeIn";
 import { BLOG_PAGE_SIZE } from "@/lib/blog/constants";
 import { getPublishedCategories, getPublishedPosts } from "@/lib/blog/data";
 import { parsePositiveInt } from "@/lib/blog/utils";
@@ -61,37 +62,41 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <section className="section-padding">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
-            <span className="eyebrow">Blog</span>
-            <h1 className="mt-2 text-h1 font-bold text-ink">
-              Writing about side projects, Azure, and things I learn.
-            </h1>
-            <div className="section-rule" />
-            <p className="text-body-lg text-ink-secondary">
-              Notes from building software, exploring architecture, and polishing ideas until they become useful.
-            </p>
+        <FadeIn eager>
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <span className="eyebrow">Blog</span>
+              <h1 className="mt-2 text-h1 font-bold text-ink">
+                Writing about side projects, Azure, and things I learn.
+              </h1>
+              <div className="section-rule" />
+              <p className="text-body-lg text-ink-secondary">
+                Notes from building software, exploring architecture, and polishing ideas until they become useful.
+              </p>
+            </div>
+
+            <Link href="/blog/feed.xml" className="btn-ghost text-sm">
+              RSS Feed
+            </Link>
           </div>
+        </FadeIn>
 
-          <Link href="/blog/feed.xml" className="btn-ghost text-sm">
-            RSS Feed
-          </Link>
-        </div>
-
-        <div className="mt-10 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
+        <FadeIn eager delay={80} className="mt-10">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
           <BlogSearchInput
             defaultValue={params.search ?? ""}
             category={params.category}
             tag={params.tag}
           />
-          <div className="flex flex-wrap gap-3">
+          <div className="-mx-1 overflow-x-auto px-1 pb-2">
+            <div className="flex w-max gap-3">
             <Link
               href="/blog"
               scroll={false}
-              className={`rounded-full border px-4 py-2 text-body-sm transition-colors duration-250 ${
+              className={`inline-flex min-h-11 min-w-16 items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-all duration-250 ${
                 !activeCategory
-                  ? "border-accent bg-accent-dim text-ink"
-                  : "border-border text-ink-secondary hover:border-accent hover:text-ink"
+                  ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_rgba(124,110,255,0.18)]"
+                  : "border-border text-ink-secondary hover:border-accent hover:bg-accent-dim hover:text-ink"
               }`}
             >
               All
@@ -101,17 +106,19 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                 key={category.category}
                 href={`/blog?category=${encodeURIComponent(category.category)}`}
                 scroll={false}
-                className={`rounded-full border px-4 py-2 text-body-sm transition-colors duration-250 ${
+                className={`inline-flex min-h-11 min-w-16 items-center justify-center rounded-full border px-3.5 py-1 text-body-sm transition-all duration-250 ${
                   activeCategory === category.category
-                    ? "border-accent bg-accent-dim text-ink"
-                    : "border-border text-ink-secondary hover:border-accent hover:text-ink"
+                    ? "border-accent bg-accent-dim text-ink shadow-[0_0_0_1px_rgba(124,110,255,0.18)]"
+                    : "border-border text-ink-secondary hover:border-accent hover:bg-accent-dim hover:text-ink"
                 }`}
               >
                 {category.category} <span className="text-ink-tertiary">({category.count})</span>
               </Link>
             ))}
+            </div>
           </div>
-        </div>
+          </div>
+        </FadeIn>
 
         {params.search ? (
           <div className="mt-6">
@@ -122,20 +129,20 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         ) : null}
 
         {result.posts.length > 0 ? (
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <FadeIn eager delay={120} className="mt-12 grid gap-6 md:grid-cols-2">
             {result.posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
-          </div>
+          </FadeIn>
         ) : (
-          <div className="mt-12">
+          <FadeIn eager delay={120} className="mt-12">
             <div className="card p-8 shadow-inner-highlight">
               <h2 className="text-h3 font-semibold text-ink">No posts found</h2>
               <p className="mt-3 text-body text-ink-secondary">
                 Try a different search term, clear the filters, or check back again soon.
               </p>
             </div>
-          </div>
+          </FadeIn>
         )}
 
         <BlogPagination

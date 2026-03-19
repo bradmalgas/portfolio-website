@@ -24,7 +24,7 @@ export default function BlogSearchInput({
         className="w-full bg-transparent text-body text-ink placeholder:text-ink-tertiary focus:outline-none"
         aria-label="Search blog posts"
       />
-      <button type="submit" className="btn-ghost px-3 py-1.5 text-xs">
+      <button type="submit" className="btn-ghost min-h-11 px-3 py-1.5 text-xs">
         Search
       </button>
     </form>

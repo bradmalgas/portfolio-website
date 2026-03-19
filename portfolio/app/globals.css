@@ -1,4 +1,3 @@
-@import "highlight.js/styles/github-dark.css";
 @import "@toast-ui/editor/dist/toastui-editor.css";
 @import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 
@@ -225,6 +224,10 @@
 
   .blog-prose img {
     @apply h-auto w-full;
+  }
+
+  .blog-prose pre {
+    @apply max-w-full overflow-x-auto;
   }
 }
 

@@ -8,6 +8,7 @@ import MarkdownRenderer from "@/app/components/blog/MarkdownRenderer";
 import ReactionBar from "@/app/components/blog/ReactionBar";
 import ShareButtons from "@/app/components/blog/ShareButtons";
 import TableOfContents from "@/app/components/blog/TableOfContents";
+import FadeIn from "@/app/components/ui/FadeIn";
 import {
   getAdjacentPublishedPosts,
   getPublishedPostBySlug,
@@ -71,42 +72,69 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const tableOfContents = getTableOfContents(post.content);
   const postUrl = getPostUrl(post.slug);
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description ?? undefined,
+    datePublished: post.published_at ?? undefined,
+    dateModified: post.updated_at,
+    author: {
+      "@type": "Person",
+      name: "Brad Malgas",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Brad Malgas",
+    },
+    mainEntityOfPage: postUrl,
+    image: post.cover_image ? [post.cover_image] : [`${postUrl}/opengraph-image`],
+    articleSection: post.category,
+    keywords: post.tags,
+  };
 
   return (
     <article className="section-padding">
       <div className="mx-auto max-w-6xl">
-        <div className="mx-auto max-w-4xl">
-          <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag">
-            {post.category}
-          </Link>
-          <h1 className="mt-6 text-h1 font-bold text-ink">{post.title}</h1>
-          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-body text-ink-secondary">
-            <span>{formatDate(post.published_at)}</span>
-            <span>{post.reading_time_minutes ?? 1} min read</span>
-            <span>{post.view_count} views</span>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
+
+        <FadeIn eager>
+          <div className="mx-auto max-w-4xl">
+            <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag">
+              {post.category}
+            </Link>
+            <h1 className="mt-6 text-h1 font-bold text-ink">{post.title}</h1>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-body text-ink-secondary">
+              <span>{formatDate(post.published_at)}</span>
+              <span>{post.reading_time_minutes ?? 1} min read</span>
+              <span>{post.view_count} views</span>
+            </div>
+            {post.description ? (
+              <p className="mt-6 text-body-lg text-ink-secondary">{post.description}</p>
+            ) : null}
           </div>
-          {post.description ? (
-            <p className="mt-6 text-body-lg text-ink-secondary">{post.description}</p>
-          ) : null}
-        </div>
+        </FadeIn>
 
         {post.cover_image ? (
-          <div className="mx-auto mt-10 max-w-5xl">
+          <FadeIn eager delay={80} className="mx-auto mt-10 max-w-5xl">
             <div className="relative aspect-[16/8] overflow-hidden rounded-lg border border-border shadow-lg">
               <Image
                 src={post.cover_image}
-                alt={post.title}
+                alt={`${post.title} cover image`}
                 fill
                 className="object-cover"
                 sizes="100vw"
                 priority
               />
             </div>
-          </div>
+          </FadeIn>
         ) : null}
 
         <div className="mt-12 grid gap-8 xl:grid-cols-[minmax(0,1fr)_18rem]">
-          <div className="space-y-8">
+          <FadeIn eager delay={120} className="space-y-8 min-w-0">
             <MarkdownRenderer content={post.content} />
 
             <div className="flex flex-wrap gap-2">
@@ -158,15 +186,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 )}
               </div>
             </nav>
-          </div>
+          </FadeIn>
 
           <div className="hidden xl:block">
-            <TableOfContents items={tableOfContents} />
+            <TableOfContents items={tableOfContents} className="sticky top-24" />
           </div>
         </div>
 
         <div className="mt-8 xl:hidden">
-          <TableOfContents items={tableOfContents} />
+          <TableOfContents items={tableOfContents} collapsible />
         </div>
       </div>
     </article>

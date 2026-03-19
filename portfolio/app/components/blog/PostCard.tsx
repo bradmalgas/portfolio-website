@@ -42,7 +42,7 @@ export default function PostCard({ post }: PostCardProps) {
 
       <div className="flex flex-1 flex-col gap-4 p-6">
         <div className="flex items-center justify-between gap-4">
-          <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag">
+          <Link href={`/blog/category/${encodeURIComponent(post.category)}`} className="tag min-h-11">
             {post.category}
           </Link>
           <span className="text-body-sm text-ink-tertiary">{post.view_count} views</span>
@@ -62,7 +62,7 @@ export default function PostCard({ post }: PostCardProps) {
         {post.tags.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <Link key={tag} href={`/blog/tag/${encodeURIComponent(tag)}`} className="tag">
+              <Link key={tag} href={`/blog/tag/${encodeURIComponent(tag)}`} className="tag min-h-11">
                 {tag}
               </Link>
             ))}

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import BlogPagination from "@/app/components/blog/BlogPagination";
 import PostCard from "@/app/components/blog/PostCard";
+import FadeIn from "@/app/components/ui/FadeIn";
 import { BLOG_PAGE_SIZE } from "@/lib/blog/constants";
 import { getPublishedPosts } from "@/lib/blog/data";
 import { parsePositiveInt } from "@/lib/blog/utils";
@@ -44,32 +45,34 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   return (
     <section className="section-padding">
       <div className="mx-auto max-w-6xl">
-        <span className="eyebrow">Category</span>
-        <h1 className="mt-2 text-h1 font-bold text-ink">{decodedCategory}</h1>
-        <div className="section-rule" />
-        <div className="flex flex-wrap items-center gap-4">
-          <p className="text-body-lg text-ink-secondary">
-            {result.total} published {result.total === 1 ? "post" : "posts"} in this category.
-          </p>
-          <Link href="/blog" className="btn-ghost text-sm" scroll={false}>
-            View all posts
-          </Link>
-        </div>
+        <FadeIn eager>
+          <span className="eyebrow">Category</span>
+          <h1 className="mt-2 text-h1 font-bold text-ink">{decodedCategory}</h1>
+          <div className="section-rule" />
+          <div className="flex flex-wrap items-center gap-4">
+            <p className="text-body-lg text-ink-secondary">
+              {result.total} published {result.total === 1 ? "post" : "posts"} in this category.
+            </p>
+            <Link href="/blog" className="btn-ghost text-sm" scroll={false}>
+              View all posts
+            </Link>
+          </div>
+        </FadeIn>
 
         {result.posts.length > 0 ? (
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <FadeIn eager delay={100} className="mt-12 grid gap-6 md:grid-cols-2">
             {result.posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
-          </div>
+          </FadeIn>
         ) : (
-          <div className="mt-12">
+          <FadeIn eager delay={100} className="mt-12">
             <div className="card p-8 shadow-inner-highlight">
               <p className="text-body text-ink-secondary">
                 There are no published posts in this category yet.
               </p>
             </div>
-          </div>
+          </FadeIn>
         )}
 
         <BlogPagination
