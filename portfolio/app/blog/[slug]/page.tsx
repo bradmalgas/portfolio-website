@@ -59,7 +59,12 @@ export async function generateMetadata({
       url: `/blog/${post.slug}`,
       type: "article",
       publishedTime: post.published_at ?? undefined,
-      images: [`/blog/${post.slug}/opengraph-image`],
+      // Priority: 1) dynamic per-post OG, 2) post cover image, 3) blog-level OG
+      images: [
+        `/blog/${post.slug}/opengraph-image`,
+        ...(post.cover_image ? [post.cover_image] : []),
+        `/blog/opengraph-image`,
+      ],
     },
     twitter: {
       card: "summary_large_image",

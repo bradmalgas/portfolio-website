@@ -2,7 +2,9 @@ import { getPublishedPostBySlug } from "@/lib/blog/data";
 import { createBlogOpenGraphImage } from "@/lib/blog/opengraph";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+// Cache OG images for 1 hour so crawlers (WhatsApp, Twitter, etc.) get a fast response.
+// force-dynamic caused every request to hit the database, leading to timeouts.
+export const revalidate = 3600;
 export const alt = "Brad Malgas blog post";
 export const size = {
   width: 1200,
@@ -18,7 +20,13 @@ interface OpenGraphImageProps {
 
 export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
   const { slug } = await params;
-  const post = await getPublishedPostBySlug(slug);
+
+  let post = null;
+  try {
+    post = await getPublishedPostBySlug(slug);
+  } catch {
+    // If the database is unreachable, fall back to a generic blog OG image
+  }
 
   const title = post?.title ?? "Brad Malgas Blog";
   const category = post?.category ?? "Blog";
