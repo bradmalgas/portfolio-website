@@ -5,7 +5,8 @@ export interface Project {
   description: string;
   tags: string[];
   githubLink: string;
-  blogLink: string;
+  blogLink?: string;
+  blogLinkLabel?: string;
 }
 
 export const projects: Project[] = [
@@ -14,18 +15,24 @@ export const projects: Project[] = [
     title: "BudgetBuddy",
     image: "/BudgetBuddy-Screenshot.png",
     description:
-      "A real-time transaction tracker that runs code on my bank card to log every purchase. It triggers an Azure Function, formats the data, and writes it to Google Sheets — all in under 3 seconds.",
-    tags: ["Azure Functions", "C#", "Google Sheets", "Programmable Banking"],
+      "A real-time personal finance workflow built on programmable banking events. Each card transaction triggers an Azure Function, normalises the payload, and logs the result to Google Sheets within seconds.",
+    tags: [
+      "Azure Functions",
+      "C#",
+      "Google Sheets",
+      "Programmable Banking",
+    ],
     githubLink: "https://github.com/bradmalgas/programmable-banking",
     blogLink:
-      "https://blog.bradmalgas.com/post/Azure/701cb780-9f65-4299-8bc4-7aaf6adb67bc",
+      "/blog/building-budgetbuddy-real-time-transaction-tracking-with-azure-functions-google-sheets",
+    blogLinkLabel: "Build Write-up",
   },
   {
     id: "02",
     title: "AzureBlogify",
     image: "/azureblogify-screenshot.png",
     description:
-      "A fully functional, cost-optimised blog running on Azure for just $1/month. Hosted on Azure Static Web Apps, powered by Azure Functions, and backed by Cosmos DB with seamless CI/CD.",
+      "A cost-conscious blogging platform designed to run on Azure for roughly $1 per month. It combines Static Web Apps, Azure Functions, Cosmos DB, and CI/CD automation into a lightweight serverless architecture.",
     tags: [
       "Azure Static Web Apps",
       "Azure Functions",
@@ -35,6 +42,7 @@ export const projects: Project[] = [
     ],
     githubLink: "https://github.com/bradmalgas/AzureBlogify",
     blogLink:
-      "https://blog.bradmalgas.com/post/Azure/f38daba8-de4b-4d56-80a5-c9c884efe25e",
+      "/blog/how-i-built-a-fully-functional-blog-on-azure-for-just-1month",
+    blogLinkLabel: "Build Write-up",
   },
 ];

@@ -1,20 +1,30 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
+import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
+import {
+  getCodeThemeMode,
+  getCodeThemeStyleSheet,
+} from "@/lib/theme/code";
+import {
+  DEFAULT_THEME,
+  THEME_STORAGE_KEY,
+  getThemeStyleSheet,
+} from "@/lib/theme/palette";
+import {
+  getTypographyStyleSheet,
+  themeFontVariables,
+} from "@/lib/theme/typography";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
+const blogSignInUrl = "/blog/sign-in";
+const blogEditorUrl = "/blog/editor";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Brad Malgas — Senior Software Developer",
     template: "%s | Brad Malgas",
@@ -22,23 +32,24 @@ export const metadata: Metadata = {
   description:
     "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-    other: [
+    icon: [
+      { rel: "icon", type: "image/svg+xml", url: "/favicon.svg" },
       { rel: "icon", type: "image/png", sizes: "32x32", url: "/favicon-32x32.png" },
       { rel: "icon", type: "image/png", sizes: "16x16", url: "/favicon-16x16.png" },
+      { rel: "icon", type: "image/x-icon", url: "/favicon.ico" },
     ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Brad Malgas — Senior Software Developer",
     description:
       "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
-    url: "https://www.bradmalgas.com",
+    url: siteUrl,
     siteName: "Brad Malgas",
     images: [
       {
-        url: "https://storageazureblogify.blob.core.windows.net/files/OG-Brad-Malgas-(Themed).png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Brad Malgas — Senior Software Developer",
@@ -52,9 +63,7 @@ export const metadata: Metadata = {
     title: "Brad Malgas — Senior Software Developer",
     description:
       "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
-    images: [
-      "https://storageazureblogify.blob.core.windows.net/files/OG-Brad-Malgas-(Themed).png",
-    ],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -73,22 +82,27 @@ export const metadata: Metadata = {
     "Portfolio",
   ],
   alternates: {
-    canonical: "https://www.bradmalgas.com",
+    canonical: siteUrl,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Brad Malgas",
-  url: "https://www.bradmalgas.com",
+  url: siteUrl,
   jobTitle: "Senior Software Developer",
   description:
     "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
   sameAs: [
     "https://www.linkedin.com/in/brad-malgas",
     "https://github.com/bradmalgas",
-    "https://blog.bradmalgas.com",
+    "https://bradmalgas.com/blog",
   ],
   knowsAbout: [
     "C#",
@@ -102,39 +116,80 @@ const jsonLd = {
   ],
 };
 
+const themeBootScript = `
+(() => {
+  const storageKey = ${JSON.stringify(THEME_STORAGE_KEY)};
+  const defaultTheme = ${JSON.stringify(DEFAULT_THEME)};
+  const root = document.documentElement;
+  const storedTheme = window.localStorage.getItem(storageKey);
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+  const resolvedTheme =
+    storedTheme === "light" || storedTheme === "dark"
+      ? storedTheme
+      : systemTheme || defaultTheme;
+
+  root.dataset.theme = resolvedTheme;
+  root.style.colorScheme = resolvedTheme;
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={themeFontVariables}
+      data-code-theme-mode={getCodeThemeMode()}
+    >
       <head>
-        <script
+        <style id="theme-palettes" dangerouslySetInnerHTML={{ __html: getThemeStyleSheet() }} />
+        <style id="code-theme" dangerouslySetInnerHTML={{ __html: getCodeThemeStyleSheet() }} />
+        <style
+          id="theme-typography"
+          dangerouslySetInnerHTML={{ __html: getTypographyStyleSheet() }}
+        />
+      </head>
+      <body className="antialiased">
+        <Script id="theme-boot" strategy="beforeInteractive">
+          {themeBootScript}
+        </Script>
+        <Script
+          id="person-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Skip to main content — first focusable element for keyboard users */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4
+        <ThemeProvider>
+          <ClerkProvider
+            signInUrl={blogSignInUrl}
+            signInFallbackRedirectUrl={blogEditorUrl}
+            signUpFallbackRedirectUrl={blogEditorUrl}
+            afterSignOutUrl="/"
+          >
+            {/* Skip to main content — first focusable element for keyboard users */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4
                      focus:z-[200] focus:px-4 focus:py-2 focus:bg-accent focus:text-white
                      focus:rounded focus:text-sm focus:font-medium focus:shadow-glow"
-        >
-          Skip to main content
-        </a>
+            >
+              Skip to main content
+            </a>
 
-        <Navbar />
-        <div className="flex flex-col min-h-screen w-full pt-16">
-          <main id="main-content" className="flex-grow">
-            {children}
-            <ScrollToTop />
-          </main>
-        </div>
+            <Navbar />
+            <div className="flex min-h-screen w-full flex-col pt-16">
+              <main id="main-content" className="flex-grow">
+                {children}
+                <ScrollToTop />
+              </main>
+            </div>
+          </ClerkProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

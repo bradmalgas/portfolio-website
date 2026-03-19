@@ -2,52 +2,68 @@
 
 Portfolio redesign — Brad Malgas. Updated: March 2026.
 
-**Direction:** Dark-themed, minimal, professional with personality. Electric indigo accent against deep near-black surfaces. Clean editorial typography. Generous whitespace.
+**Direction:** Editorial and professional. Neutral graphite surfaces, crisp blue accents, and generous whitespace so the work and writing stay front-and-centre.
 
 ---
 
 ## Colour Palette
 
-All values are in `tailwind.config.ts` and mirrored as CSS custom properties in `globals.css`.
+Theme tokens live in `lib/theme/palette.ts`, are exposed through CSS custom properties in `globals.css`, and are consumed by Tailwind in `tailwind.config.ts`.
+
+### Presets
+
+- `portfolio` is the new default preset.
+- `electric` restores the earlier indigo-led design system with the `#7C6EFF` accent.
+- `classic` preserves the original warm copper palette.
+- `harbor` adds a calm teal professional direction with cleaner corporate readability.
+- `journal` adds a darker editorial direction with a rose accent and more publication-like typography.
+- Change `DEFAULT_THEME_PALETTE` in `lib/theme/palette.ts` to switch presets in code.
 
 ### Backgrounds (layered, dark to lighter)
 
 | Token | Hex | Usage |
 |---|---|---|
-| `background` | `#09090E` | Page root, outermost layer |
-| `surface` | `#111119` | Section backgrounds |
-| `surface-raised` | `#16161F` | Cards, panels, elevated elements |
-| `surface-overlay` | `#1C1C28` | Hover states, popovers, tooltips |
+| `background` | `#0A0C10` | Page root, outermost layer |
+| `surface` | `#12151C` | Section backgrounds |
+| `surface-raised` | `#181C24` | Cards, panels, elevated elements |
+| `surface-overlay` | `#212731` | Hover states, popovers, tooltips |
 
 ### Borders
 
 | Token | Hex | Usage |
 |---|---|---|
-| `border` | `#22222E` | Standard borders, card outlines |
-| `border-subtle` | `#17171F` | Very faint separators, dividers |
+| `border` | `#3A424E` | Standard borders, card outlines |
+| `border-subtle` | `#232933` | Very faint separators, dividers |
 
 ### Text
 
 | Token | Hex | Usage |
 |---|---|---|
-| `ink` | `#EDEEF5` | Primary text — warm near-white |
-| `ink-secondary` | `#8888A8` | Secondary text, descriptions |
-| `ink-tertiary` | `#50506A` | Metadata, placeholders, disabled |
+| `ink` | `#F4F7FB` | Primary text — cool near-white |
+| `ink-secondary` | `#AAB3C3` | Secondary text, descriptions |
+| `ink-tertiary` | `#6B7584` | Metadata, placeholders, disabled |
 
-### Accent — Electric Indigo
+### Accent — Professional Blue
 
 | Token | Value | Usage |
 |---|---|---|
-| `accent` | `#7C6EFF` | Primary CTA, highlights, active states |
-| `accent-hover` | `#9A8FFF` | Hover state of accent elements |
-| `accent-dim` | `rgba(124,110,255,0.12)` | Tinted card backgrounds, tag fills |
-| `accent-glow` | `rgba(124,110,255,0.25)` | Shadow/glow on interactive elements |
+| `accent` | `#2563EB` | Primary CTA, highlights, active states |
+| `accent-hover` | `#60A5FA` | Hover state of accent elements |
+| `accent-dim` | `rgba(37,99,235,0.12)` | Tinted card backgrounds, tag fills |
+| `accent-glow` | `rgba(37,99,235,0.25)` | Shadow/glow on interactive elements |
 
 ---
 
 ## Typography
 
-Font: **Geist Sans** (headings + body) / **Geist Mono** (code, labels). Both loaded via `next/font/google` in `layout.tsx`.
+Typography presets live in `lib/theme/typography.ts` and are selected automatically from the active theme preset.
+
+- `portfolio`: **Archivo** display + **Geist Sans** body for a crisp but still professional default.
+- `electric`: **Space Grotesk** display + **Manrope** body for a more expressive futuristic tone without pushing too far.
+- `classic`: **Playfair Display** display + **Geist Sans** body for a warmer editorial balance.
+- `harbor`: **Lexend** display + **Source Sans 3** body for a calm, polished product feel.
+- `journal`: **Newsreader** display + **Source Sans 3** body for a more editorial, essay-like mood.
+- Code and UI monospace remain on **Geist Mono** across presets.
 
 ### Scale (defined in Tailwind `fontSize`)
 

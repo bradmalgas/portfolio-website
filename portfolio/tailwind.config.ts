@@ -35,15 +35,31 @@ export default {
 
       // ── Typography ───────────────────────────────────────────────────────
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+        sans: [
+          "var(--font-sans-theme)",
+          "var(--font-geist-sans)",
+          "system-ui",
+          "sans-serif",
+        ],
+        mono: [
+          "var(--font-mono-theme)",
+          "var(--font-geist-mono)",
+          "ui-monospace",
+          "monospace",
+        ],
+        display: [
+          "var(--font-display)",
+          "var(--font-geist-sans)",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       fontSize: {
         "display":  ["4.5rem",  { lineHeight: "1.0",  letterSpacing: "-0.04em" }],
-        "h1":       ["3rem",    { lineHeight: "1.05", letterSpacing: "-0.03em" }],
-        "h2":       ["2.25rem", { lineHeight: "1.1",  letterSpacing: "-0.025em" }],
-        "h3":       ["1.5rem",  { lineHeight: "1.2",  letterSpacing: "-0.015em" }],
-        "h4":       ["1.125rem",{ lineHeight: "1.3",  letterSpacing: "-0.01em" }],
+        "h1":       ["clamp(2.55rem, 7vw, 3rem)", { lineHeight: "1.02", letterSpacing: "-0.035em" }],
+        "h2":       ["clamp(1.9rem, 5.5vw, 2.25rem)", { lineHeight: "1.08",  letterSpacing: "-0.03em" }],
+        "h3":       ["clamp(1.3rem, 4vw, 1.5rem)",  { lineHeight: "1.18",  letterSpacing: "-0.02em" }],
+        "h4":       ["clamp(1.05rem, 3vw, 1.125rem)",{ lineHeight: "1.28",  letterSpacing: "-0.01em" }],
         "body-lg":  ["1.125rem",{ lineHeight: "1.8" }],
         "body":     ["1rem",    { lineHeight: "1.75" }],
         "body-sm":  ["0.875rem",{ lineHeight: "1.65" }],
@@ -75,13 +91,13 @@ export default {
 
       // ── Shadows ──────────────────────────────────────────────────────────
       boxShadow: {
-        sm:      "0 1px 4px rgba(0,0,0,0.5)",
-        DEFAULT: "0 4px 20px rgba(0,0,0,0.55)",
-        lg:      "0 12px 40px rgba(0,0,0,0.65)",
-        xl:      "0 24px 64px rgba(0,0,0,0.75)",
+        sm:      "var(--shadow-sm)",
+        DEFAULT: "var(--shadow-card)",
+        lg:      "var(--shadow-card-lg)",
+        xl:      "var(--shadow-card-xl)",
         "glow":             "var(--shadow-glow)",
         "glow-lg":          "var(--shadow-glow-lg)",
-        "inner-highlight":  "inset 0 1px 0 rgba(255,255,255,0.06)",
+        "inner-highlight":  "var(--shadow-inner-highlight)",
       },
 
       // ── Transitions ──────────────────────────────────────────────────────

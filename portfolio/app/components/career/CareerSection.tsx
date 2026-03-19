@@ -225,15 +225,12 @@ export default function CareerSection() {
   return (
     <section
       id="career"
-      className="section-padding"
-      style={{ background: "linear-gradient(to bottom, var(--color-surface) 0%, var(--color-background) 30%, var(--color-surface) 80%)" }}
+      className="theme-section theme-section--career section-padding"
     >
       <div className="max-w-6xl mx-auto">
-
-        {/* ── Experience ──────────────────────────────────────────── */}
         <span className="eyebrow">Experience</span>
-        <h2 className="text-h2 font-semibold text-ink mt-2">
-          Where I&apos;ve Worked
+        <h2 className="section-heading mt-2">
+          Work shaped by delivery, not theater.
         </h2>
         <span className="section-rule" />
 
@@ -248,10 +245,9 @@ export default function CareerSection() {
           ))}
         </div>
 
-        {/* ── Education ───────────────────────────────────────────── */}
         <div className="mt-16">
           <span className="eyebrow">Education</span>
-          <h2 className="text-h2 font-semibold text-ink mt-2">
+          <h2 className="section-heading mt-2">
             Academic Background
           </h2>
           <span className="section-rule" />
@@ -272,10 +268,9 @@ export default function CareerSection() {
           </FadeIn>
         </div>
 
-        {/* ── Certifications ──────────────────────────────────────── */}
         <div className="mt-16">
           <span className="eyebrow">Certifications</span>
-          <h2 className="text-h2 font-semibold text-ink mt-2">
+          <h2 className="section-heading mt-2">
             Microsoft Certified
           </h2>
           <span className="section-rule" />
