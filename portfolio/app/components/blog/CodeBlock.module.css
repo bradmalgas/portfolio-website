@@ -1,0 +1,65 @@
+.container {
+  overflow: hidden;
+}
+
+.codeScroll {
+  overflow-x: auto;
+}
+
+.codeScroll :global(pre) {
+  margin: 0;
+  background: transparent;
+}
+
+.codeScroll :global(code.hljs) {
+  display: block;
+  min-width: 100%;
+  overflow-x: auto;
+  white-space: pre;
+  background: transparent;
+  color: rgb(var(--color-ink-rgb));
+}
+
+.codeScroll :global(.hljs-comment),
+.codeScroll :global(.hljs-quote) {
+  color: rgb(var(--color-ink-tertiary-rgb));
+}
+
+.codeScroll :global(.hljs-keyword),
+.codeScroll :global(.hljs-selector-tag),
+.codeScroll :global(.hljs-literal),
+.codeScroll :global(.hljs-section),
+.codeScroll :global(.hljs-link) {
+  color: rgb(154 143 255);
+}
+
+.codeScroll :global(.hljs-string),
+.codeScroll :global(.hljs-title),
+.codeScroll :global(.hljs-name),
+.codeScroll :global(.hljs-attribute),
+.codeScroll :global(.hljs-symbol),
+.codeScroll :global(.hljs-bullet),
+.codeScroll :global(.hljs-addition) {
+  color: rgb(133 211 183);
+}
+
+.codeScroll :global(.hljs-number),
+.codeScroll :global(.hljs-meta),
+.codeScroll :global(.hljs-built_in),
+.codeScroll :global(.hljs-builtin-name),
+.codeScroll :global(.hljs-type),
+.codeScroll :global(.hljs-params) {
+  color: rgb(255 192 120);
+}
+
+.codeScroll :global(.hljs-variable),
+.codeScroll :global(.hljs-template-variable),
+.codeScroll :global(.hljs-selector-class),
+.codeScroll :global(.hljs-selector-attr),
+.codeScroll :global(.hljs-selector-pseudo) {
+  color: rgb(122 200 255);
+}
+
+.codeScroll :global(.hljs-deletion) {
+  color: rgb(255 129 129);
+}

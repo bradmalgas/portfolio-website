@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { isValidElement, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
@@ -10,6 +9,7 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 import CodeBlock from "@/app/components/blog/CodeBlock";
+import ZoomableInlineImage from "@/app/components/blog/ZoomableInlineImage";
 
 interface MarkdownRendererProps {
   content: string;
@@ -32,6 +32,18 @@ function extractText(node: ReactNode): string {
   return "";
 }
 
+function extractCodeLanguage(node: ReactNode): string | undefined {
+  if (!isValidElement(node)) {
+    return undefined;
+  }
+
+  const props = node.props as { className?: string };
+  const className = typeof props.className === "string" ? props.className : "";
+  return className
+    .split(" ")
+    .find((value) => value.startsWith("language-"));
+}
+
 export default function MarkdownRenderer({
   content,
   className = "",
@@ -46,8 +58,23 @@ export default function MarkdownRenderer({
           [rehypeAutolinkHeadings, { behavior: "append" }],
         ]}
         components={{
-          a: ({ href = "", children, ...props }) => {
+          a: ({ node, href = "", children, ...props }) => {
             const isExternal = href.startsWith("http");
+            const elementNode =
+              node && typeof node === "object" && "children" in node ? node : null;
+            const containsImage =
+              !!elementNode &&
+              Array.isArray(elementNode.children) &&
+              elementNode.children.some(
+                (child) =>
+                  child.type === "element" &&
+                  "tagName" in child &&
+                  child.tagName === "img",
+              );
+
+            if (containsImage) {
+              return <span {...props}>{children}</span>;
+            }
 
             if (isExternal) {
               return (
@@ -64,18 +91,18 @@ export default function MarkdownRenderer({
             );
           },
           img: ({ src = "", alt = "" }) => (
-            <span className="my-8 block overflow-hidden rounded-md border border-border bg-surface-raised">
-              <Image
-                src={src}
-                alt={alt}
-                width={1200}
-                height={675}
-                className="h-auto w-full object-cover"
-              />
-            </span>
+            <ZoomableInlineImage
+              src={src}
+              alt={alt.trim() || "Illustration from the article"}
+            />
           ),
           pre: ({ children }) => (
-            <CodeBlock code={extractText(children)}>{children}</CodeBlock>
+            <CodeBlock
+              code={extractText(children)}
+              language={extractCodeLanguage(children)}
+            >
+              {children}
+            </CodeBlock>
           ),
         }}
       >
