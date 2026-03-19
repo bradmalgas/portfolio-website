@@ -2,6 +2,8 @@ import path from "node:path";
 import { readFile } from "node:fs/promises";
 import { ImageResponse } from "next/og";
 
+import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
 
 const geistRegular = readFile(path.join(process.cwd(), "lib/blog/fonts/Geist-Regular.ttf"));
@@ -34,6 +36,7 @@ export async function createBlogOpenGraphImage({
 }: BlogOpenGraphCardOptions) {
   const [regularFont, boldFont] = await Promise.all([geistRegular, geistBold]);
   const titleFontSize = getTitleFontSize(title);
+  const palette = themePalettes[DEFAULT_THEME];
 
   return new ImageResponse(
     (
@@ -45,8 +48,10 @@ export async function createBlogOpenGraphImage({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "60px",
-          background: "linear-gradient(180deg, rgb(9,9,14) 0%, rgb(17,17,25) 100%)",
-          color: "rgb(237,238,245)",
+          background: `linear-gradient(180deg, ${rgb(palette.backgroundRgb)} 0%, ${rgb(
+            palette.surfaceRgb,
+          )} 100%)`,
+          color: rgb(palette.inkRgb),
           fontFamily: '"Geist Sans"',
           position: "relative",
           overflow: "hidden",
@@ -60,7 +65,10 @@ export async function createBlogOpenGraphImage({
             bottom: -24,
             height: 220,
             background:
-              "radial-gradient(circle at 50% 100%, rgba(124,110,255,0.45), rgba(124,110,255,0) 70%)",
+              `radial-gradient(circle at 50% 100%, ${rgba(palette.accentRgb, 0.45)}, ${rgba(
+                palette.accentRgb,
+                0,
+              )} 70%)`,
           }}
         />
 
@@ -68,7 +76,7 @@ export async function createBlogOpenGraphImage({
           style={{
             display: "flex",
             fontSize: 28,
-            color: "rgb(136,136,168)",
+            color: rgb(palette.inkSecondaryRgb),
           }}
         >
           Brad Malgas
@@ -88,9 +96,9 @@ export async function createBlogOpenGraphImage({
               alignItems: "center",
               alignSelf: "flex-start",
               borderRadius: 999,
-              border: "1px solid rgba(124,110,255,0.35)",
-              background: "rgba(124,110,255,0.12)",
-              color: "rgb(154,143,255)",
+              border: `1px solid ${rgba(palette.accentRgb, 0.35)}`,
+              background: rgba(palette.accentRgb, 0.12),
+              color: rgb(palette.accentHoverRgb),
               padding: "10px 18px",
               fontSize: 22,
             }}
@@ -118,7 +126,7 @@ export async function createBlogOpenGraphImage({
                 maxWidth: 900,
                 fontSize: 28,
                 lineHeight: 1.4,
-                color: "rgb(136,136,168)",
+                color: rgb(palette.inkSecondaryRgb),
               }}
             >
               {description}
@@ -130,7 +138,7 @@ export async function createBlogOpenGraphImage({
           style={{
             display: "flex",
             fontSize: 24,
-            color: "rgb(136,136,168)",
+            color: rgb(palette.inkSecondaryRgb),
           }}
         >
           {footer}

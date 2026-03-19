@@ -1,5 +1,12 @@
 import { SignIn } from "@clerk/nextjs";
 
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 export default function BlogSignInPage() {
   return (
     <section className="section-padding">
@@ -22,13 +29,13 @@ export default function BlogSignInPage() {
               fallbackRedirectUrl="/blog/editor"
               appearance={{
                 variables: {
-                  colorBackground: "rgb(22,22,31)",
-                  colorPrimary: "rgb(124,110,255)",
-                  colorText: "rgb(237,238,245)",
-                  colorTextSecondary: "rgb(136,136,168)",
-                  colorNeutral: "rgb(34,34,46)",
-                  colorInputBackground: "rgb(17,17,25)",
-                  colorInputText: "rgb(237,238,245)",
+                  colorBackground: "rgb(var(--color-surface-raised-rgb))",
+                  colorPrimary: "rgb(var(--color-accent-rgb))",
+                  colorText: "rgb(var(--color-ink-rgb))",
+                  colorTextSecondary: "rgb(var(--color-ink-secondary-rgb))",
+                  colorNeutral: "rgb(var(--color-border-rgb))",
+                  colorInputBackground: "rgb(var(--color-surface-rgb))",
+                  colorInputText: "rgb(var(--color-ink-rgb))",
                 },
                 elements: {
                   card: "shadow-none bg-transparent",

@@ -78,23 +78,21 @@ export default function ContactFooter() {
       id="contact"
       className="section-padding"
       style={{
-        background: "linear-gradient(to bottom, var(--color-surface) 0%, var(--color-background) 40%)",
+        background: "linear-gradient(to bottom, rgb(var(--color-surface-rgb) / 0.78) 0%, var(--color-background) 40%)",
       }}
     >
       <div className="max-w-6xl mx-auto">
-        {/* ── Contact ─────────────────────────────────────────── */}
-        <FadeIn className="text-center">
+        <FadeIn className="section-shell px-8 py-10 text-center lg:px-12 lg:py-14">
           <span className="eyebrow">Contact</span>
-          <h2 className="text-h2 font-semibold text-ink mt-2">
-            Let&apos;s Connect
+          <h2 className="section-heading mt-2">
+            Let&apos;s build something that holds up.
           </h2>
           <span className="section-rule mx-auto" />
-          <p className="text-body-lg text-ink-secondary max-w-xl mx-auto">
-            Open to interesting projects and conversations. Reach out via any of
-            the channels below.
+          <p className="section-lead mx-auto max-w-2xl">
+            Open to thoughtful product work, platform engineering problems, and the kind of conversations that usually start with a difficult system.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             {contactLinks.map(({ label, href, Icon, description }) => (
               <a
                 key={label}
@@ -102,10 +100,9 @@ export default function ContactFooter() {
                 {...(href.startsWith("http")
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="group flex items-center gap-3 px-6 py-4 rounded-2xl
-                           bg-surface border border-border
+                className="group flex w-full items-center gap-3 rounded-[1.5rem] border border-border px-6 py-4
                            hover:border-accent/40 hover:bg-surface-raised
-                           hover:shadow-glow transition-all duration-250 w-full sm:w-auto"
+                           hover:shadow-glow transition-all duration-250 sm:w-auto"
               >
                 <Icon className="h-5 w-5 text-accent flex-shrink-0" />
                 <div className="text-left">
@@ -119,14 +116,12 @@ export default function ContactFooter() {
           </div>
         </FadeIn>
 
-        {/* ── Divider ─────────────────────────────────────────── */}
         <div className="mt-16 border-t border-border/50" />
 
-        {/* ── Footer ──────────────────────────────────────────── */}
         <footer className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
-            <p className="font-semibold text-sm text-ink">Brad Malgas</p>
-            <p className="text-xs text-ink-secondary mt-0.5">
+            <p className="font-display text-lg font-semibold text-ink">Brad Malgas</p>
+            <p className="mt-0.5 text-xs text-ink-secondary">
               Senior Software Developer · Azure · C# · .NET
             </p>
             <Link

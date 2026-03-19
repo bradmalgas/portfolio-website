@@ -4,7 +4,13 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
+import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
+import {
+  DEFAULT_THEME,
+  THEME_STORAGE_KEY,
+  getThemeStyleSheet,
+} from "@/lib/theme/palette";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
 const blogSignInUrl = "/blog/sign-in";
@@ -35,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Brad Malgas",
     images: [
       {
-        url: "https://storageazureblogify.blob.core.windows.net/files/OG-Brad-Malgas-(Themed).png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Brad Malgas — Senior Software Developer",
@@ -49,9 +55,7 @@ export const metadata: Metadata = {
     title: "Brad Malgas — Senior Software Developer",
     description:
       "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
-    images: [
-      "https://storageazureblogify.blob.core.windows.net/files/OG-Brad-Malgas-(Themed).png",
-    ],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -99,14 +103,32 @@ const jsonLd = {
   ],
 };
 
+const themeBootScript = `
+(() => {
+  const storageKey = ${JSON.stringify(THEME_STORAGE_KEY)};
+  const defaultTheme = ${JSON.stringify(DEFAULT_THEME)};
+  const root = document.documentElement;
+  const storedTheme = window.localStorage.getItem(storageKey);
+  const resolvedTheme =
+    storedTheme === "light" || storedTheme === "dark"
+      ? storedTheme
+      : defaultTheme;
+
+  root.dataset.theme = resolvedTheme;
+  root.style.colorScheme = resolvedTheme;
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <style id="theme-palettes" dangerouslySetInnerHTML={{ __html: getThemeStyleSheet() }} />
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -115,30 +137,32 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} ${GeistSans.variable} ${GeistMono.variable} antialiased`}
       >
-        <ClerkProvider
-          signInUrl={blogSignInUrl}
-          signInFallbackRedirectUrl={blogEditorUrl}
-          signUpFallbackRedirectUrl={blogEditorUrl}
-          afterSignOutUrl="/"
-        >
-          {/* Skip to main content — first focusable element for keyboard users */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4
+        <ThemeProvider>
+          <ClerkProvider
+            signInUrl={blogSignInUrl}
+            signInFallbackRedirectUrl={blogEditorUrl}
+            signUpFallbackRedirectUrl={blogEditorUrl}
+            afterSignOutUrl="/"
+          >
+            {/* Skip to main content — first focusable element for keyboard users */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4
                      focus:z-[200] focus:px-4 focus:py-2 focus:bg-accent focus:text-white
                      focus:rounded focus:text-sm focus:font-medium focus:shadow-glow"
-          >
-            Skip to main content
-          </a>
+            >
+              Skip to main content
+            </a>
 
-          <Navbar />
-          <div className="flex min-h-screen w-full flex-col pt-16">
-            <main id="main-content" className="flex-grow">
-              {children}
-              <ScrollToTop />
-            </main>
-          </div>
-        </ClerkProvider>
+            <Navbar />
+            <div className="flex min-h-screen w-full flex-col pt-16">
+              <main id="main-content" className="flex-grow">
+                {children}
+                <ScrollToTop />
+              </main>
+            </div>
+          </ClerkProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

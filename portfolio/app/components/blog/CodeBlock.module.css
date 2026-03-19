@@ -30,7 +30,7 @@
 .codeScroll :global(.hljs-literal),
 .codeScroll :global(.hljs-section),
 .codeScroll :global(.hljs-link) {
-  color: rgb(154 143 255);
+  color: rgb(var(--color-syntax-accent-rgb));
 }
 
 .codeScroll :global(.hljs-string),
@@ -40,7 +40,7 @@
 .codeScroll :global(.hljs-symbol),
 .codeScroll :global(.hljs-bullet),
 .codeScroll :global(.hljs-addition) {
-  color: rgb(133 211 183);
+  color: rgb(var(--color-syntax-string-rgb));
 }
 
 .codeScroll :global(.hljs-number),
@@ -49,7 +49,7 @@
 .codeScroll :global(.hljs-builtin-name),
 .codeScroll :global(.hljs-type),
 .codeScroll :global(.hljs-params) {
-  color: rgb(255 192 120);
+  color: rgb(var(--color-syntax-number-rgb));
 }
 
 .codeScroll :global(.hljs-variable),
@@ -57,9 +57,9 @@
 .codeScroll :global(.hljs-selector-class),
 .codeScroll :global(.hljs-selector-attr),
 .codeScroll :global(.hljs-selector-pseudo) {
-  color: rgb(122 200 255);
+  color: rgb(var(--color-syntax-variable-rgb));
 }
 
 .codeScroll :global(.hljs-deletion) {
-  color: rgb(255 129 129);
+  color: rgb(var(--color-syntax-deletion-rgb));
 }

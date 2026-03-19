@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import BradLogoIcon from "../icons/BradLogoIcon";
 import MenuIcon from "../icons/MenuIcon";
 import CloseIcon from "../icons/CloseIcon";
+import ThemeToggle from "../theme/ThemeToggle";
 
 const navLinks = [
   { label: "About", href: "#about", section: true },
@@ -125,6 +126,9 @@ export default function Navbar() {
           >
             Download CV
           </a>
+          <div className="ml-2">
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Mobile hamburger */}
@@ -181,6 +185,7 @@ export default function Navbar() {
           >
             Download CV
           </a>
+          <ThemeToggle mobile />
         </div>
       </div>
     </header>

@@ -20,11 +20,11 @@ const ExternalLinkIcon = () => (
 
 export default function ProjectCard({ id, title, image, description, tags, githubLink, blogLink }: Project) {
   return (
-    <article className="group relative flex flex-col bg-surface-raised border border-border rounded-lg overflow-hidden
+    <article className="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border
                         shadow transition-all duration-350
                         hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.015)_0%,transparent_28%)] pointer-events-none" />
 
-      {/* Thumbnail */}
       <div className="relative aspect-video overflow-hidden bg-surface">
         <Image
           src={image}
@@ -32,19 +32,15 @@ export default function ProjectCard({ id, title, image, description, tags, githu
           fill
           className="object-cover transition-transform duration-[600ms] ease-in-out group-hover:scale-105"
         />
-        {/* Gradient fade at bottom of image into card */}
         <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-surface-raised to-transparent" />
 
-        {/* Project number badge */}
-        <span className="absolute top-3 left-3 px-2 py-0.5 rounded-sm bg-background/80 backdrop-blur-sm
-                         text-label font-semibold text-accent border border-accent/20 tracking-wide">
+        <span className="absolute top-3 left-3 rounded-full border border-accent/20 bg-background/80 px-3 py-1 text-label font-semibold tracking-wide text-accent backdrop-blur-sm">
           {id}
         </span>
       </div>
 
-      {/* Content */}
       <div className="flex flex-col flex-1 p-5 gap-3">
-        <h3 className="text-h4 font-semibold text-ink group-hover:text-accent transition-colors duration-250">
+        <h3 className="font-display text-[1.45rem] font-semibold leading-tight tracking-[-0.03em] text-ink transition-colors duration-250 group-hover:text-accent">
           {title}
         </h3>
 
@@ -61,14 +57,12 @@ export default function ProjectCard({ id, title, image, description, tags, githu
           ))}
         </div>
 
-        {/* Links */}
         <div className="flex items-center gap-3 pt-2 border-t border-border">
           <a
             href={githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-body-sm text-ink-secondary
-                       hover:text-ink transition-colors duration-250"
+            className="metal-link"
           >
             <GithubIcon />
             View Code
@@ -78,8 +72,7 @@ export default function ProjectCard({ id, title, image, description, tags, githu
             href={blogLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-body-sm text-ink-secondary
-                       hover:text-ink transition-colors duration-250"
+            className="metal-link"
           >
             <ExternalLinkIcon />
             Read More

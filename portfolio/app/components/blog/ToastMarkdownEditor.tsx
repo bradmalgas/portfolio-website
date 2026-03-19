@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { Editor as ToastEditorInstance } from "@toast-ui/editor";
 
+import { useTheme } from "@/app/components/theme/ThemeProvider";
+
 interface ToastMarkdownEditorProps {
   value: string;
   onChange: (value: string) => void;
@@ -34,6 +36,7 @@ export default function ToastMarkdownEditor({
   const onChangeRef = useRef(onChange);
   const onUploadImageRef = useRef(onUploadImage);
   const [isReady, setIsReady] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     onChangeRef.current = onChange;
@@ -68,7 +71,7 @@ export default function ToastMarkdownEditor({
         placeholder,
         usageStatistics: false,
         autofocus: false,
-        theme: "dark",
+        theme: theme === "dark" ? "dark" : undefined,
         toolbarItems: TOOLBAR_ITEMS.map((group) => [...group]),
         hooks: {
           addImageBlobHook: async (blob, callback) => {
@@ -96,7 +99,7 @@ export default function ToastMarkdownEditor({
       editorRef.current?.destroy();
       editorRef.current = null;
     };
-  }, [height, placeholder, splitView]);
+  }, [height, placeholder, splitView, theme]);
 
   useEffect(() => {
     const instance = editorRef.current;

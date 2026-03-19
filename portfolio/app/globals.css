@@ -6,19 +6,7 @@
 @tailwind utilities;
 
 :root {
-  /* Edit these two lines per colour to retheme the entire site */
-  --color-background-rgb:       9   9  14;
-  --color-surface-rgb:         17  17  25;
-  --color-surface-raised-rgb:  22  22  31;
-  --color-surface-overlay-rgb: 28  28  40;
-  --color-border-rgb:          34  34  46;
-  --color-border-subtle-rgb:   23  23  31;
-  --color-ink-rgb:            237 238 245;
-  --color-ink-secondary-rgb:  136 136 168;
-  --color-ink-tertiary-rgb:    80  80 106;
-  --color-accent-rgb:         124 110 255;  /* ← change to retheme */
-  --color-accent-hover-rgb:   154 143 255;  /* ← lighter variant of accent */
-
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --color-background:      rgb(var(--color-background-rgb));
   --color-surface:         rgb(var(--color-surface-rgb));
   --color-surface-raised:  rgb(var(--color-surface-raised-rgb));
@@ -32,9 +20,11 @@
   --color-accent-hover:    rgb(var(--color-accent-hover-rgb));
   --color-accent-dim:      rgb(var(--color-accent-rgb) / 0.12);
   --color-accent-glow:     rgb(var(--color-accent-rgb) / 0.25);
+  --color-accent-ring:     rgb(var(--color-accent-rgb) / 0.18);
 
   --shadow-glow:    0 0 24px rgb(var(--color-accent-rgb) / 0.30);
   --shadow-glow-lg: 0 0 48px rgb(var(--color-accent-rgb) / 0.35);
+  --surface-wash: linear-gradient(180deg, rgb(var(--color-surface-rgb) / 0.88), rgb(var(--color-surface-raised-rgb) / 0.95));
 }
 
 @layer base {
@@ -46,16 +36,22 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    background-color: var(--color-background);
   }
 
   body {
     background-color: var(--color-background);
+    background-image:
+      radial-gradient(circle at 14% 14%, rgb(var(--color-accent-rgb) / 0.08), transparent 24%),
+      radial-gradient(circle at 82% 7%, rgb(var(--color-accent-rgb) / 0.05), transparent 20%),
+      linear-gradient(180deg, rgb(var(--color-background-rgb)) 0%, rgb(var(--color-surface-rgb) / 0.35) 100%);
     color: var(--color-ink);
     font-family: var(--font-geist-sans), "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
     font-optical-sizing: auto;
     font-kerning: normal;
     font-synthesis: none;
     font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 250ms ease, color 250ms ease;
   }
 
   ::-webkit-scrollbar        { width: 8px; }
@@ -108,29 +104,31 @@
   }
 
   .eyebrow {
-    @apply text-accent text-label font-semibold tracking-widest uppercase;
+    @apply text-accent text-label font-semibold uppercase;
+    letter-spacing: 0.18em;
   }
 
   .card {
-    @apply bg-surface-raised border border-border rounded-md shadow;
+    @apply border border-border rounded-md shadow;
+    background: var(--surface-wash);
   }
 
   .btn-accent {
-    @apply bg-accent text-white font-medium rounded px-5 py-2.5
+    @apply bg-accent text-white font-medium rounded-full px-5 py-2.5
            transition-all duration-250
            hover:bg-accent-hover hover:shadow-glow
            active:scale-[0.98];
   }
 
   .btn-ghost {
-    @apply border border-border text-ink-secondary font-medium rounded px-5 py-2.5
+    @apply border border-border text-ink-secondary font-medium rounded-full px-5 py-2.5
            transition-all duration-250
            hover:border-accent hover:text-ink hover:bg-accent-dim
            active:scale-[0.98];
   }
 
   .tag {
-    @apply inline-flex items-center px-2.5 py-1 rounded-sm text-label font-medium
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-label font-medium
            bg-accent-dim text-accent border border-accent/20;
   }
 
@@ -144,6 +142,30 @@
     @apply w-full rounded border border-border bg-surface px-4 py-3 text-body text-ink
            placeholder:text-ink-tertiary transition-colors duration-250
            focus:border-accent focus:outline-none;
+  }
+
+  .display-heading {
+    @apply font-display leading-[0.95] tracking-[-0.045em] text-ink;
+  }
+
+  .section-heading {
+    @apply font-display text-h2 font-semibold tracking-[-0.04em] text-ink;
+  }
+
+  .section-lead {
+    @apply text-body-lg leading-relaxed text-ink-secondary;
+  }
+
+  .section-shell {
+    @apply relative overflow-hidden rounded-[2rem] border border-border/80;
+    background:
+      linear-gradient(180deg, rgb(var(--color-surface-rgb) / 0.72), rgb(var(--color-surface-raised-rgb) / 0.94)),
+      radial-gradient(circle at top right, rgb(var(--color-accent-rgb) / 0.08), transparent 32%);
+    box-shadow: var(--shadow-card);
+  }
+
+  .metal-link {
+    @apply inline-flex items-center gap-2 text-body-sm font-medium text-ink-secondary transition-colors duration-250 hover:text-accent-hover;
   }
 }
 
@@ -247,8 +269,12 @@
   color: rgb(var(--color-ink-secondary-rgb)) !important;
 }
 
-.toastui-editor-toolbar-icons {
+  .toastui-editor-toolbar-icons {
   filter: invert(84%) sepia(7%) saturate(738%) hue-rotate(199deg) brightness(85%) contrast(86%);
+}
+
+:root[data-theme="light"] .toastui-editor-toolbar-icons {
+  filter: invert(19%) sepia(12%) saturate(618%) hue-rotate(197deg) brightness(91%) contrast(92%);
 }
 
 .toastui-editor-md-container,

@@ -37,6 +37,14 @@ export default {
       fontFamily: {
         sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+        display: [
+          "var(--font-display)",
+          "Iowan Old Style",
+          "Palatino Linotype",
+          "Book Antiqua",
+          "Georgia",
+          "serif",
+        ],
       },
       fontSize: {
         "display":  ["4.5rem",  { lineHeight: "1.0",  letterSpacing: "-0.04em" }],
@@ -75,13 +83,13 @@ export default {
 
       // ── Shadows ──────────────────────────────────────────────────────────
       boxShadow: {
-        sm:      "0 1px 4px rgba(0,0,0,0.5)",
-        DEFAULT: "0 4px 20px rgba(0,0,0,0.55)",
-        lg:      "0 12px 40px rgba(0,0,0,0.65)",
-        xl:      "0 24px 64px rgba(0,0,0,0.75)",
+        sm:      "var(--shadow-sm)",
+        DEFAULT: "var(--shadow-card)",
+        lg:      "var(--shadow-card-lg)",
+        xl:      "var(--shadow-card-xl)",
         "glow":             "var(--shadow-glow)",
         "glow-lg":          "var(--shadow-glow-lg)",
-        "inner-highlight":  "inset 0 1px 0 rgba(255,255,255,0.06)",
+        "inner-highlight":  "var(--shadow-inner-highlight)",
       },
 
       // ── Transitions ──────────────────────────────────────────────────────
