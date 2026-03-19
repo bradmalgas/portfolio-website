@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://bradmalgas.com
-
-# Sitemaps
-Sitemap: https://bradmalgas.com/sitemap.xml
