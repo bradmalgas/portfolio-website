@@ -6,6 +6,10 @@ import Navbar from "./components/navbar/Navbar";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 import {
+  getCodeThemeMode,
+  getCodeThemeStyleSheet,
+} from "@/lib/theme/code";
+import {
   DEFAULT_THEME,
   THEME_STORAGE_KEY,
   getThemeStyleSheet,
@@ -137,9 +141,11 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={themeFontVariables}
+      data-code-theme-mode={getCodeThemeMode()}
     >
       <head>
         <style id="theme-palettes" dangerouslySetInnerHTML={{ __html: getThemeStyleSheet() }} />
+        <style id="code-theme" dangerouslySetInnerHTML={{ __html: getCodeThemeStyleSheet() }} />
         <style
           id="theme-typography"
           dangerouslySetInnerHTML={{ __html: getTypographyStyleSheet() }}
