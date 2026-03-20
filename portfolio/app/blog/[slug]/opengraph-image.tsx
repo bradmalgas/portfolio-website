@@ -1,6 +1,5 @@
 import { getPublishedPostBySlug } from "@/lib/blog/data";
 import { createBlogOpenGraphImage } from "@/lib/blog/opengraph";
-import { createLogoOpenGraphImage } from "@/lib/blog/opengraph-fallback";
 
 export const runtime = "nodejs";
 // @vercel/og sets cache-control: public, immutable, max-age=31536000 by default.
@@ -20,13 +19,7 @@ interface OpenGraphImageProps {
 
 export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
   const { slug } = await params;
-
-  let post = null;
-  try {
-    post = await getPublishedPostBySlug(slug);
-  } catch {
-    // DB unreachable — continue with null post, fall through to generic card
-  }
+  const post = await getPublishedPostBySlug(slug);
 
   try {
     return await createBlogOpenGraphImage({
@@ -36,6 +29,9 @@ export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
       footer: "bradmalgas.com",
     });
   } catch {
-    return createLogoOpenGraphImage();
+    if (post?.cover_image) {
+      return Response.redirect(post.cover_image, 302);
+    }
+    throw new Error(`OG image generation failed for: ${slug}`);
   }
 }
