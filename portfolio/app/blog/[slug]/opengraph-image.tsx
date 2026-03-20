@@ -1,5 +1,6 @@
 import { getPublishedPostBySlug } from "@/lib/blog/data";
 import { createBlogOpenGraphImage } from "@/lib/blog/opengraph";
+import { createLogoOpenGraphImage } from "@/lib/blog/opengraph-fallback";
 
 export const runtime = "nodejs";
 // Cache OG images for 1 hour so crawlers (WhatsApp, Twitter, etc.) get a fast response.
@@ -36,26 +37,7 @@ export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
       footer: "bradmalgas.com",
     });
   } catch {
-    // Last resort: if image generation itself fails (e.g. font load error),
-    // return a minimal plain-text ImageResponse rather than a 500.
-    const { ImageResponse } = await import("next/og");
-    return new ImageResponse(
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#09090e",
-          color: "#edeef5",
-          fontSize: 48,
-          fontFamily: "sans-serif",
-        }}
-      >
-        {post?.title ?? "Brad Malgas Blog"}
-      </div>,
-      { width: 1200, height: 630 },
-    );
+    // Last resort: render the logo card (no fonts needed) rather than a 500.
+    return createLogoOpenGraphImage();
   }
 }
