@@ -6,13 +6,13 @@ import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
 
-const geistRegular = readFile(path.join(process.cwd(), "lib/blog/fonts/Geist-Regular.ttf"));
-const geistBold = readFile(path.join(process.cwd(), "lib/blog/fonts/Geist-Bold.ttf"));
-// Geist-Black lives in node_modules — make failure non-fatal so a missing font
-// doesn't crash the entire route. Falls back to Bold (700) for weight-900 text.
-const geistBlack = readFile(
-  path.join(process.cwd(), "node_modules/geist/dist/fonts/geist-sans/Geist-Black.ttf"),
-).catch(() => null);
+// Fonts live in public/fonts/ — Vercel guarantees this directory is on disk
+// during serverless function execution (unlike lib/ or node_modules/).
+const fontsDir = path.join(process.cwd(), "public/fonts");
+const geistRegular = readFile(path.join(fontsDir, "Geist-Regular.ttf"));
+const geistBold = readFile(path.join(fontsDir, "Geist-Bold.ttf"));
+// Non-fatal — falls back to Bold (700) for weight-900 text if missing.
+const geistBlack = readFile(path.join(fontsDir, "Geist-Black.ttf")).catch(() => null);
 
 interface BlogOpenGraphCardOptions {
   badge: string;
