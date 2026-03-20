@@ -1,10 +1,16 @@
-import path from "node:path";
-import { readFile } from "node:fs/promises";
 import { ImageResponse } from "next/og";
 
 import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://bradmalgas.com");
+
+function fetchFont(url: string): Promise<ArrayBuffer> {
+  return fetch(url).then((res) => {
+    if (!res.ok) throw new Error(`Failed to fetch font: ${url} (${res.status})`);
+    return res.arrayBuffer();
+  });
+}
 
 
 interface BlogOpenGraphCardOptions {
@@ -27,13 +33,10 @@ export async function createBlogOpenGraphImage({
   description,
   footer = siteUrl.replace(/^https?:\/\//, ""),
 }: BlogOpenGraphCardOptions) {
-  const fontsDir = path.join(process.cwd(), "public/fonts");
-  const toArrayBuffer = (buf: Buffer): ArrayBuffer =>
-    buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
   const [regularFont, boldFont, blackFont] = await Promise.all([
-    readFile(path.join(fontsDir, "Geist-Regular.ttf")).then(toArrayBuffer),
-    readFile(path.join(fontsDir, "Geist-Bold.ttf")).then(toArrayBuffer),
-    readFile(path.join(fontsDir, "Geist-Black.ttf")).then(toArrayBuffer).catch(() => null),
+    fetchFont(`${siteUrl}/fonts/Geist-Regular.ttf`),
+    fetchFont(`${siteUrl}/fonts/Geist-Bold.ttf`),
+    fetchFont(`${siteUrl}/fonts/Geist-Black.ttf`).catch(() => null),
   ]);
   const titleFontSize = getTitleFontSize(title);
   const footerLabel = footer.replace(/^https?:\/\//, "");
