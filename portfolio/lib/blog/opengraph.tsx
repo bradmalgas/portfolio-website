@@ -3,15 +3,15 @@ import { ImageResponse } from "next/og";
 import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
-// Always fetch fonts from production — preview deployments have Vercel auth protection
-// which returns 401 on static asset requests from serverless functions.
-const fontBaseUrl = "https://bradmalgas.com";
 
-function fetchFont(url: string): Promise<ArrayBuffer> {
-  return fetch(url).then((res) => {
-    if (!res.ok) throw new Error(`Failed to fetch font: ${url} (${res.status})`);
-    return res.arrayBuffer();
-  });
+async function loadGoogleFont(font: string, weight: number): Promise<ArrayBuffer> {
+  const url = `https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&display=swap`;
+  const css = await (await fetch(url)).text();
+  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
+  if (!resource) throw new Error(`Failed to parse Google Fonts CSS for ${font}@${weight}`);
+  const response = await fetch(resource[1]);
+  if (!response.ok) throw new Error(`Failed to fetch font data for ${font}@${weight}`);
+  return response.arrayBuffer();
 }
 
 
@@ -36,9 +36,9 @@ export async function createBlogOpenGraphImage({
   footer = siteUrl.replace(/^https?:\/\//, ""),
 }: BlogOpenGraphCardOptions) {
   const [regularFont, boldFont, blackFont] = await Promise.all([
-    fetchFont(`${fontBaseUrl}/fonts/Geist-Regular.ttf`),
-    fetchFont(`${fontBaseUrl}/fonts/Geist-Bold.ttf`),
-    fetchFont(`${fontBaseUrl}/fonts/Geist-Black.ttf`).catch(() => null),
+    loadGoogleFont("Geist", 400),
+    loadGoogleFont("Geist", 700),
+    loadGoogleFont("Geist", 900).catch(() => null),
   ]);
   const titleFontSize = getTitleFontSize(title);
   const footerLabel = footer.replace(/^https?:\/\//, "");
