@@ -6,13 +6,6 @@ import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
 
-// Fonts live in public/fonts/ — Vercel guarantees this directory is on disk
-// during serverless function execution (unlike lib/ or node_modules/).
-const fontsDir = path.join(process.cwd(), "public/fonts");
-const geistRegular = readFile(path.join(fontsDir, "Geist-Regular.ttf"));
-const geistBold = readFile(path.join(fontsDir, "Geist-Bold.ttf"));
-// Non-fatal — falls back to Bold (700) for weight-900 text if missing.
-const geistBlack = readFile(path.join(fontsDir, "Geist-Black.ttf")).catch(() => null);
 
 interface BlogOpenGraphCardOptions {
   badge: string;
@@ -34,10 +27,11 @@ export async function createBlogOpenGraphImage({
   description,
   footer = siteUrl.replace(/^https?:\/\//, ""),
 }: BlogOpenGraphCardOptions) {
+  const fontsDir = path.join(process.cwd(), "public/fonts");
   const [regularFont, boldFont, blackFont] = await Promise.all([
-    geistRegular,
-    geistBold,
-    geistBlack,
+    readFile(path.join(fontsDir, "Geist-Regular.ttf")),
+    readFile(path.join(fontsDir, "Geist-Bold.ttf")),
+    readFile(path.join(fontsDir, "Geist-Black.ttf")).catch(() => null),
   ]);
   const titleFontSize = getTitleFontSize(title);
   const footerLabel = footer.replace(/^https?:\/\//, "");
