@@ -44,3 +44,5 @@ next-env.d.ts
 /.clerk/
 .stitch/
 .claude/
+# Generated at build time
+lib/theme/highlight-themes.generated.ts

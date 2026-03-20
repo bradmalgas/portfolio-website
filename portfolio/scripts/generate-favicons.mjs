@@ -44,3 +44,19 @@ console.log("✓ apple-touch-icon.png");
 const ico = await toIco([png16, png32]);
 writeFileSync(path.join(publicDir, "favicon.ico"), ico);
 console.log("✓ favicon.ico");
+
+// Google Search logo (120×120)
+const pngGoogle = await sharp(svgBuffer)
+  .resize(120, 120)
+  .png({ compressionLevel: 0 })
+  .toBuffer();
+writeFileSync(path.join(publicDir, "google-logo.png"), pngGoogle);
+console.log("✓ google-logo.png (120×120)");
+
+// Full-quality logo PNG at native SVG resolution (611×611)
+const pngFull = await sharp(svgBuffer)
+  .resize(611, 611)
+  .png({ compressionLevel: 0 })
+  .toBuffer();
+writeFileSync(path.join(publicDir, "logo.png"), pngFull);
+console.log("✓ logo.png (611×611, full quality)");

@@ -8,9 +8,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
 
 const geistRegular = readFile(path.join(process.cwd(), "lib/blog/fonts/Geist-Regular.ttf"));
 const geistBold = readFile(path.join(process.cwd(), "lib/blog/fonts/Geist-Bold.ttf"));
+// Geist-Black lives in node_modules — make failure non-fatal so a missing font
+// doesn't crash the entire route. Falls back to Bold (700) for weight-900 text.
 const geistBlack = readFile(
   path.join(process.cwd(), "node_modules/geist/dist/fonts/geist-sans/Geist-Black.ttf"),
-);
+).catch(() => null);
 
 interface BlogOpenGraphCardOptions {
   badge: string;
@@ -40,6 +42,15 @@ export async function createBlogOpenGraphImage({
   const titleFontSize = getTitleFontSize(title);
   const footerLabel = footer.replace(/^https?:\/\//, "");
   const palette = themePalettes[DEFAULT_THEME];
+
+  type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  const fonts: { name: string; data: Buffer; style: "normal"; weight: FontWeight }[] = [
+    { name: "Geist Sans", data: regularFont, style: "normal", weight: 400 },
+    { name: "Geist Sans", data: boldFont, style: "normal", weight: 700 },
+    ...(blackFont
+      ? [{ name: "Geist Sans", data: blackFont, style: "normal" as const, weight: 900 as const }]
+      : [{ name: "Geist Sans", data: boldFont, style: "normal" as const, weight: 900 as const }]),
+  ];
 
   return new ImageResponse(
     (
@@ -191,29 +202,6 @@ export async function createBlogOpenGraphImage({
         </div>
       </div>
     ),
-    {
-      width: 1200,
-      height: 630,
-      fonts: [
-        {
-          name: "Geist Sans",
-          data: regularFont,
-          style: "normal",
-          weight: 400,
-        },
-        {
-          name: "Geist Sans",
-          data: boldFont,
-          style: "normal",
-          weight: 700,
-        },
-        {
-          name: "Geist Sans",
-          data: blackFont,
-          style: "normal",
-          weight: 900,
-        },
-      ],
-    },
+    { width: 1200, height: 630, fonts },
   );
 }
