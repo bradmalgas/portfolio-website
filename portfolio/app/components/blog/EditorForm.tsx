@@ -46,7 +46,6 @@ interface SaveMessage {
 
 interface PersistOptions {
   autosave?: boolean;
-  publish?: boolean;
 }
 
 const STATUS_OPTIONS = [
@@ -211,7 +210,7 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
       return null;
     }
 
-    const nextStatus = options.publish ? "published" : status;
+    const nextStatus = status;
 
     if (!title.trim() || !effectiveCategory || !content.trim()) {
       if (!options.autosave) {
@@ -277,7 +276,7 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
       } else {
         setSaveMessage({
           type: "success",
-          text: options.publish ? "Post published." : "Changes saved.",
+          text: "Changes saved.",
         });
       }
 
@@ -308,30 +307,31 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
     title,
   ]);
 
-  const handleUploadImage = useCallback(async (file: File) => {
+  async function uploadFile(file: File, folder: "covers" | "content"): Promise<string> {
+    const formData = new FormData();
+    formData.append("file", file);
+    const result = await uploadPostImageAction(formData, folder);
+    if (!result.ok) throw new Error(result.error);
+    return result.data.url;
+  }
+
+  const handleCoverImageUpload = useCallback(async (file: File) => {
     setIsUploading(true);
     setSaveMessage(null);
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const result = await uploadPostImageAction(formData);
-
-      if (!result.ok) {
-        throw new Error(result.error);
-      }
-
-      setCoverImage(result.data.url);
+      const url = await uploadFile(file, "covers");
+      setCoverImage(url);
       setIsDirty(true);
-      setSaveMessage({
-        type: "success",
-        text: "Image uploaded.",
-      });
-      return result.data.url;
+      setSaveMessage({ type: "success", text: "Cover image uploaded." });
+      return url;
     } finally {
       setIsUploading(false);
     }
+  }, []);
+
+  const handleInlineImageUpload = useCallback(async (file: File): Promise<string> => {
+    return uploadFile(file, "content");
   }, []);
 
   useEffect(() => {
@@ -416,31 +416,21 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
           <div className="flex flex-wrap gap-3">
             {persistedSlug ? (
               <Link
-                href={`/blog/${persistedSlug}`}
-                target="_blank"
+                href={status === "published" ? `/blog/${persistedSlug}` : `/blog/preview/${persistedSlug}`}
                 className="btn-ghost inline-flex items-center gap-2 text-sm"
               >
                 <Eye className="h-4 w-4" />
-                View post
+                {status === "published" ? "View post" : "Preview"}
               </Link>
             ) : null}
             <button
               type="button"
               onClick={() => void persistPost()}
-              className="btn-ghost inline-flex items-center gap-2 text-sm"
+              className="btn-accent inline-flex items-center gap-2 text-sm"
               disabled={isSaving || isAutoSaving}
             >
               {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               Save
-            </button>
-            <button
-              type="button"
-              onClick={() => void persistPost({ publish: true })}
-              className="btn-accent inline-flex items-center gap-2 text-sm"
-              disabled={isSaving || isAutoSaving}
-            >
-              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-              Publish
             </button>
           </div>
         </div>
@@ -555,35 +545,46 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
             />
           </label>
 
-          <div className="space-y-3 md:col-span-1">
+          <div className="space-y-3 md:col-span-2">
             <div className="flex items-center justify-between gap-4">
               <span className="text-body-sm font-medium text-ink">Cover Image</span>
-              <label className="btn-ghost inline-flex cursor-pointer items-center gap-2 text-sm">
-                {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-                Upload
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  aria-label="Upload cover image"
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    if (file) {
-                      void handleUploadImage(file);
-                    }
-                  }}
-                />
-              </label>
+              <div className="flex items-center gap-2">
+                {coverImage ? (
+                  <button
+                    type="button"
+                    onClick={() => { setCoverImage(""); markDirty(); }}
+                    className="btn-ghost inline-flex items-center gap-2 text-sm"
+                  >
+                    Remove
+                  </button>
+                ) : null}
+                <label className="btn-ghost inline-flex cursor-pointer items-center gap-2 text-sm">
+                  {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+                  {coverImage ? "Replace" : "Upload"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    aria-label="Upload cover image"
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      if (file) {
+                        void handleCoverImageUpload(file);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
             </div>
 
             {coverImage ? (
-              <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-border bg-surface">
+              <div className="relative aspect-[21/9] overflow-hidden rounded-md border border-border bg-surface">
                 <Image
                   src={coverImage}
                   alt="Cover preview"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="100vw"
                 />
               </div>
             ) : (
@@ -662,7 +663,7 @@ export default function EditorForm({ initialPost, categories }: EditorFormProps)
               setContent(nextValue);
               setIsDirty(true);
             }}
-            onUploadImage={handleUploadImage}
+            onUploadImage={handleInlineImageUpload}
             splitView={!isMobileViewport}
           />
         </div>

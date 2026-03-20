@@ -90,6 +90,13 @@ export default async function BlogEditorIndexPage() {
                           >
                             Edit
                           </Link>
+                          <Link
+                            href={post.status === "published" ? `/blog/${post.slug}` : `/blog/preview/${post.slug}`}
+                            target="_blank"
+                            className="text-body-sm text-ink-secondary transition-colors duration-250 hover:text-accent-hover"
+                          >
+                            {post.status === "published" ? "View" : "Preview"}
+                          </Link>
                           <DeletePostButton slug={post.slug} />
                         </div>
                       </td>

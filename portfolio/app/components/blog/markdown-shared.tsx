@@ -68,10 +68,7 @@ export function createMarkdownComponents(): Components {
       );
     },
     img: ({ src = "", alt = "" }) => (
-      <ZoomableInlineImage
-        src={src}
-        alt={alt.trim() || "Illustration from the article"}
-      />
+      <ZoomableInlineImage src={src} alt={alt.trim()} />
     ),
     blockquote: ({ children }) => {
       return (

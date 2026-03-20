@@ -427,6 +427,12 @@
     @apply font-semibold text-ink;
   }
 
+  .blog-prose em,
+  .blog-prose i {
+    font-style: italic;
+    font-synthesis: style;
+  }
+
   .blog-prose a {
     @apply text-accent underline decoration-accent/40 underline-offset-4 transition-colors duration-250 hover:text-accent-hover;
   }

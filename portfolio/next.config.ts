@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(process.cwd(), ".."),
+  experimental: {
+    authInterrupts: true,
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
+  },
   images: {
         remotePatterns: [
             {

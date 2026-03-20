@@ -331,6 +331,7 @@ export async function parseMarkdownForImportAction(
 
 export async function uploadPostImageAction(
   formData: FormData,
+  folder: "covers" | "content" = "covers",
 ): Promise<ActionResult<{ url: string }>> {
   const access = await ensureAdminAccess();
 
@@ -349,7 +350,7 @@ export async function uploadPostImageAction(
 
   const arrayBuffer = await file.arrayBuffer();
   const extension = file.name.includes(".") ? file.name.split(".").pop() : "png";
-  const filePath = `covers/${Date.now()}-${randomUUID()}-${sanitiseFilename(file.name || `image.${extension}`)}`;
+  const filePath = `${folder}/${Date.now()}-${randomUUID()}-${sanitiseFilename(file.name || `image.${extension}`)}`;
 
   const { error } = await getSupabaseAdminClient().storage
     .from("blog-images")
