@@ -14,7 +14,7 @@ console.log("✓ favicon.svg");
 
 // For rasterising: strip the media query and hardcode the brand color so
 // the .ico fallback always shows one strong fixed color regardless of OS theme
-const svgRaster = svgRaw.replace(/<style>[\s\S]*?<\/style>/g, '<style>path { fill: #60A5FA; }</style>');
+const svgRaster = svgRaw.replace(/<style>[\s\S]*?<\/style>/g, '<style>path { fill: #2563EB; }</style>');
 const svgBuffer = Buffer.from(svgRaster);
 
 async function toPng(size) {

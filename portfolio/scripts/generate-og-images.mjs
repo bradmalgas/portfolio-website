@@ -9,7 +9,7 @@ const publicDir = path.join(root, "public");
 const bg = "rgb(10,12,16)";
 const surface = "rgb(18,21,28)";
 const accent = "rgb(37,99,235)";
-const accentHover = "rgb(96,165,250)";
+const accentHover = "rgb(37,99,235)";
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
