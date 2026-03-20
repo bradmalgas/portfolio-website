@@ -28,17 +28,19 @@ export async function createBlogOpenGraphImage({
   footer = siteUrl.replace(/^https?:\/\//, ""),
 }: BlogOpenGraphCardOptions) {
   const fontsDir = path.join(process.cwd(), "public/fonts");
+  const toArrayBuffer = (buf: Buffer): ArrayBuffer =>
+    buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
   const [regularFont, boldFont, blackFont] = await Promise.all([
-    readFile(path.join(fontsDir, "Geist-Regular.ttf")),
-    readFile(path.join(fontsDir, "Geist-Bold.ttf")),
-    readFile(path.join(fontsDir, "Geist-Black.ttf")).catch(() => null),
+    readFile(path.join(fontsDir, "Geist-Regular.ttf")).then(toArrayBuffer),
+    readFile(path.join(fontsDir, "Geist-Bold.ttf")).then(toArrayBuffer),
+    readFile(path.join(fontsDir, "Geist-Black.ttf")).then(toArrayBuffer).catch(() => null),
   ]);
   const titleFontSize = getTitleFontSize(title);
   const footerLabel = footer.replace(/^https?:\/\//, "");
   const palette = themePalettes[DEFAULT_THEME];
 
   type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
-  const fonts: { name: string; data: Buffer; style: "normal"; weight: FontWeight }[] = [
+  const fonts: { name: string; data: ArrayBuffer; style: "normal"; weight: FontWeight }[] = [
     { name: "Geist Sans", data: regularFont, style: "normal", weight: 400 },
     { name: "Geist Sans", data: boldFont, style: "normal", weight: 700 },
     ...(blackFont

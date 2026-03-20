@@ -3,9 +3,8 @@ import { createBlogOpenGraphImage } from "@/lib/blog/opengraph";
 import { createLogoOpenGraphImage } from "@/lib/blog/opengraph-fallback";
 
 export const runtime = "nodejs";
-// Cache OG images for 1 hour so crawlers (WhatsApp, Twitter, etc.) get a fast response.
-// force-dynamic caused every request to hit the database, leading to timeouts.
-export const revalidate = 3600;
+// @vercel/og sets cache-control: public, immutable, max-age=31536000 by default.
+// Do not set revalidate — it conflicts with those headers and can lock in a bad cached response.
 export const alt = "Brad Malgas blog post";
 export const size = {
   width: 1200,
