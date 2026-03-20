@@ -21,17 +21,10 @@ export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
 
-  try {
-    return await createBlogOpenGraphImage({
-      badge: post?.category ?? "Blog",
-      title: post?.title ?? "Brad Malgas Blog",
-      description: post?.description ?? undefined,
-      footer: "bradmalgas.com",
-    });
-  } catch {
-    if (post?.cover_image) {
-      return Response.redirect(post.cover_image, 302);
-    }
-    throw new Error(`OG image generation failed for: ${slug}`);
-  }
+  return await createBlogOpenGraphImage({
+    badge: post?.category ?? "Blog",
+    title: post?.title ?? "Brad Malgas Blog",
+    description: post?.description ?? undefined,
+    footer: "bradmalgas.com",
+  });
 }
