@@ -2,8 +2,10 @@ import { ImageResponse } from "next/og";
 
 import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://bradmalgas.com");
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
+// Always fetch fonts from production — preview deployments have Vercel auth protection
+// which returns 401 on static asset requests from serverless functions.
+const fontBaseUrl = "https://bradmalgas.com";
 
 function fetchFont(url: string): Promise<ArrayBuffer> {
   return fetch(url).then((res) => {
@@ -34,9 +36,9 @@ export async function createBlogOpenGraphImage({
   footer = siteUrl.replace(/^https?:\/\//, ""),
 }: BlogOpenGraphCardOptions) {
   const [regularFont, boldFont, blackFont] = await Promise.all([
-    fetchFont(`${siteUrl}/fonts/Geist-Regular.ttf`),
-    fetchFont(`${siteUrl}/fonts/Geist-Bold.ttf`),
-    fetchFont(`${siteUrl}/fonts/Geist-Black.ttf`).catch(() => null),
+    fetchFont(`${fontBaseUrl}/fonts/Geist-Regular.ttf`),
+    fetchFont(`${fontBaseUrl}/fonts/Geist-Bold.ttf`),
+    fetchFont(`${fontBaseUrl}/fonts/Geist-Black.ttf`).catch(() => null),
   ]);
   const titleFontSize = getTitleFontSize(title);
   const footerLabel = footer.replace(/^https?:\/\//, "");
