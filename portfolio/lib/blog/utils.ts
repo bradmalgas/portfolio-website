@@ -163,8 +163,18 @@ export interface TocItem {
 export function getTableOfContents(markdown: string) {
   const items: TocItem[] = [];
   const duplicateCount = new Map<string, number>();
+  let inCodeBlock = false;
 
   for (const line of markdown.split("\n")) {
+    if (/^(`{3,}|~{3,})/.test(line.trim())) {
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+
+    if (inCodeBlock) {
+      continue;
+    }
+
     const match = /^(#{2,3})\s+(.+)$/.exec(line.trim());
 
     if (!match) {
