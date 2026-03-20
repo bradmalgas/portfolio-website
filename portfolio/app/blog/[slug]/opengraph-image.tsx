@@ -2,7 +2,8 @@ import { getPublishedPostBySlug } from "@/lib/blog/data";
 import { createBlogOpenGraphImage } from "@/lib/blog/opengraph";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+// @vercel/og sets cache-control: public, immutable, max-age=31536000 by default.
+// Do not set revalidate — it conflicts with those headers and can lock in a bad cached response.
 export const alt = "Brad Malgas blog post";
 export const size = {
   width: 1200,
@@ -20,12 +21,9 @@ export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
 
-  const title = post?.title ?? "Brad Malgas Blog";
-  const category = post?.category ?? "Blog";
-
-  return createBlogOpenGraphImage({
-    badge: category,
-    title,
+  return await createBlogOpenGraphImage({
+    badge: post?.category ?? "Blog",
+    title: post?.title ?? "Brad Malgas Blog",
     description: post?.description ?? undefined,
     footer: "bradmalgas.com",
   });

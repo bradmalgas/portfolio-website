@@ -57,15 +57,14 @@ export async function generateMetadata({
       title: post.title,
       description: post.description ?? undefined,
       url: `/blog/${post.slug}`,
+      siteName: "Brad Malgas",
       type: "article",
       publishedTime: post.published_at ?? undefined,
-      images: [`/blog/${post.slug}/opengraph-image`],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description ?? undefined,
-      images: [`/blog/${post.slug}/opengraph-image`],
     },
   };
 }

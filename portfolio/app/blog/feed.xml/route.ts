@@ -14,7 +14,7 @@ export async function GET() {
     id: `${siteUrl}/blog`,
     link: `${siteUrl}/blog`,
     language: "en",
-    image: `${siteUrl}/blog/opengraph-image`,
+    image: `${siteUrl}/og-image.png`,
     favicon: `${siteUrl}/favicon.ico`,
     copyright: `All rights reserved ${new Date().getFullYear()}, Brad Malgas`,
     updated: posts[0]?.updated_at ? new Date(posts[0].updated_at) : new Date(),

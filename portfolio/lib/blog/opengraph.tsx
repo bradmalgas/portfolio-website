@@ -1,16 +1,19 @@
-import path from "node:path";
-import { readFile } from "node:fs/promises";
 import { ImageResponse } from "next/og";
 
 import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
 
-const geistRegular = readFile(path.join(process.cwd(), "lib/blog/fonts/Geist-Regular.ttf"));
-const geistBold = readFile(path.join(process.cwd(), "lib/blog/fonts/Geist-Bold.ttf"));
-const geistBlack = readFile(
-  path.join(process.cwd(), "node_modules/geist/dist/fonts/geist-sans/Geist-Black.ttf"),
-);
+async function loadGoogleFont(font: string, weight: number): Promise<ArrayBuffer> {
+  const url = `https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&display=swap`;
+  const css = await (await fetch(url)).text();
+  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
+  if (!resource) throw new Error(`Failed to parse Google Fonts CSS for ${font}@${weight}`);
+  const response = await fetch(resource[1]);
+  if (!response.ok) throw new Error(`Failed to fetch font data for ${font}@${weight}`);
+  return response.arrayBuffer();
+}
+
 
 interface BlogOpenGraphCardOptions {
   badge: string;
@@ -33,13 +36,22 @@ export async function createBlogOpenGraphImage({
   footer = siteUrl.replace(/^https?:\/\//, ""),
 }: BlogOpenGraphCardOptions) {
   const [regularFont, boldFont, blackFont] = await Promise.all([
-    geistRegular,
-    geistBold,
-    geistBlack,
+    loadGoogleFont("Geist", 400),
+    loadGoogleFont("Geist", 700),
+    loadGoogleFont("Geist", 900).catch(() => null),
   ]);
   const titleFontSize = getTitleFontSize(title);
   const footerLabel = footer.replace(/^https?:\/\//, "");
   const palette = themePalettes[DEFAULT_THEME];
+
+  type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  const fonts: { name: string; data: ArrayBuffer; style: "normal"; weight: FontWeight }[] = [
+    { name: "Geist Sans", data: regularFont, style: "normal", weight: 400 },
+    { name: "Geist Sans", data: boldFont, style: "normal", weight: 700 },
+    ...(blackFont
+      ? [{ name: "Geist Sans", data: blackFont, style: "normal" as const, weight: 900 as const }]
+      : [{ name: "Geist Sans", data: boldFont, style: "normal" as const, weight: 900 as const }]),
+  ];
 
   return new ImageResponse(
     (
@@ -179,7 +191,7 @@ export async function createBlogOpenGraphImage({
               viewBox="0 0 611 611"
               width={96}
               height={96}
-              fill={rgb(palette.accentHoverRgb)}
+              fill={rgb(palette.accentRgb)}
             >
               <g transform="translate(0,611) scale(0.1,-0.1)" stroke="none">
                 <path d="M1222 6049 c-131 -17 -252 -84 -304 -169 -57 -93 -58 -111 -58 -741 0 -502 -2 -578 -15 -589 -11 -10 -113 -13 -418 -15 l-402 -2 -5 -309 c-4 -170 -5 -651 -4 -1069 2 -418 3 -883 3 -1032 l1 -273 211 0 211 0 58 -57 c59 -59 158 -124 240 -157 25 -10 61 -26 80 -35 l35 -17 6 -609 c4 -446 9 -620 18 -648 11 -33 43 -78 91 -127 24 -23 93 -67 135 -84 62 -26 207 -37 440 -34 l220 3 3 106 3 106 -191 7 c-198 7 -230 13 -267 48 l-22 21 -1 572 c-1 629 0 627 -62 719 -53 81 -133 131 -280 173 -121 34 -131 44 -134 133 -1 38 1 70 6 70 5 0 21 -10 37 -23 203 -168 475 -244 777 -217 160 14 283 51 436 131 103 54 190 121 290 225 169 176 282 392 337 646 25 115 25 389 0 508 -59 282 -173 499 -361 686 -152 151 -261 224 -425 284 -150 55 -210 65 -401 65 -116 0 -192 -5 -225 -14 -212 -57 -307 -106 -424 -221 l-76 -75 0 103 c0 102 0 103 25 108 162 37 315 110 387 187 88 93 86 74 92 742 6 537 7 583 24 608 10 16 29 32 43 37 14 6 94 10 178 10 170 0 204 7 229 49 30 52 13 146 -31 170 -24 13 -413 13 -510 0z m280 -2429 c71 -22 123 -54 189 -116 115 -107 170 -248 171 -434 1 -206 -77 -383 -214 -488 -71 -54 -108 -71 -186 -88 -172 -36 -329 9 -451 128 -226 221 -228 639 -5 871 126 131 322 181 496 127z" />
@@ -191,29 +203,6 @@ export async function createBlogOpenGraphImage({
         </div>
       </div>
     ),
-    {
-      width: 1200,
-      height: 630,
-      fonts: [
-        {
-          name: "Geist Sans",
-          data: regularFont,
-          style: "normal",
-          weight: 400,
-        },
-        {
-          name: "Geist Sans",
-          data: boldFont,
-          style: "normal",
-          weight: 700,
-        },
-        {
-          name: "Geist Sans",
-          data: blackFont,
-          style: "normal",
-          weight: 900,
-        },
-      ],
-    },
+    { width: 1200, height: 630, fonts },
   );
 }

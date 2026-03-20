@@ -19,7 +19,9 @@ import {
   themeFontVariables,
 } from "@/lib/theme/typography";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://bradmalgas.com");
 const blogSignInUrl = "/blog/sign-in";
 const blogEditorUrl = "/blog/editor";
 
@@ -49,7 +51,7 @@ export const metadata: Metadata = {
     siteName: "Brad Malgas",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Brad Malgas — Senior Software Developer",
@@ -63,7 +65,7 @@ export const metadata: Metadata = {
     title: "Brad Malgas — Senior Software Developer",
     description:
       "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
-    images: ["/opengraph-image"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

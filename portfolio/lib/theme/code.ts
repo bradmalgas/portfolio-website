@@ -1,5 +1,4 @@
-import path from "node:path";
-import { readFileSync } from "node:fs";
+import { highlightThemeCss } from "@/lib/theme/highlight-themes.generated";
 
 import {
     DEFAULT_THEME,
@@ -37,15 +36,9 @@ const highlightThemePresets: Record<ThemePaletteName, HighlightThemePair> = {
 };
 
 function readHighlightThemeCss(themeName: string) {
-    const filePath = path.join(
-        process.cwd(),
-        "node_modules",
-        "highlight.js",
-        "styles",
-        `${themeName}.css`,
-    );
-
-    return readFileSync(filePath, "utf8");
+    const css = highlightThemeCss[themeName];
+    if (!css) throw new Error(`Unknown highlight.js theme: ${themeName}`);
+    return css;
 }
 
 function scopeHighlightThemeCss(css: string, selector: string) {

@@ -2,16 +2,7 @@ import { ImageResponse } from "next/og";
 
 import { DEFAULT_THEME, rgb, rgba, themePalettes } from "@/lib/theme/palette";
 
-export const dynamic = "force-static";
-export const runtime = "nodejs";
-export const alt = "Brad Malgas Blog";
-export const size = {
-  width: 1200,
-  height: 630,
-};
-export const contentType = "image/png";
-
-export default function BlogOpenGraphImage() {
+export function createLogoOpenGraphImage() {
   const palette = themePalettes[DEFAULT_THEME];
 
   return new ImageResponse(
@@ -69,13 +60,13 @@ export default function BlogOpenGraphImage() {
           }}
         />
 
-        {/* logo */}
+        {/* logo — accent colour matching the navbar */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 611 611"
           width={280}
           height={280}
-          fill={rgb(palette.inkRgb)}
+          fill={rgb(palette.accentRgb)}
           style={{ position: "relative" }}
         >
           <g transform="translate(0,611) scale(0.1,-0.1)" stroke="none">
