@@ -2,6 +2,7 @@ import Link from "next/link";
 import { forbidden, redirect } from "next/navigation";
 
 import DeletePostButton from "@/app/components/blog/DeletePostButton";
+import ImportMarkdownButton from "@/app/components/blog/ImportMarkdownButton";
 import FadeIn from "@/app/components/ui/FadeIn";
 import { getAdminAccess } from "@/lib/blog/auth";
 import { getAdminPosts } from "@/lib/blog/data";
@@ -41,9 +42,12 @@ export default async function BlogEditorIndexPage() {
                 Review drafts, update published articles, and start a new post.
               </p>
             </div>
-            <Link href="/blog/editor/new" className="btn-accent text-sm">
-              New Post
-            </Link>
+            <div className="flex items-start gap-3">
+              <ImportMarkdownButton />
+              <Link href="/blog/editor/new" className="btn-accent text-sm">
+                New Post
+              </Link>
+            </div>
           </div>
         </FadeIn>
 

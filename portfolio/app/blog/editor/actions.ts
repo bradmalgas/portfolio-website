@@ -2,6 +2,8 @@
 
 import { randomUUID } from "node:crypto";
 
+import matter from "gray-matter";
+
 import { getAdminAccess } from "@/lib/blog/auth";
 import { revalidateBlogContent } from "@/lib/blog/cache";
 import { getSupabaseAdminClient } from "@/lib/supabase";
@@ -235,6 +237,95 @@ export async function deletePostAction(slug: string): Promise<ActionResult<null>
   return {
     ok: true,
     data: null,
+  };
+}
+
+export interface ParsedMarkdownImport {
+  title: string;
+  slug: string;
+  description: string;
+  content: string;
+  category: string;
+  tags: string;
+  coverImage: string;
+  status: PostStatus;
+  publishedAt: string;
+}
+
+export async function parseMarkdownForImportAction(
+  formData: FormData,
+): Promise<ActionResult<ParsedMarkdownImport>> {
+  const access = await ensureAdminAccess();
+
+  if (!access.ok) {
+    return access;
+  }
+
+  const file = formData.get("file");
+
+  if (!(file instanceof File) || !file.name.endsWith(".md")) {
+    return { ok: false, error: "A .md file is required." };
+  }
+
+  const raw = await file.text();
+  const { data: fm, content } = matter(raw);
+
+  // Derive title from filename (strip .md extension)
+  const title = file.name.replace(/\.md$/, "").trim();
+
+  // Case-insensitive key lookup for Obsidian-style frontmatter
+  const get = (key: string) => {
+    const match = Object.keys(fm).find((k) => k.toLowerCase() === key.toLowerCase());
+    return match ? fm[match] : undefined;
+  };
+
+  const description = String(get("description") ?? "").trim();
+  const category = String(get("category") ?? "").trim();
+  const statusRaw = String(get("status") ?? "draft").toLowerCase();
+  const status: PostStatus = isPostStatus(statusRaw) ? statusRaw : "draft";
+
+  // Tags may be a YAML array or a comma-separated string
+  const tagsRaw = get("tags");
+  const tags = Array.isArray(tagsRaw)
+    ? (tagsRaw as string[]).join(", ")
+    : String(tagsRaw ?? "");
+
+  // Cover image — decode from a Vercel proxy URL if needed
+  const rawCoverImage = String(get("cover image url") ?? get("cover_image") ?? "").trim();
+  let coverImage = rawCoverImage;
+  if (coverImage) {
+    try {
+      const proxied = new URL(coverImage).searchParams.get("url");
+      if (proxied) coverImage = decodeURIComponent(proxied);
+    } catch {
+      // Not a URL, keep as-is
+    }
+  }
+
+  // Parse published_at → datetime-local string (yyyy-MM-ddTHH:mm) expected by EditorForm
+  const publishedAtRaw = get("published at") ?? get("published_at");
+  let publishedAt = "";
+  if (publishedAtRaw) {
+    const d = new Date(String(publishedAtRaw));
+    if (!Number.isNaN(d.getTime())) {
+      const offsetMs = d.getTimezoneOffset() * 60_000;
+      publishedAt = new Date(d.getTime() - offsetMs).toISOString().slice(0, 16);
+    }
+  }
+
+  return {
+    ok: true,
+    data: {
+      title,
+      slug: slugify(title),
+      description,
+      content: content.trim(),
+      category,
+      tags,
+      coverImage,
+      status,
+      publishedAt,
+    },
   };
 }
 
