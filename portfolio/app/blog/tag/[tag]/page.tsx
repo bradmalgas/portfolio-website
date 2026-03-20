@@ -29,14 +29,14 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
       description: `Articles tagged ${decodedTag} on Brad Malgas' blog.`,
       url: `/blog/tag/${encodeURIComponent(decodedTag)}`,
       siteName: "Brad Malgas",
-      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+      images: [{ url: "/blog/opengraph-image", width: 1200, height: 630 }],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: `${decodedTag} Posts | Brad Malgas`,
       description: `Articles tagged ${decodedTag} on Brad Malgas' blog.`,
-      images: ["/og-image.png"],
+      images: ["/blog/opengraph-image"],
     },
     alternates: {
       canonical: `/blog/tag/${encodeURIComponent(decodedTag)}`,

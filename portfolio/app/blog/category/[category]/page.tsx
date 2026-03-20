@@ -36,14 +36,14 @@ export async function generateMetadata({
       description: `Articles in the ${decodedCategory} category on Brad Malgas' blog.`,
       url: canonicalBase,
       siteName: "Brad Malgas",
-      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+      images: [{ url: "/blog/opengraph-image", width: 1200, height: 630 }],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: `${decodedCategory} Posts | Brad Malgas`,
       description: `Articles in the ${decodedCategory} category on Brad Malgas' blog.`,
-      images: ["/og-image.png"],
+      images: ["/blog/opengraph-image"],
     },
     alternates: {
       canonical: page > 1 && shouldIndex ? `${canonicalBase}?page=${page}` : canonicalBase,

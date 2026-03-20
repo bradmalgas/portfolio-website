@@ -64,14 +64,14 @@ export async function generateMetadata({
       images: [
         `/blog/${post.slug}/opengraph-image`,
         ...(post.cover_image ? [post.cover_image] : []),
-        `/og-image.png`,
+        `/blog/opengraph-image`,
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description ?? undefined,
-      images: [`/blog/${post.slug}/opengraph-image`, `/og-image.png`],
+      images: [`/blog/${post.slug}/opengraph-image`, `/blog/opengraph-image`],
     },
   };
 }

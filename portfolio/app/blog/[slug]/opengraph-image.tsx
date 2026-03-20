@@ -1,8 +1,6 @@
-import path from "node:path";
-import { readFile } from "node:fs/promises";
-
 import { getPublishedPostBySlug } from "@/lib/blog/data";
 import { createBlogOpenGraphImage } from "@/lib/blog/opengraph";
+import { createLogoOpenGraphImage } from "@/lib/blog/opengraph-fallback";
 
 export const runtime = "nodejs";
 // Cache OG images for 1 hour so crawlers (WhatsApp, Twitter, etc.) get a fast response.
@@ -39,8 +37,6 @@ export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
       footer: "bradmalgas.com",
     });
   } catch {
-    // Last resort: return the pre-generated static PNG — always available, no rendering needed.
-    const png = await readFile(path.join(process.cwd(), "public/og-image.png"));
-    return new Response(png, { headers: { "Content-Type": "image/png" } });
+    return createLogoOpenGraphImage();
   }
 }

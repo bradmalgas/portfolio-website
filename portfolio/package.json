@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-highlight-themes.mjs && node scripts/generate-og-images.mjs",
+    "prebuild": "node scripts/generate-highlight-themes.mjs",
     "build": "next build --webpack",
     "build:turbopack": "next build",
     "start": "next start",
