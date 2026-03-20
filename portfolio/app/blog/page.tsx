@@ -36,14 +36,17 @@ export async function generateMetadata({
       title: "Blog | Brad Malgas",
       description:
         "Writing about side projects, Azure, software architecture, and the things I learn while building.",
-      images: ["/blog/opengraph-image"],
+      url: "/blog",
+      siteName: "Brad Malgas",
+      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: "Blog | Brad Malgas",
       description:
         "Writing about side projects, Azure, software architecture, and the things I learn while building.",
-      images: ["/blog/opengraph-image"],
+      images: ["/og-image.png"],
     },
     alternates: {
       canonical,

@@ -57,20 +57,21 @@ export async function generateMetadata({
       title: post.title,
       description: post.description ?? undefined,
       url: `/blog/${post.slug}`,
+      siteName: "Brad Malgas",
       type: "article",
       publishedTime: post.published_at ?? undefined,
-      // Priority: 1) dynamic per-post OG, 2) post cover image, 3) blog-level OG
+      // Priority: 1) dynamic per-post OG, 2) post cover image, 3) static logo PNG
       images: [
         `/blog/${post.slug}/opengraph-image`,
         ...(post.cover_image ? [post.cover_image] : []),
-        `/blog/opengraph-image`,
+        `/og-image.png`,
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description ?? undefined,
-      images: [`/blog/${post.slug}/opengraph-image`],
+      images: [`/blog/${post.slug}/opengraph-image`, `/og-image.png`],
     },
   };
 }
