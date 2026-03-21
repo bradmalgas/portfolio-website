@@ -17,7 +17,6 @@ import GiscusComments from "@/app/components/blog/GiscusComments";
 import MarkdownArticle from "@/app/components/blog/MarkdownArticle";
 import PrefetchRoutes from "@/app/components/blog/PrefetchRoutes";
 import PostViewTracker from "@/app/components/blog/PostViewTracker";
-import ReactionBar from "@/app/components/blog/ReactionBar";
 import ShareButtons from "@/app/components/blog/ShareButtons";
 import TableOfContents from "@/app/components/blog/TableOfContents";
 import { getAdminAccess } from "@/lib/blog/auth";
@@ -243,7 +242,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                           ))}
                       </div>
 
-                      <ReactionBar slug={post.slug} />
                       <ShareButtons title={post.title} url={postUrl} />
                       <GiscusComments />
 
