@@ -1,0 +1,123 @@
+/*
+ * Giscus light theme — mapped from the site's "portfolio" light palette.
+ * Colors sourced directly from lib/theme/palette.ts (portfolio.light).
+ *
+ * background:    #f9fafb   surface:        #ffffff
+ * surface-raised:#f8fafc   surface-overlay:#f1f5f9
+ * border:        #cbd5e1   border-subtle:  #e2e8f0
+ * ink:           #0f172a   ink-secondary:  #475569   ink-tertiary: #64748b
+ * accent:        #2563eb   accent-hover:   #1d4ed8
+ */
+
+main {
+  /* ── Syntax highlighting ── */
+  --color-prettylights-syntax-comment:                    #64748b;
+  --color-prettylights-syntax-constant:                   #1d4ed8;
+  --color-prettylights-syntax-entity:                     #7c3aed;
+  --color-prettylights-syntax-storage-modifier-import:    #475569;
+  --color-prettylights-syntax-entity-tag:                 #059669;
+  --color-prettylights-syntax-keyword:                    #dc2626;
+  --color-prettylights-syntax-string:                     #059669;
+  --color-prettylights-syntax-variable:                   #0284c7;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #dc2626;
+  --color-prettylights-syntax-invalid-illegal-text:       #ffffff;
+  --color-prettylights-syntax-invalid-illegal-bg:         #991b1b;
+  --color-prettylights-syntax-carriage-return-text:       #ffffff;
+  --color-prettylights-syntax-carriage-return-bg:         #b91c1c;
+  --color-prettylights-syntax-string-regexp:              #059669;
+  --color-prettylights-syntax-markup-list:                #ca8a04;
+  --color-prettylights-syntax-markup-heading:             #2563eb;
+  --color-prettylights-syntax-markup-italic:              #475569;
+  --color-prettylights-syntax-markup-bold:                #0f172a;
+  --color-prettylights-syntax-markup-deleted-text:        #7f1d1d;
+  --color-prettylights-syntax-markup-deleted-bg:          #fee2e2;
+  --color-prettylights-syntax-markup-inserted-text:       #14532d;
+  --color-prettylights-syntax-markup-inserted-bg:         #dcfce7;
+  --color-prettylights-syntax-markup-changed-text:        #78350f;
+  --color-prettylights-syntax-markup-changed-bg:          #fef3c7;
+  --color-prettylights-syntax-markup-ignored-text:        #475569;
+  --color-prettylights-syntax-markup-ignored-bg:          #dbeafe;
+  --color-prettylights-syntax-meta-diff-range:            #6d28d9;
+  --color-prettylights-syntax-brackethighlighter-angle:   #64748b;
+  --color-prettylights-syntax-sublimelinter-gutter-mark:  #cbd5e1;
+  --color-prettylights-syntax-constant-other-reference-link: #1d4ed8;
+
+  /* ── Buttons ── */
+  --color-btn-text:                     #475569;
+  --color-btn-bg:                       #f8fafc;
+  --color-btn-border:                   rgba(15, 23, 42, 0.12);
+  --color-btn-shadow:                   0 0 transparent;
+  --color-btn-inset-shadow:             0 0 transparent;
+  --color-btn-hover-bg:                 #f1f5f9;
+  --color-btn-hover-border:             #94a3b8;
+  --color-btn-active-bg:                #e2e8f0;
+  --color-btn-active-border:            #94a3b8;
+  --color-btn-selected-bg:              #f1f5f9;
+  --color-btn-primary-text:             #ffffff;
+  --color-btn-primary-bg:               #2563eb;
+  --color-btn-primary-border:           rgba(15, 23, 42, 0.10);
+  --color-btn-primary-shadow:           0 0 transparent;
+  --color-btn-primary-inset-shadow:     0 0 transparent;
+  --color-btn-primary-hover-bg:         #1d4ed8;
+  --color-btn-primary-hover-border:     rgba(15, 23, 42, 0.10);
+  --color-btn-primary-selected-bg:      #2563eb;
+  --color-btn-primary-selected-shadow:  0 0 transparent;
+  --color-btn-primary-disabled-text:    rgba(15, 23, 42, 0.40);
+  --color-btn-primary-disabled-bg:      rgba(37, 99, 235, 0.55);
+  --color-btn-primary-disabled-border:  rgba(15, 23, 42, 0.10);
+
+  /* ── Controls ── */
+  --color-action-list-item-default-hover-bg:      rgba(71, 85, 105, 0.08);
+  --color-segmented-control-bg:                   rgba(100, 116, 139, 0.08);
+  --color-segmented-control-button-bg:            #ffffff;
+  --color-segmented-control-button-selected-border: #cbd5e1;
+
+  /* ── Foreground ── */
+  --color-fg-default: #0f172a;
+  --color-fg-muted:   #475569;
+  --color-fg-subtle:  #64748b;
+
+  /* ── Canvas ── */
+  --color-canvas-default: #ffffff;
+  --color-canvas-overlay: #f8fafc;
+  --color-canvas-inset:   #f9fafb;
+  --color-canvas-subtle:  #f8fafc;
+
+  /* ── Borders ── */
+  --color-border-default: #cbd5e1;
+  --color-border-muted:   #e2e8f0;
+  --color-neutral-muted:  rgba(100, 116, 139, 0.20);
+
+  /* ── Accent ── */
+  --color-accent-fg:        #2563eb;
+  --color-accent-emphasis:  #1d4ed8;
+  --color-accent-muted:     rgba(37, 99, 235, 0.30);
+  --color-accent-subtle:    rgba(37, 99, 235, 0.08);
+
+  /* ── Status ── */
+  --color-success-fg:        #059669;
+  --color-attention-fg:      #ca8a04;
+  --color-attention-muted:   rgba(202, 138, 4, 0.30);
+  --color-attention-subtle:  rgba(202, 138, 4, 0.10);
+  --color-danger-fg:         #dc2626;
+  --color-danger-muted:      rgba(220, 38, 38, 0.30);
+  --color-danger-subtle:     rgba(220, 38, 38, 0.08);
+
+  --color-primer-shadow-inset:              0 0 transparent;
+  --color-scale-gray-7:                     #f1f5f9;
+  --color-scale-blue-8:                     #dbeafe;
+  --color-social-reaction-bg-hover:         var(--color-scale-gray-7);
+  --color-social-reaction-bg-reacted-hover: var(--color-scale-blue-8);
+}
+
+main .pagination-loader-container {
+  background-image: url(https://github.com/images/modules/pulls/progressive-disclosure-line.svg);
+}
+
+.gsc-homepage-bg {
+  background-color: #ffffff;
+}
+
+main .gsc-loading-image {
+  background-image: url(https://github.githubassets.com/images/mona-loading-default.gif);
+}
