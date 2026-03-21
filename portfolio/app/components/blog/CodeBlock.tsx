@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Copy } from "lucide-react";
 
 import styles from "@/app/components/blog/CodeBlock.module.css";
+
+const COLLAPSE_LINE_THRESHOLD = 25;
+const COLLAPSED_HEIGHT = 320;
 
 interface CodeBlockProps {
   code: string;
@@ -17,6 +20,9 @@ function formatLanguage(language?: string) {
 
 export default function CodeBlock({ code, children, language }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const lineCount = code.split("\n").length;
+  const isCollapsible = lineCount > COLLAPSE_LINE_THRESHOLD;
+  const [collapsed, setCollapsed] = useState(isCollapsible);
   const label = formatLanguage(language);
 
   async function handleCopy() {
@@ -44,9 +50,36 @@ export default function CodeBlock({ code, children, language }: CodeBlockProps) 
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
-      <div className={`${styles.codeScroll} ${styles.codeSurface} p-4 font-mono text-sm leading-7`}>
-        {children}
+      <div className="relative">
+        <div
+          className={`${styles.codeScroll} ${styles.codeSurface} p-4 font-mono text-sm leading-7 transition-[max-height] duration-300 ease-in-out`}
+          style={collapsed ? { maxHeight: COLLAPSED_HEIGHT, overflow: "hidden" } : undefined}
+        >
+          {children}
+        </div>
+        {isCollapsible && collapsed && (
+          <div className={styles.collapseFade} />
+        )}
       </div>
+      {isCollapsible && (
+        <button
+          type="button"
+          onClick={() => setCollapsed((v) => !v)}
+          className={`${styles.collapseButton} flex w-full items-center justify-center gap-1.5 py-2 text-[11px] font-medium transition-colors duration-200`}
+        >
+          {collapsed ? (
+            <>
+              <ChevronDown className="h-3.5 w-3.5" />
+              Show more
+            </>
+          ) : (
+            <>
+              <ChevronUp className="h-3.5 w-3.5" />
+              Show less
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 }

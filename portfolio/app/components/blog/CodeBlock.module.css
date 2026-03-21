@@ -106,3 +106,28 @@
 :global(html[data-code-theme-mode="custom"]) .codeScroll :global(.hljs-deletion) {
   color: rgb(var(--code-syntax-deletion-rgb));
 }
+
+.collapseFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(var(--code-surface-rgb)) 100%
+  );
+}
+
+.collapseButton {
+  border-top: 1px solid rgb(var(--code-border-rgb));
+  background: rgb(var(--code-surface-top-rgb) / 0.98);
+  color: rgb(var(--code-muted-rgb));
+}
+
+.collapseButton:hover {
+  color: rgb(var(--code-ink-rgb));
+  background: rgb(var(--code-button-rgb));
+}

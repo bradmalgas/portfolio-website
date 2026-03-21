@@ -1,0 +1,132 @@
+/*
+ * Giscus light theme — matched to the site's "portfolio" light palette.
+ *
+ * Layering strategy (bottom → top):
+ *   iframe body      #f1f5f9  (surface-overlay — grey tint, distinct from white card shell)
+ *   comment cards    #ffffff  (surface — white, floats above grey base)
+ *   textarea inputs  #f8fafc  (surface-raised — very slightly recessed)
+ *   popovers         #ffffff  (surface — crisp white with shadow)
+ *
+ * Borders use slate-400 (#94a3b8) as default so they are always visible,
+ * with slate-300 (#cbd5e1) for muted/inner dividers.
+ *
+ * Buttons use a white surface + full-opacity slate-400 border so they
+ * read as interactive elements rather than blending into the background.
+ */
+
+main {
+  /* ── Syntax highlighting ── */
+  --color-prettylights-syntax-comment:                    #64748b;
+  --color-prettylights-syntax-constant:                   #1d4ed8;
+  --color-prettylights-syntax-entity:                     #7c3aed;
+  --color-prettylights-syntax-storage-modifier-import:    #475569;
+  --color-prettylights-syntax-entity-tag:                 #059669;
+  --color-prettylights-syntax-keyword:                    #dc2626;
+  --color-prettylights-syntax-string:                     #059669;
+  --color-prettylights-syntax-variable:                   #0284c7;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #dc2626;
+  --color-prettylights-syntax-invalid-illegal-text:       #ffffff;
+  --color-prettylights-syntax-invalid-illegal-bg:         #991b1b;
+  --color-prettylights-syntax-carriage-return-text:       #ffffff;
+  --color-prettylights-syntax-carriage-return-bg:         #b91c1c;
+  --color-prettylights-syntax-string-regexp:              #059669;
+  --color-prettylights-syntax-markup-list:                #ca8a04;
+  --color-prettylights-syntax-markup-heading:             #2563eb;
+  --color-prettylights-syntax-markup-italic:              #475569;
+  --color-prettylights-syntax-markup-bold:                #0f172a;
+  --color-prettylights-syntax-markup-deleted-text:        #7f1d1d;
+  --color-prettylights-syntax-markup-deleted-bg:          #fee2e2;
+  --color-prettylights-syntax-markup-inserted-text:       #14532d;
+  --color-prettylights-syntax-markup-inserted-bg:         #dcfce7;
+  --color-prettylights-syntax-markup-changed-text:        #78350f;
+  --color-prettylights-syntax-markup-changed-bg:          #fef3c7;
+  --color-prettylights-syntax-markup-ignored-text:        #475569;
+  --color-prettylights-syntax-markup-ignored-bg:          #dbeafe;
+  --color-prettylights-syntax-meta-diff-range:            #6d28d9;
+  --color-prettylights-syntax-brackethighlighter-angle:   #64748b;
+  --color-prettylights-syntax-sublimelinter-gutter-mark:  #94a3b8;
+  --color-prettylights-syntax-constant-other-reference-link: #1d4ed8;
+
+  /* ── Buttons ──
+     White surface + visible slate-400 border = readable buttons at every state.  */
+  --color-btn-text:                     #0f172a;
+  --color-btn-bg:                       #ffffff;
+  --color-btn-border:                   #94a3b8;
+  --color-btn-shadow:                   0 1px 2px rgba(15, 23, 42, 0.06);
+  --color-btn-inset-shadow:             inset 0 1px 0 rgba(255, 255, 255, 0.80);
+  --color-btn-hover-bg:                 #f1f5f9;
+  --color-btn-hover-border:             #64748b;
+  --color-btn-active-bg:                #e2e8f0;
+  --color-btn-active-border:            #64748b;
+  --color-btn-selected-bg:              #e2e8f0;
+  --color-btn-primary-text:             #ffffff;
+  --color-btn-primary-bg:               #2563eb;
+  --color-btn-primary-border:           #1d4ed8;
+  --color-btn-primary-shadow:           0 1px 3px rgba(37, 99, 235, 0.30);
+  --color-btn-primary-inset-shadow:     inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --color-btn-primary-hover-bg:         #1d4ed8;
+  --color-btn-primary-hover-border:     #1e40af;
+  --color-btn-primary-selected-bg:      #1d4ed8;
+  --color-btn-primary-selected-shadow:  0 0 transparent;
+  --color-btn-primary-disabled-text:    rgba(255, 255, 255, 0.50);
+  --color-btn-primary-disabled-bg:      rgba(37, 99, 235, 0.50);
+  --color-btn-primary-disabled-border:  rgba(37, 99, 235, 0.40);
+
+  /* ── Controls ──
+     Tab strip uses a solid grey trough so the active-tab pill is obvious.  */
+  --color-action-list-item-default-hover-bg:        rgba(15, 23, 42, 0.06);
+  --color-segmented-control-bg:                     #e2e8f0;
+  --color-segmented-control-button-bg:              #ffffff;
+  --color-segmented-control-button-selected-border: #94a3b8;
+
+  /* ── Foreground ── */
+  --color-fg-default: #0f172a;
+  --color-fg-muted:   #475569;
+  --color-fg-subtle:  #64748b;
+
+  /* ── Canvas ──
+     default = grey base so white comment cards float above it visibly.  */
+  --color-canvas-default: #f1f5f9;
+  --color-canvas-overlay: #ffffff;
+  --color-canvas-inset:   #f8fafc;
+  --color-canvas-subtle:  #ffffff;
+
+  /* ── Borders ──
+     slate-400 as default ensures borders are always visible on light backgrounds. */
+  --color-border-default: #94a3b8;
+  --color-border-muted:   #cbd5e1;
+  --color-neutral-muted:  rgba(71, 85, 105, 0.25);
+
+  /* ── Accent ── */
+  --color-accent-fg:        #2563eb;
+  --color-accent-emphasis:  #1d4ed8;
+  --color-accent-muted:     rgba(37, 99, 235, 0.25);
+  --color-accent-subtle:    rgba(37, 99, 235, 0.08);
+
+  /* ── Status ── */
+  --color-success-fg:        #059669;
+  --color-attention-fg:      #ca8a04;
+  --color-attention-muted:   rgba(202, 138, 4, 0.25);
+  --color-attention-subtle:  rgba(202, 138, 4, 0.08);
+  --color-danger-fg:         #dc2626;
+  --color-danger-muted:      rgba(220, 38, 38, 0.25);
+  --color-danger-subtle:     rgba(220, 38, 38, 0.08);
+
+  --color-primer-shadow-inset:              inset 0 1px 2px rgba(15, 23, 42, 0.06);
+  --color-scale-gray-7:                     #e2e8f0;
+  --color-scale-blue-8:                     #dbeafe;
+  --color-social-reaction-bg-hover:         var(--color-scale-gray-7);
+  --color-social-reaction-bg-reacted-hover: var(--color-scale-blue-8);
+}
+
+main .pagination-loader-container {
+  background-image: url(https://github.com/images/modules/pulls/progressive-disclosure-line.svg);
+}
+
+.gsc-homepage-bg {
+  background-color: #f1f5f9;
+}
+
+main .gsc-loading-image {
+  background-image: url(https://github.githubassets.com/images/mona-loading-default.gif);
+}

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { forbidden, notFound, redirect } from "next/navigation";
 
 import MarkdownArticle from "@/app/components/blog/MarkdownArticle";
-import ReactionBar from "@/app/components/blog/ReactionBar";
 import ShareButtons from "@/app/components/blog/ShareButtons";
 import TableOfContents from "@/app/components/blog/TableOfContents";
 import { getAdminAccess } from "@/lib/blog/auth";
@@ -161,7 +160,6 @@ export default async function BlogPreviewPage({ params }: BlogPreviewPageProps) 
               ))}
             </div>
 
-            <ReactionBar slug={post.slug} />
             <ShareButtons title={post.title} url={postUrl} />
           </div>
 

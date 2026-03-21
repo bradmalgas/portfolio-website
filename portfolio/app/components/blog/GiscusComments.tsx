@@ -2,10 +2,35 @@
 
 import { useEffect, useRef, useState } from "react";
 
+function getGiscusTheme(theme: string | null | undefined) {
+  const mode = theme === "light" ? "light" : "dark";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  // In local dev, giscus.app can't reach localhost so we use Supabase-hosted CSS.
+  // In production, NEXT_PUBLIC_SITE_URL points to the live domain and the bundled
+  // /public/giscus-*.css files are served directly from the app.
+  if (!siteUrl || siteUrl.startsWith("http://localhost")) {
+    const devUrl =
+      mode === "light"
+        ? process.env.NEXT_PUBLIC_GISCUS_THEME_LIGHT
+        : process.env.NEXT_PUBLIC_GISCUS_THEME_DARK;
+    return devUrl ?? (mode === "light" ? "light" : "dark_dimmed");
+  }
+  return `${siteUrl}/giscus-${mode}.css`;
+}
+
+function sendGiscusTheme(themeUrl: string) {
+  const iframe = document.querySelector<HTMLIFrameElement>(".giscus-frame");
+  iframe?.contentWindow?.postMessage(
+    { giscus: { setConfig: { theme: themeUrl } } },
+    "https://giscus.app",
+  );
+}
+
 export default function GiscusComments() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
+  // Lazy-load: only inject the script once the widget scrolls into view.
   useEffect(() => {
     const element = containerRef.current;
 
@@ -28,6 +53,7 @@ export default function GiscusComments() {
     return () => observer.disconnect();
   }, []);
 
+  // Inject giscus script once visible, using the current site theme.
   useEffect(() => {
     const container = containerRef.current;
 
@@ -51,10 +77,28 @@ export default function GiscusComments() {
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-emit-metadata", "0");
     script.setAttribute("data-input-position", "top");
-    script.setAttribute("data-theme", "dark_dimmed");
+    script.setAttribute("data-theme", getGiscusTheme(document.documentElement.dataset.theme));
     script.setAttribute("data-lang", "en");
 
     container.appendChild(script);
+  }, [isVisible]);
+
+  // Watch for theme toggling and push the new theme into the giscus iframe.
+  useEffect(() => {
+    if (!isVisible) {
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      sendGiscusTheme(getGiscusTheme(document.documentElement.dataset.theme));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
   }, [isVisible]);
 
   return (

@@ -1,7 +1,5 @@
 export type PostStatus = "draft" | "published" | "scheduled";
 
-export type ReactionEmoji = "👍" | "❤️" | "🔥" | "🎉" | "💡";
-
 export interface Post {
   id: string;
   slug: string;
@@ -18,14 +16,6 @@ export interface Post {
   reading_time_minutes: number | null;
   view_count: number;
   fts: string | null;
-}
-
-export interface Reaction {
-  id: string;
-  post_id: string;
-  emoji: ReactionEmoji;
-  session_id: string;
-  created_at: string;
 }
 
 export type PostListItem = Omit<Post, "content">;
@@ -49,11 +39,6 @@ export interface TagCount {
   count: number;
 }
 
-export interface ReactionCount {
-  emoji: ReactionEmoji;
-  count: number;
-}
-
 export type PostInsert = Omit<
   Post,
   "id" | "created_at" | "updated_at" | "view_count" | "fts"
@@ -66,10 +51,6 @@ export type PostInsert = Omit<
 
 export type PostUpdate = Partial<PostInsert>;
 
-export type ReactionInsert = Omit<Reaction, "id" | "created_at"> & {
-  created_at?: string;
-};
-
 export interface Database {
   public: {
     Tables: {
@@ -77,11 +58,6 @@ export interface Database {
         Row: Post;
         Insert: PostInsert;
         Update: PostUpdate;
-      };
-      reactions: {
-        Row: Reaction;
-        Insert: ReactionInsert;
-        Update: Partial<ReactionInsert>;
       };
     };
     Functions: {

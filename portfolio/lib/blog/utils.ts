@@ -1,12 +1,7 @@
 import readingTime from "reading-time";
 
-import { BLOG_REACTIONS, BLOG_STATUSES } from "@/lib/blog/constants";
-import type {
-  Post,
-  PostStatus,
-  ReactionEmoji,
-  ReactionCount,
-} from "@/types/blog";
+import { BLOG_STATUSES } from "@/lib/blog/constants";
+import type { Post, PostStatus } from "@/types/blog";
 
 export function slugify(value: string) {
   return value
@@ -55,12 +50,6 @@ export function normaliseCategory(category: string | null | undefined) {
 
 export function isPostStatus(value: string | null | undefined): value is PostStatus {
   return BLOG_STATUSES.includes(value as PostStatus);
-}
-
-export function isReactionEmoji(
-  value: string | null | undefined,
-): value is ReactionEmoji {
-  return BLOG_REACTIONS.includes(value as ReactionEmoji);
 }
 
 export function parsePositiveInt(
@@ -163,8 +152,18 @@ export interface TocItem {
 export function getTableOfContents(markdown: string) {
   const items: TocItem[] = [];
   const duplicateCount = new Map<string, number>();
+  let inCodeBlock = false;
 
   for (const line of markdown.split("\n")) {
+    if (/^(`{3,}|~{3,})/.test(line.trim())) {
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+
+    if (inCodeBlock) {
+      continue;
+    }
+
     const match = /^(#{2,3})\s+(.+)$/.exec(line.trim());
 
     if (!match) {
@@ -195,27 +194,6 @@ export function getWordAndCharacterCount(markdown: string) {
     characters: markdown.length,
     words: trimmed ? trimmed.split(/\s+/).length : 0,
   };
-}
-
-export function groupReactionCounts(
-  reactionRows: Array<{ emoji: ReactionEmoji }>,
-): ReactionCount[] {
-  const counts = BLOG_REACTIONS.map((emoji) => ({
-    emoji,
-    count: 0,
-  }));
-
-  const map = new Map(counts.map((item) => [item.emoji, item]));
-
-  for (const reaction of reactionRows) {
-    const entry = map.get(reaction.emoji);
-
-    if (entry) {
-      entry.count += 1;
-    }
-  }
-
-  return counts;
 }
 
 export function serialisePostForEditor(post: Post | null) {
