@@ -1,12 +1,17 @@
 /*
- * Giscus light theme — mapped from the site's "portfolio" light palette.
- * Colors sourced directly from lib/theme/palette.ts (portfolio.light).
+ * Giscus light theme — matched to the site's "portfolio" light palette.
  *
- * background:    #f9fafb   surface:        #ffffff
- * surface-raised:#f8fafc   surface-overlay:#f1f5f9
- * border:        #cbd5e1   border-subtle:  #e2e8f0
- * ink:           #0f172a   ink-secondary:  #475569   ink-tertiary: #64748b
- * accent:        #2563eb   accent-hover:   #1d4ed8
+ * Layering strategy (bottom → top):
+ *   iframe body      #f1f5f9  (surface-overlay — grey tint, distinct from white card shell)
+ *   comment cards    #ffffff  (surface — white, floats above grey base)
+ *   textarea inputs  #f8fafc  (surface-raised — very slightly recessed)
+ *   popovers         #ffffff  (surface — crisp white with shadow)
+ *
+ * Borders use slate-400 (#94a3b8) as default so they are always visible,
+ * with slate-300 (#cbd5e1) for muted/inner dividers.
+ *
+ * Buttons use a white surface + full-opacity slate-400 border so they
+ * read as interactive elements rather than blending into the background.
  */
 
 main {
@@ -39,72 +44,76 @@ main {
   --color-prettylights-syntax-markup-ignored-bg:          #dbeafe;
   --color-prettylights-syntax-meta-diff-range:            #6d28d9;
   --color-prettylights-syntax-brackethighlighter-angle:   #64748b;
-  --color-prettylights-syntax-sublimelinter-gutter-mark:  #cbd5e1;
+  --color-prettylights-syntax-sublimelinter-gutter-mark:  #94a3b8;
   --color-prettylights-syntax-constant-other-reference-link: #1d4ed8;
 
-  /* ── Buttons ── */
-  --color-btn-text:                     #475569;
-  --color-btn-bg:                       #f8fafc;
-  --color-btn-border:                   rgba(15, 23, 42, 0.12);
-  --color-btn-shadow:                   0 0 transparent;
-  --color-btn-inset-shadow:             0 0 transparent;
+  /* ── Buttons ──
+     White surface + visible slate-400 border = readable buttons at every state.  */
+  --color-btn-text:                     #0f172a;
+  --color-btn-bg:                       #ffffff;
+  --color-btn-border:                   #94a3b8;
+  --color-btn-shadow:                   0 1px 2px rgba(15, 23, 42, 0.06);
+  --color-btn-inset-shadow:             inset 0 1px 0 rgba(255, 255, 255, 0.80);
   --color-btn-hover-bg:                 #f1f5f9;
-  --color-btn-hover-border:             #94a3b8;
+  --color-btn-hover-border:             #64748b;
   --color-btn-active-bg:                #e2e8f0;
-  --color-btn-active-border:            #94a3b8;
-  --color-btn-selected-bg:              #f1f5f9;
+  --color-btn-active-border:            #64748b;
+  --color-btn-selected-bg:              #e2e8f0;
   --color-btn-primary-text:             #ffffff;
   --color-btn-primary-bg:               #2563eb;
-  --color-btn-primary-border:           rgba(15, 23, 42, 0.10);
-  --color-btn-primary-shadow:           0 0 transparent;
-  --color-btn-primary-inset-shadow:     0 0 transparent;
+  --color-btn-primary-border:           #1d4ed8;
+  --color-btn-primary-shadow:           0 1px 3px rgba(37, 99, 235, 0.30);
+  --color-btn-primary-inset-shadow:     inset 0 1px 0 rgba(255, 255, 255, 0.15);
   --color-btn-primary-hover-bg:         #1d4ed8;
-  --color-btn-primary-hover-border:     rgba(15, 23, 42, 0.10);
-  --color-btn-primary-selected-bg:      #2563eb;
+  --color-btn-primary-hover-border:     #1e40af;
+  --color-btn-primary-selected-bg:      #1d4ed8;
   --color-btn-primary-selected-shadow:  0 0 transparent;
-  --color-btn-primary-disabled-text:    rgba(15, 23, 42, 0.40);
-  --color-btn-primary-disabled-bg:      rgba(37, 99, 235, 0.55);
-  --color-btn-primary-disabled-border:  rgba(15, 23, 42, 0.10);
+  --color-btn-primary-disabled-text:    rgba(255, 255, 255, 0.50);
+  --color-btn-primary-disabled-bg:      rgba(37, 99, 235, 0.50);
+  --color-btn-primary-disabled-border:  rgba(37, 99, 235, 0.40);
 
-  /* ── Controls ── */
-  --color-action-list-item-default-hover-bg:      rgba(71, 85, 105, 0.08);
-  --color-segmented-control-bg:                   rgba(100, 116, 139, 0.08);
-  --color-segmented-control-button-bg:            #ffffff;
-  --color-segmented-control-button-selected-border: #cbd5e1;
+  /* ── Controls ──
+     Tab strip uses a solid grey trough so the active-tab pill is obvious.  */
+  --color-action-list-item-default-hover-bg:        rgba(15, 23, 42, 0.06);
+  --color-segmented-control-bg:                     #e2e8f0;
+  --color-segmented-control-button-bg:              #ffffff;
+  --color-segmented-control-button-selected-border: #94a3b8;
 
   /* ── Foreground ── */
   --color-fg-default: #0f172a;
   --color-fg-muted:   #475569;
   --color-fg-subtle:  #64748b;
 
-  /* ── Canvas ── */
-  --color-canvas-default: #ffffff;
-  --color-canvas-overlay: #f8fafc;
-  --color-canvas-inset:   #f9fafb;
-  --color-canvas-subtle:  #f8fafc;
+  /* ── Canvas ──
+     default = grey base so white comment cards float above it visibly.  */
+  --color-canvas-default: #f1f5f9;
+  --color-canvas-overlay: #ffffff;
+  --color-canvas-inset:   #f8fafc;
+  --color-canvas-subtle:  #ffffff;
 
-  /* ── Borders ── */
-  --color-border-default: #cbd5e1;
-  --color-border-muted:   #e2e8f0;
-  --color-neutral-muted:  rgba(100, 116, 139, 0.20);
+  /* ── Borders ──
+     slate-400 as default ensures borders are always visible on light backgrounds. */
+  --color-border-default: #94a3b8;
+  --color-border-muted:   #cbd5e1;
+  --color-neutral-muted:  rgba(71, 85, 105, 0.25);
 
   /* ── Accent ── */
   --color-accent-fg:        #2563eb;
   --color-accent-emphasis:  #1d4ed8;
-  --color-accent-muted:     rgba(37, 99, 235, 0.30);
+  --color-accent-muted:     rgba(37, 99, 235, 0.25);
   --color-accent-subtle:    rgba(37, 99, 235, 0.08);
 
   /* ── Status ── */
   --color-success-fg:        #059669;
   --color-attention-fg:      #ca8a04;
-  --color-attention-muted:   rgba(202, 138, 4, 0.30);
-  --color-attention-subtle:  rgba(202, 138, 4, 0.10);
+  --color-attention-muted:   rgba(202, 138, 4, 0.25);
+  --color-attention-subtle:  rgba(202, 138, 4, 0.08);
   --color-danger-fg:         #dc2626;
-  --color-danger-muted:      rgba(220, 38, 38, 0.30);
+  --color-danger-muted:      rgba(220, 38, 38, 0.25);
   --color-danger-subtle:     rgba(220, 38, 38, 0.08);
 
-  --color-primer-shadow-inset:              0 0 transparent;
-  --color-scale-gray-7:                     #f1f5f9;
+  --color-primer-shadow-inset:              inset 0 1px 2px rgba(15, 23, 42, 0.06);
+  --color-scale-gray-7:                     #e2e8f0;
   --color-scale-blue-8:                     #dbeafe;
   --color-social-reaction-bg-hover:         var(--color-scale-gray-7);
   --color-social-reaction-bg-reacted-hover: var(--color-scale-blue-8);
@@ -115,7 +124,7 @@ main .pagination-loader-container {
 }
 
 .gsc-homepage-bg {
-  background-color: #ffffff;
+  background-color: #f1f5f9;
 }
 
 main .gsc-loading-image {
