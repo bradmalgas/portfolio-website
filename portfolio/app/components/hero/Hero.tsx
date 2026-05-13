@@ -96,9 +96,9 @@ export default function Hero() {
                   </h1>
 
                   <p className="mt-5 max-w-2xl text-xl leading-relaxed text-ink-secondary sm:text-2xl">
-                      Senior software developer designing Azure platforms,
-                      backend systems, and delivery workflows that are calm
-                      under pressure.
+                      I take on remote project contracts for teams that need
+                      reliable delivery, clear thinking and practical
+                      engineering.
                   </p>
 
                   {/* <div className="mt-8 flex flex-wrap gap-3 text-body-sm text-ink-secondary hero-content-2">
@@ -137,8 +137,7 @@ export default function Hero() {
                                   Currently building
                               </p>
                               <p className="mt-1 text-lg font-semibold text-ink">
-                                  Cloud-native platforms with security and
-                                  operational depth
+                                  Cloud, data and AI-enabled systems.
                               </p>
                           </div>
                           <div>
