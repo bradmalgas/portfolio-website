@@ -19,7 +19,7 @@ export const projects: Project[] = [
             "A local-first meeting scribe for Apple Silicon Macs. It records audio, transcribes it locally with Whisper, and formats transcripts into Markdown notes without sending meeting content to cloud services by default.",
         tags: ["Python", "Whisper", "LM Studio", "Local AI", "Markdown"],
         githubLink: "https://github.com/bradmalgas/zero-scribe",
-        blogLink: "/blog/zeroscribe",
+        blogLink: "/blog/building-zeroscribe-my-own-local-ai-note-taker",
         blogLinkLabel: "Read Blog Post",
         youtubeLink: "https://youtu.be/YpdCh3xp8XM?si=fbsHipD1eiR_XaEq",
     },
@@ -30,7 +30,8 @@ export const projects: Project[] = [
         description:
             "An early-stage freelancer admin tool focused on invoice generation and clean PDF output. The first version taught me how much detail sits inside simple business workflows: layout, totals, spacing and reusable document structure.",
         tags: ["Next.js", "TypeScript", "React", "pdfmake", "Zod"],
-        blogLink: "/blog/solodesk",
+        blogLink:
+            "/blog/solodesk-the-invoice-app-i-built-because-one-pdf-wasnt-enough",
         blogLinkLabel: "Read Blog Post",
         youtubeLink: "https://youtu.be/scaIh_c0x14?t=643&si=FbzXPr3xbHS-D5p5",
     },
