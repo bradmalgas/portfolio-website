@@ -670,7 +670,7 @@ Each palette preset maps to a highlight.js light/dark theme pair:
 - **Twitter card:** `summary_large_image`
 - **JSON-LD:** `Person` schema with `jobTitle`, `sameAs` (LinkedIn, GitHub, blog), `knowsAbout`
 - **Canonical:** `https://bradmalgas.com`
-- **Keywords:** Brad Malgas, Senior Software Developer, Azure, C#, .NET, Cloud Native, etc.
+- **Keywords:** Brad Malgas, Independent Software Developer, backend, Azure, C#, .NET, TypeScript, Next.js, AI workflows, etc.
 
 ### Blog Post Metadata (`app/blog/[slug]/page.tsx`)
 

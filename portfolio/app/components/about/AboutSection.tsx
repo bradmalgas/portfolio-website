@@ -72,7 +72,7 @@ export default function AboutSection() {
                               Brad Malgas
                           </p>
                           <p className="mt-1 text-body-sm text-accent">
-                              Senior Software Developer
+                              Independent Software Developer
                           </p>
                       </div>
                   </div>
@@ -87,17 +87,17 @@ export default function AboutSection() {
 
                       <div className="space-y-4 text-body leading-relaxed text-ink-secondary">
                           <p>
-                              Senior Software Developer with {yearsOfExperience}{" "}
-                              years of experience across C#, .NET, Azure, API
-                              integrations and product-focused backend work. I
-                              started my career in banking, working on C#/.NET
-                              systems, Azure infrastructure and internal product
-                              workflows at Investec.
+                              Independent software developer with{" "}
+                              {yearsOfExperience} years of experience across C#,
+                              .NET, Azure, API integrations and product-focused
+                              backend work. I started my career in banking,
+                              working on C#/.NET systems, Azure infrastructure
+                              and internal product workflows at Investec.
                           </p>
                           <p>
-                              Since then I’ve worked across SaaS document
+                              Since then I&apos;ve worked across SaaS document
                               workflows, digital signing, cloud platforms and
-                              AI-assisted product development. I’m now
+                              AI-assisted product development. I&apos;m now
                               independent and focused on project-based work. I
                               like building systems where the details matter:
                               financial data, access control, integrations,

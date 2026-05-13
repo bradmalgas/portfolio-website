@@ -119,7 +119,7 @@ export default function ContactFooter() {
           <div>
             <p className="font-display text-lg font-semibold text-ink">Brad Malgas</p>
             <p className="mt-0.5 text-xs text-ink-secondary">
-              Senior Software Developer · Azure · C# · .NET
+              Independent Software Developer · C#/.NET · Azure · AI Workflows
             </p>
             <Link
               href="/blog"
