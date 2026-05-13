@@ -14,52 +14,69 @@ function formatDateRange(start: Date, end?: Date): string {
 // ── Data ──────────────────────────────────────────────────────────────
 
 const experience = [
-  {
-    id: "secret-sauce",
-    title: "Senior Software Developer",
-    company: "Secret Sauce",
-    startDate: new Date(2025, 3), // April 2025
-    summary:
-      "At Secret Sauce, my work is split between internal tooling and external client delivery. Externally, I've been responsible for designing and running a new Investec Product Enablement platform. Internally, I've focused on reusable pipeline templates and containerization patterns. This role reflects my step-up into senior responsibilities across infrastructure, security, and operational ownership.",
-    responsibilities: [
-      "Designed and delivered Azure infrastructure using Bicep with bicepparam files for environment-specific configuration",
-      "Set up Azure DevOps pipelines for infrastructure validation, infrastructure deployment, and container image deployments to Azure Container Apps",
-      "Implemented VNet/subnet topology and NSG rules; ensured all applications were VNet-integrated and compliant with restricted inbound access",
-      "Drove operational excellence by checking deployment and application logs, writing Log Analytics (KQL) queries, and resolving issues across infra and app layers",
-      "Authored internal reusable pipeline templates to orchestrate dependent runs",
-    ],
-  },
-  {
-    id: "altron",
-    title: "Specialist: Software Development",
-    company: "Altron Security",
-    startDate: new Date(2024, 3), // April 2024
-    endDate: new Date(2025, 2),   // March 2025
-    summary:
-      "I worked across C# development, digital signing solutions, and customer integrations for our SaaS document workflow and signing platform. I collaborated with both local and UK-based teams to deliver reliable integrations and strong client outcomes.",
-    responsibilities: [
-      "Collaborated with customers to implement API-based document signing workflows and integrations",
-      "Led technical meetings and provided ongoing support for SaaS integrations and pre-sales engagements",
-      "Developed backend C# APIs to enhance functionality and performance",
-      "Coordinated with international teams to improve product offerings and ensure cross-border alignment",
-    ],
-  },
-  {
-    id: "investec",
-    title: "Software Developer",
-    company: "Investec",
-    startDate: new Date(2021, 0), // January 2021
-    endDate: new Date(2024, 2),   // March 2024
-    summary:
-      "Over three years at Investec, I developed backend C# APIs, designed CI/CD pipelines, and provisioned Azure infrastructure using infrastructure-as-code. Working within a cross-functional team of in-house developers, contractors, and business analysts, I took on broad ownership across the full delivery lifecycle — from backlog refinement and code review to deployment and beyond.",
-    responsibilities: [
-      "Created and refined work items on Azure DevOps boards",
-      "Designed CI/CD pipelines using YAML",
-      "Reviewed code and PRs to maintain quality and consistency",
-      "Configured and deployed Azure resources using infrastructure-as-code",
-      "Wrote backend C# Web API endpoints for new and existing features",
-    ],
-  },
+    {
+        id: "independent",
+        title: "Independent Software Developer",
+        company: "Brad Malgas",
+        startDate: new Date(2026, 3), // April 2026
+        summary:
+            "I work independently on project-based software contracts, with a focus on backend development, cloud infrastructure, API integrations and AI-enabled product workflows. My work includes building production features, improving existing systems, setting up cloud infrastructure and turning product ideas into working software.",
+        responsibilities: [
+            "Deliver software work directly for clients on a contract basis",
+            "Build backend APIs, cloud services and product features",
+            "Work with technical and business stakeholders to clarify requirements",
+            "Use AI tools for development, review, testing and workflow support",
+            "Build personal product projects to explore practical AI, privacy and product engineering",
+        ],
+    },
+    {
+        id: "secret-sauce",
+        title: "Senior Software Developer",
+        company: "Secret Sauce",
+        startDate: new Date(2025, 3), // April 2025
+        endDate: new Date(2026, 3), // April 2026
+        summary:
+            "I worked as a senior software developer at Secret Sauce on a banking product enablement platform for Investec. My role covered backend development, Azure infrastructure, CI/CD pipelines, container apps, networking, authentication and deployment automation.",
+        responsibilities: [
+            "Developed secure backend services for a banking platform",
+            "Configured Azure infrastructure, CI/CD pipelines, networking and container apps",
+            "Built backend-for-frontend services with Entra ID, JWT authentication and role-based access",
+            "Supported monitoring and operational visibility through Log Analytics",
+            "Worked with banking stakeholders in a delivery-focused environment",
+        ],
+    },
+    {
+        id: "altron",
+        title: "Specialist: Software Development and Signing Technical Pre-Sales",
+        company: "Altron Security",
+        startDate: new Date(2024, 3), // April 2024
+        endDate: new Date(2025, 2), // March 2025
+        summary:
+            "I worked across C# development, digital signing solutions and customer integrations for a SaaS document workflow and signing platform. I worked with local and international teams, including UK-based product teams, to support clients and improve document workflow solutions.",
+        responsibilities: [
+            "Collaborated with customers on API-based document signing integrations",
+            "Led technical meetings and supported SaaS integrations",
+            "Developed backend APIs in C#",
+            "Designed and implemented PDF signing functionality with long-term validation support",
+            "Built Power Automate workflows to process XML webhook data and archive documents in SharePoint",
+        ],
+    },
+    {
+        id: "investec",
+        title: "Software Developer",
+        company: "Investec",
+        startDate: new Date(2021, 0), // January 2021
+        endDate: new Date(2024, 2), // March 2024
+        summary:
+            "I worked as a software developer in a team of in-house developers, contractors and business analysts. Most of my work was in C# and .NET, with exposure to Azure, Angular, SQL and infrastructure-as-code across internal banking systems.",
+        responsibilities: [
+            "Wrote backend API endpoints in C#",
+            "Configured and deployed Azure resources using infrastructure-as-code",
+            "Designed CI/CD pipelines using YAML",
+            "Reviewed code and pull requests",
+            "Contributed to a forex workflow rewrite and an API-only limit management system hosted on Azure",
+        ],
+    },
 ];
 
 const education = [
@@ -223,83 +240,87 @@ function TimelineEntry({
 
 export default function CareerSection() {
   return (
-    <section
-      id="career"
-      className="theme-section theme-section--career section-padding"
-    >
-      <div className="max-w-6xl mx-auto">
-        <span className="eyebrow">Experience</span>
-        <h2 className="section-heading mt-2">
-          Work shaped by delivery, not theater.
-        </h2>
-        <span className="section-rule" />
+      <section
+          id="career"
+          className="theme-section theme-section--career section-padding"
+      >
+          <div className="max-w-6xl mx-auto">
+              <span className="eyebrow">Experience</span>
+              <h2 className="section-heading mt-2">
+                  Work shaped by ownership, delivery, and real systems.
+              </h2>
+              <span className="section-rule" />
 
-        <div className="mt-10">
-          {experience.map((entry, i) => (
-            <FadeIn key={entry.id} delay={i * 80}>
-              <TimelineEntry
-                entry={entry}
-                isLast={i === experience.length - 1}
-              />
-            </FadeIn>
-          ))}
-        </div>
-
-        <div className="mt-16">
-          <span className="eyebrow">Education</span>
-          <h2 className="section-heading mt-2">
-            Academic Background
-          </h2>
-          <span className="section-rule" />
-
-          <FadeIn delay={50} className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {education.map(({ degree, university, graduated }) => (
-              <div
-                key={degree}
-                className="card p-5 flex flex-col gap-1"
-              >
-                <p className="font-semibold text-ink text-base leading-snug">
-                  {degree}
-                </p>
-                <p className="text-accent text-sm font-medium mt-0.5">{university}</p>
-                <p className="text-ink-secondary text-xs mt-0.5 italic">Graduated {graduated}</p>
+              <div className="mt-10">
+                  {experience.map((entry, i) => (
+                      <FadeIn key={entry.id} delay={i * 80}>
+                          <TimelineEntry
+                              entry={entry}
+                              isLast={i === experience.length - 1}
+                          />
+                      </FadeIn>
+                  ))}
               </div>
-            ))}
-          </FadeIn>
-        </div>
 
-        <div className="mt-16">
-          <span className="eyebrow">Certifications</span>
-          <h2 className="section-heading mt-2">
-            Microsoft Certified
-          </h2>
-          <span className="section-rule" />
+              <div className="mt-16">
+                  <span className="eyebrow">Education</span>
+                  <h2 className="section-heading mt-2">Academic Background</h2>
+                  <span className="section-rule" />
 
-          <FadeIn delay={50} className="mt-8 flex flex-wrap gap-3">
-            {certifications.map((cert) => (
-              <a
-                key={cert.name}
-                href={cert.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`View credential: ${cert.name}`}
-                className="group card px-4 py-3 flex items-start gap-3 w-full sm:w-auto
+                  <FadeIn
+                      delay={50}
+                      className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"
+                  >
+                      {education.map(({ degree, university, graduated }) => (
+                          <div
+                              key={degree}
+                              className="card p-5 flex flex-col gap-1"
+                          >
+                              <p className="font-semibold text-ink text-base leading-snug">
+                                  {degree}
+                              </p>
+                              <p className="text-accent text-sm font-medium mt-0.5">
+                                  {university}
+                              </p>
+                              <p className="text-ink-secondary text-xs mt-0.5 italic">
+                                  Graduated {graduated}
+                              </p>
+                          </div>
+                      ))}
+                  </FadeIn>
+              </div>
+
+              <div className="mt-16">
+                  <span className="eyebrow">Certifications</span>
+                  <h2 className="section-heading mt-2">Microsoft Certified</h2>
+                  <span className="section-rule" />
+
+                  <FadeIn delay={50} className="mt-8 flex flex-wrap gap-3">
+                      {certifications.map((cert) => (
+                          <a
+                              key={cert.name}
+                              href={cert.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`View credential: ${cert.name}`}
+                              className="group card px-4 py-3 flex items-start gap-3 w-full sm:w-auto
                            hover:border-accent/40 hover:shadow-glow transition-all duration-250"
-              >
-                <ShieldIcon />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-ink leading-snug group-hover:text-accent transition-colors duration-200">
-                    {cert.name}
-                  </p>
-                  <p className="text-xs text-ink-secondary mt-0.5">Microsoft</p>
-                </div>
-                <ExternalLinkIcon />
-              </a>
-            ))}
-          </FadeIn>
-        </div>
-
-      </div>
-    </section>
+                          >
+                              <ShieldIcon />
+                              <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-semibold text-ink leading-snug group-hover:text-accent transition-colors duration-200">
+                                      {cert.name}
+                                  </p>
+                                  <p className="text-xs text-ink-secondary mt-0.5">
+                                      Microsoft
+                                  </p>
+                              </div>
+                              <ExternalLinkIcon />
+                          </a>
+                      ))}
+                  </FadeIn>
+              </div>
+          </div>
+      </section>
   );
 }
