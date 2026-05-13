@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { getPublishedCategories, getPublishedPostsForFeed } from "@/lib/blog/data";
+import { getPublishedPostsForFeed } from "@/lib/blog/data";
 import { getSiteUrl } from "@/lib/blog/utils";
 
 export const revalidate = 3600;
@@ -35,10 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   try {
-    const [posts, categories] = await Promise.all([
-      getPublishedPostsForFeed(),
-      getPublishedCategories(),
-    ]);
+    const posts = await getPublishedPostsForFeed();
 
     const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
@@ -47,14 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    const categoryEntries: MetadataRoute.Sitemap = categories.map((category) => ({
-      url: `${siteUrl}/blog/category/${encodeURIComponent(category.category)}`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.6,
-    }));
-
-    return [...coreRoutes, ...postEntries, ...categoryEntries];
+    return [...coreRoutes, ...postEntries];
   } catch {
     return coreRoutes;
   }

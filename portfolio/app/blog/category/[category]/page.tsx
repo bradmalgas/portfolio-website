@@ -26,7 +26,6 @@ export async function generateMetadata({
   const [{ category }, query] = await Promise.all([params, searchParams]);
   const decodedCategory = decodeURIComponent(category);
   const page = parsePositiveInt(query.page, 1);
-  const shouldIndex = !query.search;
   const canonicalBase = `/blog/category/${encodeURIComponent(decodedCategory)}`;
 
   return {
@@ -47,11 +46,11 @@ export async function generateMetadata({
       images: ["/og-image.png"],
     },
     alternates: {
-      canonical: page > 1 && shouldIndex ? `${canonicalBase}?page=${page}` : canonicalBase,
+      canonical: page > 1 ? `${canonicalBase}?page=${page}` : canonicalBase,
     },
     robots: {
-      index: shouldIndex,
-      follow: shouldIndex,
+      index: false,
+      follow: true,
     },
   };
 }
@@ -69,6 +68,10 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   const totalPages = Math.max(1, Math.ceil(result.total / result.pageSize));
 
   if (page > totalPages) {
+    notFound();
+  }
+
+  if (!query.search && result.total === 0) {
     notFound();
   }
 
