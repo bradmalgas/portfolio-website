@@ -83,7 +83,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
         {result.posts.length > 0 ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {result.posts.map((post, index) => (
-              <PostCard key={post.id} post={post} prioritizeImage={index < 4} />
+              <PostCard key={post.id} post={post} prioritizeImage={index === 0} />
             ))}
           </div>
         ) : (

@@ -163,7 +163,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                           <PostCard
                               key={post.id}
                               post={post}
-                              prioritizeImage={index < 4}
+                              prioritizeImage={index === 0}
                           />
                       ))}
                   </div>

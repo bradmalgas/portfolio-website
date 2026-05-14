@@ -82,7 +82,7 @@ export default function Hero() {
           </div>
 
           <div className="mx-auto grid w-full max-w-6xl items-end gap-14 px-6 py-24 lg:grid-cols-[minmax(0,1fr)_18rem] lg:py-32">
-              <div className="hero-content-1 max-w-3xl">
+              <div className="max-w-3xl">
                   <div className="inline-flex items-center gap-3 rounded-full border border-border/80 bg-surface/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent shadow-inner-highlight backdrop-blur">
                       <span>AI Focused</span>
                       <span className="h-1 w-1 rounded-full bg-accent/70" />
