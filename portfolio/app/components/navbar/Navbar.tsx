@@ -15,6 +15,9 @@ const navLinks = [
   { label: "Contact", href: "#contact", section: true },
   { label: "Blog", href: "/blog", internal: true, section: false },
 ];
+const sectionIds = navLinks
+  .filter((link) => link.section)
+  .map((link) => link.href.slice(1));
 
 const CV_URL =
   "https://storageazureblogify.blob.core.windows.net/files/Bradley-Malgas-Resume.pdf";
@@ -23,6 +26,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -71,10 +75,70 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    let frame: number | null = null;
+    const retryTimers: number[] = [];
+
+    const updateActiveSection = () => {
+      frame = null;
+      const navOffset = 96;
+      const sections = sectionIds
+        .map((sectionId) => ({
+          id: sectionId,
+          top: document.getElementById(sectionId)?.getBoundingClientRect().top,
+        }))
+        .filter((section): section is { id: string; top: number } =>
+          typeof section.top === "number",
+        );
+
+      const currentSection = sections.reduce<string | null>((current, section) => {
+        if (section.top - navOffset <= 0) {
+          return section.id;
+        }
+
+        return current;
+      }, null);
+
+      setActiveSection((current) =>
+        current === currentSection ? current : currentSection,
+      );
+    };
+
+    const scheduleUpdate = () => {
+      if (frame !== null) {
+        return;
+      }
+
+      frame = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    scheduleUpdate();
+    retryTimers.push(window.setTimeout(scheduleUpdate, 150));
+    retryTimers.push(window.setTimeout(scheduleUpdate, 600));
+    window.addEventListener("hashchange", scheduleUpdate);
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+
+    return () => {
+      if (frame !== null) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      retryTimers.forEach((timer) => window.clearTimeout(timer));
+      window.removeEventListener("hashchange", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("scroll", scheduleUpdate);
+    };
+  }, [pathname]);
+
   const linkClass =
-    "px-4 py-2 text-sm text-ink-secondary hover:text-ink rounded transition-colors duration-250";
+    "rounded-full px-4 py-2 text-sm text-ink-secondary transition-all duration-250 hover:bg-surface-overlay/60 hover:text-ink";
   const mobileLinkClass =
-    "px-4 py-3 text-sm text-ink-secondary hover:text-ink hover:bg-surface-overlay rounded transition-colors duration-250";
+    "rounded px-4 py-3 text-sm text-ink-secondary transition-all duration-250 hover:bg-surface-overlay hover:text-ink";
   const isBlogPage = pathname.startsWith("/blog");
 
   function resolveHref(href: string, isSectionLink?: boolean) {
@@ -87,10 +151,40 @@ export default function Navbar() {
 
   function getLinkClass(href: string, isMobile = false) {
     const baseClass = isMobile ? mobileLinkClass : linkClass;
-    const isBlogLink = href === "/blog";
-    const isActive = isBlogLink && isBlogPage;
+    const isActive = isLinkActive(href);
+    const activeClass = isMobile
+      ? "bg-accent-dim text-ink ring-1 ring-accent/20"
+      : "bg-accent-dim text-ink shadow-inner-highlight ring-1 ring-accent/20";
 
-    return `${baseClass} ${isActive ? "text-ink md:text-accent" : ""}`;
+    return `${baseClass} ${isActive ? activeClass : ""}`;
+  }
+
+  function isLinkActive(href: string) {
+    if (href === "/blog") {
+      return isBlogPage;
+    }
+
+    if (!href.startsWith("#") || pathname !== "/") {
+      return false;
+    }
+
+    return activeSection === href.slice(1);
+  }
+
+  function getAriaCurrent(href: string) {
+    if (!isLinkActive(href)) {
+      return undefined;
+    }
+
+    return href === "/blog" ? "page" : "location";
+  }
+
+  function handleLinkClick(href: string, isSectionLink?: boolean) {
+    if (pathname === "/" && isSectionLink) {
+      setActiveSection(href.slice(1));
+    }
+
+    handleCloseMenu();
   }
 
   function handleCloseMenu() {
@@ -121,7 +215,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) =>
               link.internal ? (
-                <Link key={link.label} href={resolveHref(link.href, link.section)} className={getLinkClass(link.href)}>
+                <Link
+                  key={link.label}
+                  href={resolveHref(link.href, link.section)}
+                  className={getLinkClass(link.href)}
+                  aria-current={getAriaCurrent(link.href)}
+                  onClick={() => handleLinkClick(link.href, link.section)}
+                >
                   {link.label}
                 </Link>
               ) : (
@@ -129,6 +229,8 @@ export default function Navbar() {
                   key={link.label}
                   href={resolveHref(link.href, link.section)}
                   className={getLinkClass(link.href)}
+                  aria-current={getAriaCurrent(link.href)}
+                  onClick={() => handleLinkClick(link.href, link.section)}
                 >
                   {link.label}
                 </Link>
@@ -187,7 +289,8 @@ export default function Navbar() {
                   key={link.label}
                   href={resolveHref(link.href, link.section)}
                   className={getLinkClass(link.href, true)}
-                  onClick={handleCloseMenu}
+                  aria-current={getAriaCurrent(link.href)}
+                  onClick={() => handleLinkClick(link.href, link.section)}
                 >
                   {link.label}
                 </Link>
@@ -196,7 +299,8 @@ export default function Navbar() {
                   key={link.label}
                   href={resolveHref(link.href, link.section)}
                   className={getLinkClass(link.href, true)}
-                  onClick={handleCloseMenu}
+                  aria-current={getAriaCurrent(link.href)}
+                  onClick={() => handleLinkClick(link.href, link.section)}
                 >
                   {link.label}
                 </Link>
