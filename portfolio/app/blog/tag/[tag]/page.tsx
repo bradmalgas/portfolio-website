@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import BlogPagination from "@/app/components/blog/BlogPagination";
 import PrefetchRoutes from "@/app/components/blog/PrefetchRoutes";
@@ -57,6 +58,11 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
     pageSize: BLOG_PAGE_SIZE,
     tag: decodedTag,
   });
+  const totalPages = Math.max(1, Math.ceil(result.total / result.pageSize));
+
+  if (page > totalPages) {
+    notFound();
+  }
 
   return (
     <section id="blog-top" className="section-padding scroll-mt-32 md:scroll-mt-28">
@@ -77,7 +83,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
         {result.posts.length > 0 ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {result.posts.map((post, index) => (
-              <PostCard key={post.id} post={post} prioritizeImage={index < 4} />
+              <PostCard key={post.id} post={post} prioritizeImage={index === 0} />
             ))}
           </div>
         ) : (

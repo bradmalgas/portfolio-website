@@ -46,6 +46,9 @@ export async function generateMetadata({
     };
   }
 
+  const postUrl = getPostUrl(post.slug);
+  const postOpenGraphImageUrl = `/blog/${post.slug}/opengraph-image`;
+
   return {
     title: post.title,
     description: post.description ?? undefined,
@@ -55,15 +58,28 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.description ?? undefined,
-      url: `/blog/${post.slug}`,
+      url: postUrl,
       siteName: "Brad Malgas",
       type: "article",
       publishedTime: post.published_at ?? undefined,
+      modifiedTime: post.updated_at,
+      authors: [BLOG_AUTHOR_NAME],
+      section: post.category,
+      tags: post.tags,
+      images: [
+        {
+          url: postOpenGraphImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description ?? undefined,
+      images: [postOpenGraphImageUrl],
     },
   };
 }

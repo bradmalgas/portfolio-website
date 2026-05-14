@@ -82,7 +82,7 @@ export default function Hero() {
           </div>
 
           <div className="mx-auto grid w-full max-w-6xl items-end gap-14 px-6 py-24 lg:grid-cols-[minmax(0,1fr)_18rem] lg:py-32">
-              <div className="hero-content-1 max-w-3xl">
+              <div className="max-w-3xl">
                   <div className="inline-flex items-center gap-3 rounded-full border border-border/80 bg-surface/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent shadow-inner-highlight backdrop-blur">
                       <span>AI Focused</span>
                       <span className="h-1 w-1 rounded-full bg-accent/70" />
@@ -96,9 +96,9 @@ export default function Hero() {
                   </h1>
 
                   <p className="mt-5 max-w-2xl text-xl leading-relaxed text-ink-secondary sm:text-2xl">
-                      Senior software developer designing Azure platforms,
-                      backend systems, and delivery workflows that are calm
-                      under pressure.
+                      I take on remote project contracts for teams that need
+                      reliable delivery, clear thinking and practical
+                      engineering.
                   </p>
 
                   {/* <div className="mt-8 flex flex-wrap gap-3 text-body-sm text-ink-secondary hero-content-2">
@@ -137,8 +137,7 @@ export default function Hero() {
                                   Currently building
                               </p>
                               <p className="mt-1 text-lg font-semibold text-ink">
-                                  Cloud-native platforms with security and
-                                  operational depth
+                                  Cloud, data and AI-enabled systems.
                               </p>
                           </div>
                           <div>

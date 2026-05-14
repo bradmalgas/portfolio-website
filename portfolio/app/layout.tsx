@@ -20,17 +20,19 @@ import {
 } from "@/lib/theme/typography";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bradmalgas.com";
+const siteTitle = "Brad Malgas | Independent Software Developer";
+const siteDescription =
+  "Independent software developer building backend, cloud and AI-enabled product systems with C#, .NET, Azure, TypeScript and Next.js.";
 const blogSignInUrl = "/blog/sign-in";
 const blogEditorUrl = "/blog/editor";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Brad Malgas — Senior Software Developer",
+    default: siteTitle,
     template: "%s | Brad Malgas",
   },
-  description:
-    "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
+  description: siteDescription,
   icons: {
     icon: [
       { rel: "icon", type: "image/svg+xml", url: "/favicon.svg" },
@@ -42,9 +44,8 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Brad Malgas — Senior Software Developer",
-    description:
-      "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
+    title: siteTitle,
+    description: siteDescription,
     url: siteUrl,
     siteName: "Brad Malgas",
     images: [
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Brad Malgas — Senior Software Developer",
+        alt: siteTitle,
       },
     ],
     locale: "en_US",
@@ -60,9 +61,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Brad Malgas — Senior Software Developer",
-    description:
-      "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
+    title: siteTitle,
+    description: siteDescription,
     images: ["/og-image.png"],
   },
   robots: {
@@ -71,14 +71,16 @@ export const metadata: Metadata = {
   },
   keywords: [
     "Brad Malgas",
-    "Senior Software Developer",
-    "Azure Developer",
+    "Independent Software Developer",
+    "Backend Developer",
     "C# Developer",
     ".NET Developer",
-    "Cloud Native",
-    "Infrastructure as Code",
-    "Azure Bicep",
-    "Backend Developer",
+    "Azure Developer",
+    "TypeScript Developer",
+    "Next.js Developer",
+    "AI Workflows",
+    "Cloud Infrastructure",
+    "API Integrations",
     "Portfolio",
   ],
   alternates: {
@@ -96,9 +98,8 @@ const jsonLd = {
   "@type": "Person",
   name: "Brad Malgas",
   url: siteUrl,
-  jobTitle: "Senior Software Developer",
-  description:
-    "Senior Software Developer specialising in cloud-native systems on Microsoft Azure — C#/.NET, infrastructure as code, and backend API architecture.",
+  jobTitle: "Independent Software Developer",
+  description: siteDescription,
   sameAs: [
     "https://www.linkedin.com/in/brad-malgas",
     "https://github.com/bradmalgas",
@@ -107,14 +108,20 @@ const jsonLd = {
   knowsAbout: [
     "C#",
     ".NET",
+    "ASP.NET Core",
+    "TypeScript",
+    "Next.js",
     "Microsoft Azure",
-    "Azure Bicep",
-    "Docker",
-    "Software Development",
-    "Cloud Architecture",
-    "Infrastructure as Code",
+    "Azure DevOps",
+    "Cloud Infrastructure",
+    "API Integrations",
+    "AI Product Workflows",
+    "LangGraph",
+    "LangChain",
+    "PostgreSQL",
   ],
 };
+const jsonLdScript = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
 
 const themeBootScript = `
 (() => {
@@ -162,7 +169,7 @@ export default function RootLayout({
         <Script
           id="person-jsonld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdScript }}
         />
         <ThemeProvider>
           <ClerkProvider

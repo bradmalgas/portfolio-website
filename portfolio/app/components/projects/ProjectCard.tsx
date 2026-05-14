@@ -17,74 +17,112 @@ const ExternalLinkIcon = () => (
   </svg>
 );
 
+const YouTubeIcon = () => (
+    <svg viewBox="0 0 28.57  20" fill="currentColor" className="h-4 w-4">
+        <svg
+            viewBox="0 0 28.57 20"
+            preserveAspectRatio="xMidYMid meet"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g>
+                <path
+                    d="M27.9727 3.12324C27.6435 1.89323 26.6768 0.926623 25.4468 0.597366C23.2197 2.24288e-07 14.285 0 14.285 0C14.285 0 5.35042 2.24288e-07 3.12323 0.597366C1.89323 0.926623 0.926623 1.89323 0.597366 3.12324C2.24288e-07 5.35042 0 10 0 10C0 10 2.24288e-07 14.6496 0.597366 16.8768C0.926623 18.1068 1.89323 19.0734 3.12323 19.4026C5.35042 20 14.285 20 14.285 20C14.285 20 23.2197 20 25.4468 19.4026C26.6768 19.0734 27.6435 18.1068 27.9727 16.8768C28.5701 14.6496 28.5701 10 28.5701 10C28.5701 10 28.5677 5.35042 27.9727 3.12324Z"
+                    fill="#FF0000"
+                ></path>
+                <path
+                    d="M11.4253 14.2854L18.8477 10.0004L11.4253 5.71533V14.2854Z"
+                    fill="white"
+                ></path>
+            </g>
+        </svg>
+    </svg>
+);
+
 export default function ProjectCard({
-  id,
-  title,
-  image,
-  description,
-  tags,
-  githubLink,
-  blogLink,
-  blogLinkLabel = "Build Write-up",
+    id,
+    title,
+    image,
+    description,
+    tags,
+    githubLink,
+    blogLink,
+    blogLinkLabel = "Build Write-up",
+    youtubeLink,
 }: Project) {
-  return (
-    <article className="project-card relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border transition-[border-color,box-shadow] duration-250 hover:border-accent/30">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.015)_0%,transparent_28%)] pointer-events-none" />
+    return (
+        <article className="project-card relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border transition-[border-color,box-shadow] duration-250 hover:border-accent/30">
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.015)_0%,transparent_28%)] pointer-events-none" />
 
-      <div className="project-card-media relative aspect-video overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="scale-[1.015] object-cover"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
-        />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-surface-raised via-surface-raised/70 to-transparent" />
+            <div className="project-card-media relative aspect-video overflow-hidden">
+                <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    className="scale-[1.015] object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32vw"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-surface-raised via-surface-raised/70 to-transparent" />
 
-        <span className="absolute top-3 left-3 rounded-full border border-accent/20 bg-background/80 px-3 py-1 text-label font-semibold tracking-wide text-accent backdrop-blur-sm">
-          {id}
-        </span>
-      </div>
+                <span className="absolute top-3 left-3 rounded-full border border-accent/20 bg-background/80 px-3 py-1 text-label font-semibold tracking-wide text-accent backdrop-blur-sm">
+                    {id}
+                </span>
+            </div>
 
-      <div className="flex flex-col flex-1 p-5 gap-3">
-        <h3 className="font-display text-[1.45rem] font-semibold leading-tight tracking-[-0.03em] text-ink">
-          {title}
-        </h3>
+            <div className="flex flex-col flex-1 p-5 gap-3">
+                <h3 className="font-display text-[1.45rem] font-semibold leading-tight tracking-[-0.03em] text-ink">
+                    {title}
+                </h3>
 
-        <p className="text-body-sm text-ink-secondary leading-relaxed flex-1">
-          {description}
-        </p>
+                <p className="text-body-sm text-ink-secondary leading-relaxed flex-1">
+                    {description}
+                </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 pt-1">
-          {tags.map((tag) => (
-            <span key={tag} className="tag">
-              {tag}
-            </span>
-          ))}
-        </div>
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                    {tags.map((tag) => (
+                        <span key={tag} className="tag">
+                            {tag}
+                        </span>
+                    ))}
+                </div>
 
-        <div className="flex items-center gap-3 pt-2 border-t border-border">
-          <a
-            href={githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="metal-link"
-          >
-            <GithubIcon />
-            View Code
-          </a>
-          {blogLink ? (
-            <>
-              <span className="text-border">·</span>
-              <Link href={blogLink} className="metal-link">
-                <ExternalLinkIcon />
-                {blogLinkLabel}
-              </Link>
-            </>
-          ) : null}
-        </div>
-      </div>
-    </article>
-  );
+                <div className="flex items-center gap-3 pt-2 border-t border-border">
+                    {githubLink ? (
+                        <>
+                            <span className="text-border">·</span>
+                            <Link href={githubLink} className="metal-link">
+                                <GithubIcon />
+                                View Code
+                            </Link>
+                        </>
+                    ) : null}
+                    {blogLink ? (
+                        <>
+                            <span className="text-border">·</span>
+                            <Link href={blogLink} className="metal-link">
+                                <ExternalLinkIcon />
+                                {blogLinkLabel}
+                            </Link>
+                        </>
+                    ) : null}
+                    {youtubeLink ? (
+                        <>
+                            <span className="text-border">·</span>
+                            <Link href={youtubeLink} className="metal-link">
+                                <YouTubeIcon />
+                                Watch Demo
+                            </Link>
+                        </>
+                    ) : null}
+                    {!githubLink && !blogLink && !youtubeLink ? (
+                        <>
+                            <p className="metal-link">
+                                Demo available upon request
+                            </p>
+                        </>
+                    ) : null}
+                </div>
+            </div>
+        </article>
+    );
 }

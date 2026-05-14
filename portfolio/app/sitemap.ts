@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
-import { getPublishedCategories, getPublishedPostsForFeed } from "@/lib/blog/data";
+import { getPublishedPostsForFeed } from "@/lib/blog/data";
 import { getSiteUrl } from "@/lib/blog/utils";
+import type { Post } from "@/types/blog";
 
 export const revalidate = 3600;
 
@@ -11,50 +12,79 @@ function hasBlogConfig() {
   );
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = getSiteUrl();
-  const now = new Date();
+function parseDate(value: string | null | undefined) {
+  if (!value) {
+    return null;
+  }
 
-  const coreRoutes: MetadataRoute.Sitemap = [
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function getPostLastModified(post: Pick<Post, "created_at" | "published_at" | "updated_at">) {
+  return (
+    parseDate(post.updated_at) ??
+    parseDate(post.published_at) ??
+    parseDate(post.created_at)
+  );
+}
+
+function getLatestPostDate(posts: Post[]) {
+  return posts.reduce<Date | null>((latest, post) => {
+    const nextDate = getPostLastModified(post);
+
+    if (!nextDate) {
+      return latest;
+    }
+
+    if (!latest || nextDate.getTime() > latest.getTime()) {
+      return nextDate;
+    }
+
+    return latest;
+  }, null);
+}
+
+function getCoreRoutes(siteUrl: string, lastModified?: Date | null): MetadataRoute.Sitemap {
+  const lastModifiedEntry = lastModified ? { lastModified } : {};
+
+  return [
     {
       url: siteUrl,
-      lastModified: now,
+      ...lastModifiedEntry,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${siteUrl}/blog`,
-      lastModified: now,
+      ...lastModifiedEntry,
       changeFrequency: "weekly",
       priority: 0.8,
     },
   ];
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const siteUrl = getSiteUrl();
+  const coreRoutes = getCoreRoutes(siteUrl);
 
   if (!hasBlogConfig()) {
     return coreRoutes;
   }
 
   try {
-    const [posts, categories] = await Promise.all([
-      getPublishedPostsForFeed(),
-      getPublishedCategories(),
-    ]);
+    const posts = await getPublishedPostsForFeed();
+    const contentLastModified = getLatestPostDate(posts);
 
     const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.updated_at ?? post.published_at ?? post.created_at),
+      lastModified: getPostLastModified(post) ?? undefined,
       changeFrequency: "monthly",
       priority: 0.7,
     }));
 
-    const categoryEntries: MetadataRoute.Sitemap = categories.map((category) => ({
-      url: `${siteUrl}/blog/category/${encodeURIComponent(category.category)}`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.6,
-    }));
-
-    return [...coreRoutes, ...postEntries, ...categoryEntries];
+    return [...getCoreRoutes(siteUrl, contentLastModified), ...postEntries];
   } catch {
     return coreRoutes;
   }

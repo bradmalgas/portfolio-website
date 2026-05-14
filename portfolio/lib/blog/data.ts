@@ -50,6 +50,26 @@ function applyPostFilters<TQuery extends {
   return nextQuery;
 }
 
+function isRangeNotSatisfiableError(error: { code?: string; message?: string }) {
+  return error.code === "PGRST103" || /range.*not satisfiable/i.test(error.message ?? "");
+}
+
+async function getPublishedPostCount(filters: PostFilters) {
+  let query = supabase
+    .from("posts")
+    .select("id", { count: "exact", head: true });
+
+  query = applyPostFilters(query, filters);
+
+  const { count, error } = await query;
+
+  if (error) {
+    throw error;
+  }
+
+  return count ?? 0;
+}
+
 export async function getPublishedPosts(filters: PostFilters = {}) {
   const normalizedFilters = {
     ...filters,
@@ -75,6 +95,15 @@ export async function getPublishedPosts(filters: PostFilters = {}) {
       const { data, count, error } = await query.range(from, to);
 
       if (error) {
+        if (isRangeNotSatisfiableError(error)) {
+          return {
+            posts: [],
+            total: await getPublishedPostCount(normalizedFilters),
+            page: normalizedFilters.page,
+            pageSize: normalizedFilters.pageSize,
+          };
+        }
+
         throw error;
       }
 

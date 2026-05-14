@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import BlogPagination from "@/app/components/blog/BlogPagination";
 import PrefetchRoutes from "@/app/components/blog/PrefetchRoutes";
@@ -74,6 +75,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       search: params.search,
     }),
   ]);
+  const totalPages = Math.max(1, Math.ceil(result.total / result.pageSize));
+
+  if (page > totalPages) {
+    notFound();
+  }
 
   const activeCategory = params.category ?? "";
 
@@ -157,7 +163,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                           <PostCard
                               key={post.id}
                               post={post}
-                              prioritizeImage={index < 4}
+                              prioritizeImage={index === 0}
                           />
                       ))}
                   </div>
