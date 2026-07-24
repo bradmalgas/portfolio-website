@@ -20,7 +20,7 @@ const sectionIds = navLinks
   .map((link) => link.href.slice(1));
 
 const CV_URL =
-  "https://storageazureblogify.blob.core.windows.net/files/Bradley-Malgas-Resume.pdf";
+    "https://storageazureblogify.blob.core.windows.net/files/Brad-Malgas-Resume.pdf";
 
 export default function Navbar() {
   const pathname = usePathname();
